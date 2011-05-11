@@ -180,7 +180,7 @@ PDFColorSpace.cmykSpace = new PDFColorSpace({
 	 * @param array components should be 4 floats 0 to 1
 	 */
 	getPaint: function(components) {
-		return PDFColorSpace.CMYKtoRGB(components);
+		return PDFColorSpace.CMYKtoRGB(components[0], components[1], components[2], components[3]);
 	},
 	toString: function() {
 		return "PDFColorSpace.cmykSpace";

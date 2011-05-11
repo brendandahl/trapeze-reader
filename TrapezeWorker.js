@@ -1,8 +1,8 @@
 if(typeof window == 'undefined') {
-	importScript(
+	/*importScript(
 		"trapeze-worker-min.js"
-	);
-	/*
+	);*/
+	
 	// We are in a web worker, we need to import everything
 	importScripts(
 		"util.js",
@@ -103,7 +103,7 @@ if(typeof window == 'undefined') {
 		"Image.js",
 		"external/jquerywebworker.js"
 	);
-	*/
+	
 }
 (function(mainThread) {
 	var postMessage = mainThread.postMessage;

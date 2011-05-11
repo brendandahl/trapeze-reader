@@ -49,14 +49,20 @@ COSStream.prototype = {
 		return "\t".repeat(depth) + "COSStream:";
 	},
 	getImageString: function(resources, graphics) {
-		var filterType = this.dictionary.getDictionaryObject('Filter').name;
-		if(filterType == 'DCTDecode') { // Jpeg Image
-			return 'data:image/jpeg;base64,' + base64.encode(this.file);
-		} else if(filterType == 'FlateDecode'  || filterType == "Fl") {
-			return PDFImage.create(this, resources, graphics).getImageString();
-		} else {
-			console.error("Uknown filter type for image '" + filterType + "'");
-			return "";
+		/*
+		 * For now I'll cache the image in case its used multiple times.
+		 */
+		if(this.cache == null) {
+			var filterType = this.dictionary.getDictionaryObject('Filter').name;
+			if(filterType == 'DCTDecode') { // Jpeg Image
+				this.cache = 'data:image/jpeg;base64,' + base64.encode(this.file);
+			} else if(filterType == 'FlateDecode'  || filterType == "Fl") {
+				this.cache = PDFImage.create(this, resources, graphics).getImageString();
+			} else {
+				console.error("Uknown filter type for image '" + filterType + "'");
+				this.cache = "";
+			}
 		}
+		return this.cache;
 	}
 }
