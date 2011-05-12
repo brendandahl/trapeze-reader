@@ -488,6 +488,9 @@ $files = array(
 		"webWorker" => false
 	)
 );
+foreach($files as $file)
+	echo '<file name="'.$file['filename'].'"/>'."\r\n";
+die();
 
 // Build the min main
 $outputDirectory = '/inetpub/trapeze_prod';

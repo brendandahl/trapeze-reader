@@ -1,0 +1,168 @@
+/* 
+    Document   : style
+    Created on : Oct 4, 2010, 9:31:48 PM
+    Author     : brendan
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+body {
+	background-color: #F3F3F3;
+	margin: 0;
+	padding: 0;
+	font-family:Verdana,Helvetica,Arial,sans-serif;
+}
+a {
+	color: #005C9C;
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: underline;
+}
+img {
+	border-style: none;
+}
+a>img {
+	vertical-align: middle;
+}
+
+#pages {
+	text-align: center;
+	margin-top: 30px;
+}
+.page {
+	padding-top: 25px;
+	margin-top: 10px;
+	position: relative;
+}
+.page:first-child {
+	padding-top: 4px;
+	margin-top: 0px;
+}
+.page canvas {
+	background-color: #FFF;
+	border: 1px solid #666666;
+}
+#progress {
+	z-index: 100;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	border: 1px solid #CCC;
+	width: 200px;
+	text-align: center;
+	color: #696969;
+	display: none;
+}
+#progressBar {
+	width: 0;
+	height: 28px;
+	background-color: #B2D4ED;
+}
+#progressPercent {
+	position: absolute;
+	top: 4px;
+	left: 0px;
+}
+#topNav {
+	position: fixed;
+	top: 0px;
+	width: 100%;
+	border-bottom: 1px solid #CCCCCC;
+	background-color: #EDF0F4;
+	z-index: 100
+}
+#topNav .drop {
+	padding: 3px;
+	outline: none;
+	border: 1px solid transparent;
+}
+#topNav .open {
+	border: 1px solid #CCCCCC;
+	border-bottom: none;
+	background-color: #FFFFFF;
+	position: relative;
+	z-index: 101;
+}
+#topNav ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+#topNav li {
+	float: left;
+	position: relative;
+	margin: 0;
+	padding: 0;
+}
+
+#pageNav {
+	width: 240px;
+	margin: 0 auto;
+}
+#previousPageWrapper, #nextPageWrapper {
+	float: left;
+	width: 100px;
+}
+#currentPageWrapper {
+	float: left;
+}
+#dropBox {
+	width: 80%;
+	height: 400px;
+	border: 1px dashed #CCCCCC;
+	margin: 0 auto;
+	margin-top: 45px;
+	background-color: #FFFFFF;
+	text-align: center;
+	padding: 20px;
+	color: #777777;
+}
+#dropBox.over {
+	background-color: #E3E9FF;
+}
+.popBox {
+	border:1px solid #CCCCCC;
+	background-color: #FFFFFF;
+	padding: 4px;
+}
+.disabled {
+	opacity: .3;
+}
+
+#testPdfs {
+	position: absolute;
+	left: 4px;
+	top: 34px;
+	z-index: 99;
+	background-color: #FFFFFF;
+	border: 1px solid #CCCCCC;
+	font-size: small;
+}
+#testPdfs ul {
+	margin: 0;
+	padding: 0;
+}
+#testPdfs .support {
+	width: 10px;
+}
+#testPdfs .full {
+	background-color: forestgreen;
+	color: white;
+}
+#testPdfs .high {
+	background-color: #C0FF3E;
+}
+#testPdfs .medium {
+	background-color: gold;
+}
+#testPdfs .low {
+	background-color: crimson;
+}
+#testPdfs a {
+
+}
