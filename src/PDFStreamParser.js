@@ -1,3 +1,5 @@
+goog.require("trapeze.cos.COSBoolean");
+
 function PDFStreamParser(stream) {
 	var streamText = stream.decode();
 	this.stream = new StreamBuffer(streamText);
@@ -100,12 +102,12 @@ PDFStreamParser.prototype.parseNextToken = function() {
 			var next = this.readString();
 			if( next == "true" )
 			{
-				retval = COSBoolean.TRUE;
+				retval = trapeze.cos.COSBoolean.TRUE;
 				break;
 			}
 			else if( next == "false" )
 			{
-				retval = COSBoolean.FALSE;
+				retval = trapeze.cos.COSBoolean.FALSE;
 			}
 			else
 			{
@@ -242,7 +244,7 @@ PDFStreamParser.prototype.parseInlineImage = function() {
 	}
 
 	var imObj = hm["ImageMask"];
-	if(imObj != null && imObj == COSBoolean.TRUE) {
+	if(imObj != null && imObj == trapeze.cos.COSBoolean.TRUE) {
 		// [PATCHED by michal.busta@gmail.com] - default value according to PDF spec. is [0, 1]
 		// there is no need to swap array - PDF image should handle this values
 		var decode = [0, 1];

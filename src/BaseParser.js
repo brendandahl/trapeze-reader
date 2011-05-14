@@ -1,4 +1,5 @@
 goog.require("trapeze.cos.COSString");
+goog.require("trapeze.cos.COSBoolean");
 
 function BaseParser() {
 }
@@ -407,12 +408,12 @@ BaseParser.prototype.parseDirObject = function() {
 		var st = this.readString();
 		if(st != 'rue')
 			throw "Expecting null string found " + st;
-		return COSBoolean.TRUE;
+		return trapeze.cos.COSBoolean.TRUE;
 	} else if(c == 'f') {
 		var st = this.readString();
 		if(st != 'alse')
 			throw "Expecting null string found " + st;
-		return COSBoolean.FALSE;
+		return trapeze.cos.COSBoolean.FALSE;
 	}
 	return null;
 	var d = c + this.stream.read(5);

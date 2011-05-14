@@ -1,9 +1,10 @@
-function COSBoolean(value) {
+goog.provide("trapeze.cos.COSBoolean");
+trapeze.cos.COSBoolean = function(value) {
 	this.value = value;
 }
 
-COSBoolean.prototype.toString = function() {
+trapeze.cos.COSBoolean.prototype.toString = function() {
 	return "COSBoolean: " + this.value;
 };
-COSBoolean.TRUE = new COSBoolean(true);
-COSBoolean.FALSE = new COSBoolean(false);
+trapeze.cos.COSBoolean.TRUE = new trapeze.cos.COSBoolean(true);
+trapeze.cos.COSBoolean.FALSE = new trapeze.cos.COSBoolean(false);
