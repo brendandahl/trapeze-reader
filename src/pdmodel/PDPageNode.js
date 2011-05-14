@@ -1,3 +1,4 @@
+goog.require("trapeze.cos.COSDictionary");
 function PDPageNode(pages) {
 	this.page = pages;
 	/**
@@ -117,7 +118,7 @@ PDPageNode.getAllKidsStatic = function (result, page, recurse)
 	for( var i=0; i<kids.size(); i++ )
 	{
 		var obj = kids.getObject( i );
-		if (obj instanceof COSDictionary)
+		if (obj instanceof trapeze.cos.COSDictionary)
 		{
 			var kid = obj;
 			if( 'Page' == kid.getDictionaryObject( 'Type' ).name )

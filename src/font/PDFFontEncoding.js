@@ -1,6 +1,7 @@
+goog.require("trapeze.cos.COSDictionary");
 function PDFFontEncoding(fontType, encoding) {
 		this.differences = {};
-		if(encoding instanceof COSDictionary) {
+		if(encoding instanceof trapeze.cos.COSDictionary) {
 			// loook at the "Type" entry of the encoding to determine the type
             var typeStr = encoding.getDictionaryObject("Type").name;
 

@@ -1,11 +1,12 @@
 goog.require("trapeze.cos.COSString");
+goog.require("trapeze.cos.COSDictionary");
 
 function PDDocumentCatalog(doc, rootDictionary) {
 	this.document = doc;
 	if(rootDictionary) {
 		this.root = rootDictionary;
 	} else {
-        this.root = new COSDictionary();
+        this.root = new trapeze.cos.COSDictionary();
         this.root.setItem('Type', new trapeze.cos.COSString("Catalog"));
         this.document.document.getTrailer().setItem('Root', this.root );
 	}

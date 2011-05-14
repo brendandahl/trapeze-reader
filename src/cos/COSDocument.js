@@ -42,13 +42,13 @@ COSDocument.prototype = {
 		this._xrefTable[key.getKey()] = offset;
 	},
 	/**
-	 * @return COSDictionary
+	 * @return {trapeze.cos.COSDictionary}
 	 */
 	getTrailer: function() {
 		return this._trailer;
 	},
 	/**
-	 * @param COSDictionary trailer
+	 * @param {trapeze.cos.COSDictionary} trailer
 	 */
 	setTrailer: function(trailer) {
 		this._trailer = trailer;

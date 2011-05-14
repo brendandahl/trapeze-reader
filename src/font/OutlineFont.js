@@ -1,7 +1,7 @@
 /**
  * Supports width operations for Type1, Type1C, TrueType and Type3 fonts
  * @param string baseFont
- * @param COSDictionary fontObj
+ * @param {trapeze.cos.COSDictionary} fontObj
  * @param PDFFontDescriptor descriptor
  */
 function OutlineFont(baseFont, fontObj, descriptor) {

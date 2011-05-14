@@ -1,5 +1,6 @@
 goog.require("trapeze.cos.COSString");
 goog.require("trapeze.cos.COSBoolean");
+goog.require("trapeze.cos.COSDictionary");
 
 function BaseParser() {
 }
@@ -43,7 +44,7 @@ BaseParser.prototype.parseCOSDictionary = function() {
 		throw "Expecting '<'";
 		
 	this.skipSpaces();
-	var obj = new COSDictionary();
+	var obj = new trapeze.cos.COSDictionary();
 	var done = false;
 	while( !done )
 	{

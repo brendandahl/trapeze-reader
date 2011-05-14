@@ -1,3 +1,4 @@
+goog.require("trapeze.cos.COSDictionary");
 function Type3Font(baseFont, fontObj, resources, descriptor) {
 	Type3Font.baseConstructor.call(this, baseFont, fontObj, descriptor);
 	/** resources for the character definitions */
@@ -15,7 +16,7 @@ function Type3Font(baseFont, fontObj, resources, descriptor) {
     /** the end code */
     this.lastChar;
 	
-	this.rsrc = new COSDictionary();
+	this.rsrc = new trapeze.cos.COSDictionary();
 	if (resources != null) {
 		this.rsrc.addAll(resources.resources);
 	}

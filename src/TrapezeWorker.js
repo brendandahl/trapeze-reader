@@ -17,7 +17,6 @@ if(typeof window == 'undefined') {
 		"Rectangle2D.js",
 		"cos/COSDocument.js",
 		"cos/COSArray.js",
-		"cos/COSDictionary.js",
 		"cos/COSStream.js",
 		"cos/COSName.js",
 		"cos/COSObject.js",

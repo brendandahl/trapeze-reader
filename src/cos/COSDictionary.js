@@ -1,10 +1,12 @@
-function COSDictionary(items) {
+goog.provide("trapeze.cos.COSDictionary");
+
+trapeze.cos.COSDictionary = function(items) {
 	if(typeof items != 'undefined')
 		this._items = items;
 	else
 		this._items = {};
 }
-COSDictionary.prototype = {	
+trapeze.cos.COSDictionary.prototype = {
 	setItem: function(key, value) {
 		this._items[key.name] = value;
 	},

@@ -1,7 +1,7 @@
 /**
  * True Type Font
  * @param string baseFont
- * @param COSDictionary fontObj
+ * @param {trapeze.cos.COSDictionary} fontObj
  * @param PDFFontDescriptor descriptor
  */
 function TTFFont(baseFont, fontObj, descriptor) {

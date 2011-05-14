@@ -1,3 +1,4 @@
+goog.require("trapeze.cos.COSDictionary");
 function PDDocument(cosDocument) {
 	this.document = cosDocument;
 	
@@ -24,7 +25,7 @@ function PDDocument(cosDocument) {
 		var infoDic = trailer.getDictionaryObject('Info'); // TODO: statics?
 		if( infoDic == null ) // TODO
 		{
-			infoDic = new COSDictionary();
+			infoDic = new trapeze.cos.COSDictionary();
 			trailer.setItem( {name: 'Info'}, infoDic );
 		}
 		var documentInformation = new PDDocumentInformation( infoDic );

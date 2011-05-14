@@ -1,6 +1,7 @@
 goog.provide("trapeze.Commander");
 
 goog.require("trapeze.cos.COSString");
+goog.require("trapeze.cos.COSDictionary");
 
 trapeze.Commander = function(graphics, resources, initialMatrix, streamEngine) {
 	// The 2D context of the canvas
@@ -583,7 +584,7 @@ trapeze.Commander.prototype = {
 			
             //HashMap<String,PDFObject> r = new HashMap<String,PDFObject>(resources);
             // TODO shouldn't be accessing private variable
-			var r = new COSDictionary(jQuery.extend(true, {}, this.resources.resources._items));
+			var r = new trapeze.cos.COSDictionary(jQuery.extend(true, {}, this.resources.resources._items));
 			var rsrc = obj.dictionary.getDictionaryObject("Resources");
 
             if (rsrc != null) {

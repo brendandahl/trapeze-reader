@@ -1,5 +1,6 @@
+goog.require("trapeze.cos.COSDictionary");
 function PDFFontDescriptor(obj) {
-	if(obj instanceof COSDictionary) {
+	if(obj instanceof trapeze.cos.COSDictionary) {
 		// required parameters
 		this.ascent = obj.getDictionaryObject("Ascent").value;
 		this.capHeight = obj.getDictionaryObject("CapHeight").value;

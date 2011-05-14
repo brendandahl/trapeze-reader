@@ -1,3 +1,4 @@
+goog.require("trapeze.cos.COSDictionary");
 function PDFParser(stream) {
 	this.stream = stream;
 	this.document = new COSDocument();
@@ -81,7 +82,7 @@ PDFParser.prototype.parseObject = function() {
 		var pb = this.parseDirObject();
 		var endObjectKey = this.readString();
 		if(endObjectKey == "stream") {
-			if( pb instanceof COSDictionary )
+			if( pb instanceof trapeze.cos.COSDictionary )
 			{
 				pb = this.parseCOSStream(pb);
 			} 
