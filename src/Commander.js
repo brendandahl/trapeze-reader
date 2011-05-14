@@ -1,3 +1,5 @@
+goog.require("trapeze.cos.COSString");
+
 function Commander(graphics, resources, initialMatrix, streamEngine) {
 	// The 2D context of the canvas
 	this.graphics = graphics;
@@ -259,7 +261,7 @@ Commander.prototype = {
 			if(obj instanceof COSNumber) {
 				var val = obj.value / 1000;
 				this.text.textMatrix = this.text.textMatrix.translate(-val * this.text.fontSize * this.text.horizontalScaling, 0);
-			} else if(obj instanceof COSString) {
+			} else if(obj instanceof trapeze.cos.COSString) {
 				this.text.graphics = this.graphics;
 				this.text.doText(obj.value);
 			}

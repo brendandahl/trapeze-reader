@@ -1,3 +1,4 @@
+//goog.require("trapeze.AsyncFileReader");
 function Trapeze(file, settings) {
 	var defaults = {
 		enableWebWorkers: true
@@ -67,7 +68,7 @@ Trapeze.prototype = {
 		var wrapper = $('<div id="page' + ( pageIndex + 1) + '" class="page"></div>"');
 		var canvas = $('<canvas id="canvas' + pageIndex + '"></canvas>');
 		wrapper.html(canvas);
-		wrapper.append('<div id="loading' + pageIndex + '" style="position: absolute; left: 50%; top: 50%;"><img src="/images/indicator.gif"></div>');
+		wrapper.append('<div id="loading' + pageIndex + '" style="position: absolute; left: 50%; top: 50%;"><img src="images/indicator.gif"></div>');
 		wrapper.pageNumber = pageIndex;
 		wrapper.rendered = false;
 		$('#pages').append(wrapper);

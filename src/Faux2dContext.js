@@ -3,12 +3,14 @@
  * on a HTML5 canvas context, except it does nothing but store which commands
  * to execute and their parameters.
  */
-function Faux2dContext(listener, index) {
+goog.provide("trapeze.Faux2dContext");
+
+trapeze.Faux2dContext = function(listener, index) {
 	this.listener = listener;
 	this.index = index;
 	this.actions = [];
 }
-Faux2dContext.prototype = {
+trapeze.Faux2dContext.prototype = {
 	callFunction: function(method, args) {
 		// convert args to real array
 		args = Array.prototype.slice.call(args);

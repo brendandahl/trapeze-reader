@@ -1,3 +1,5 @@
+goog.require("trapeze.cos.COSString");
+
 function BaseParser() {
 }
 
@@ -275,9 +277,9 @@ BaseParser.prototype.parseCOSString = function() {
 		sb += c;
 	}
 	if(openBrace == '<')
-		return COSString.createFromHexString(sb);
+		return trapeze.cos.COSString.createFromHexString(sb);
 	else
-		return new COSString(sb);
+		return new trapeze.cos.COSString(sb);
 }
 BaseParser.prototype.skipSpaces = function() {
 	if(!this.stream.hasRemaining())

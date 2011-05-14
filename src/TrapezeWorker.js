@@ -4,19 +4,22 @@ if(typeof window == 'undefined') {
 	);*/
 	
 	// We are in a web worker, we need to import everything
+	
 	importScripts(
+		"../lib/closure-library/closure/goog/bootstrap/webworkers.js",
+		"../lib/closure-library/closure/goog/base.js",
+		"deps.js",
 		"util.js",
 		"Exceptions.js",
 		"GeneralPath.js",
 		"external/deflate.js",
 		"AsyncFileReader.js",
 		"Rectangle2D.js",
-		"Faux2dContext.js",
+		//"Faux2dContext.js",
 		"cos/COSDocument.js",
 		"cos/COSArray.js",
 		"cos/COSDictionary.js",
 		"cos/COSStream.js",
-		"cos/COSString.js",
 		"cos/COSName.js",
 		"cos/COSObject.js",
 		"cos/COSObjectKey.js",
@@ -97,12 +100,15 @@ if(typeof window == 'undefined') {
 		"StreamBuffer.js",
 		"Commander.js"
 	);
+goog.require("trapeze.Faux2dContext");
 	// Files only needed for a web worker
 	importScripts(
 		"FauxConsole.js",
 		"Image.js",
 		"external/jquerywebworker.js"
 	);
+	
+   //importScripts("TrapezeWorker.js");
 	
 }
 (function(mainThread) {
@@ -188,7 +194,7 @@ if(typeof window == 'undefined') {
 		},
 		getCanvas: function(i) {
 			// Faux canvas
-			var ctx = new Faux2dContext(postMessage, i);
+			var ctx = new trapeze.Faux2dContext(postMessage, i);
 			return {
 				index: i,
 				width: 0,

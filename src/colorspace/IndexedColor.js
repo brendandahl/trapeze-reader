@@ -1,3 +1,4 @@
+goog.require("trapeze.cos.COSString");
 /**
  * create a new IndexColor PDFColorSpace based on another PDFColorSpace,
  * a count of colors, and a stream of values.  Every consecutive n bytes
@@ -25,7 +26,7 @@ function IndexedColor(base, count, stream) {
 	count++;
 	this.count = count;
 	var value;
-	if(stream instanceof COSString)
+	if(stream instanceof trapeze.cos.COSString)
 		value = stream.value;
 	else if(stream instanceof COSStream)
 		value = stream.decode();

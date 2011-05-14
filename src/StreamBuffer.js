@@ -300,9 +300,9 @@ StreamBuffer.createFromUrl = function(fileURL) {
 
 	if (req.status != 200) throwException(_exception.FileLoadFailed);
 
-	fileContents = req.responseText;
+	var fileContents = req.responseText;
 
-	fileSize = fileContents.length;
+	var fileSize = fileContents.length;
 
 	return new StreamBuffer(fileContents);
 };

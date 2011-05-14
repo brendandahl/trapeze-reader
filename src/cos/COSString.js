@@ -1,7 +1,9 @@
-function COSString(value) {
+goog.provide("trapeze.cos.COSString");
+
+trapeze.cos.COSString = function COSString(value) {
 	this.value = value;
 }
-COSString.prototype = {
+trapeze.cos.COSString.prototype = {
 	toString: function(depth) {
 		depth = depth || 0;
 		return "\t".repeat(depth) + "COSString: " + this.value;
@@ -14,7 +16,7 @@ COSString.prototype = {
  * @return A cos string with the hex characters converted to their actual bytes.
  * @throws IOException If there is an error with the hex string.
  */
-COSString.createFromHexString = function(hex) {
+trapeze.cos.COSString.createFromHexString = function(hex) {
 	var retval = "";
 	// First make sure we only have hex chars in the string
 	// TODO we could probably stream line this
