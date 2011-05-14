@@ -36,7 +36,7 @@ trapeze.cos.COSString.createFromHexString = function(hex) {
 		var hexChars = hexBuffer.charAt( i++ ) + hexBuffer.charAt( i++ );
 		retval += String.fromCharCode(parseInt(hexChars, 16));
 	}
-	var cosString = new COSString(retval);
+	var cosString = new trapeze.cos.COSString(retval);
 	// TODO remove this after we make sure the above is correct
 	cosString.cameFromHEX = true;
 	return cosString;
