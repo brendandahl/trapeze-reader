@@ -1,6 +1,8 @@
+goog.provide("trapeze.Commander");
+
 goog.require("trapeze.cos.COSString");
 
-function Commander(graphics, resources, initialMatrix, streamEngine) {
+trapeze.Commander = function(graphics, resources, initialMatrix, streamEngine) {
 	// The 2D context of the canvas
 	this.graphics = graphics;
 	this.graphics.beginPath();
@@ -18,7 +20,7 @@ function Commander(graphics, resources, initialMatrix, streamEngine) {
 	this.streamEngine = streamEngine;
 	this.clip = 0;
 }
-Commander.prototype = {
+trapeze.Commander.prototype = {
 	/**
 	 * 'q' Save graphics state
 	 */

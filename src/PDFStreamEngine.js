@@ -1,10 +1,11 @@
+goog.require("trapeze.Commander");
 function PDFStreamEngine(canvas, initialMatrix) {
     this.page;
 	this.canvas = canvas;
 	this.initialMatrix = initialMatrix;
 	this.resources;
 	this.processStream = function(aPage, resources, cosStream) {
-		this.commander = new Commander(this.canvas, resources, this.initialMatrix, this);
+		this.commander = new trapeze.Commander(this.canvas, resources, this.initialMatrix, this);
 		this.map = new PDFOperatorMap(this.commander).map;
 		this.resources = resources;
 		this.processSubStream(aPage, resources, cosStream);

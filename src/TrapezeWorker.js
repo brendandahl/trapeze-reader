@@ -97,8 +97,7 @@ if(typeof window == 'undefined') {
 		"function/PDFFunction.js",
 		"function/FunctionType0.js",
 		"external/base64.js",
-		"StreamBuffer.js",
-		"Commander.js"
+		"StreamBuffer.js"
 	);
 goog.require("trapeze.Faux2dContext");
 	// Files only needed for a web worker
