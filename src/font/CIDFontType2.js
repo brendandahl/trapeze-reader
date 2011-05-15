@@ -1,3 +1,5 @@
+goog.require("trapeze.cos.COSArray");
+goog.require("trapeze.cos.COSStream");
 function CIDFontType2(baseFont, fontObj, descriptor) {
 	CIDFontType2.baseConstructor.call(this, baseFont, fontObj, descriptor);
 	/**
@@ -28,7 +30,7 @@ function CIDFontType2(baseFont, fontObj, descriptor) {
 
 	// only read the map if it is a stream (if it is a name, it
 	// is "Identity" and can be ignored
-	if (mapObj != null && (mapObj instanceof COSStream)) {
+	if (mapObj != null && (mapObj instanceof trapeze.cos.COSStream)) {
 		throw new UnimplementedException("Haven't finished cid to gid map for CID font");
 		this.cidToGidMap = mapObj.getStreamBuffer();
 	}
@@ -69,7 +71,7 @@ CIDFontType2.prototype.parseWidths = function(fontObj) {
 				first = widthArray.getObject(i).value;
 			} else if (entryIdx == 1) {
 				// second value -- is it an int or array?
-				if (widthArray.getObject(i) instanceof COSArray) {
+				if (widthArray.getObject(i) instanceof trapeze.cos.COSArray) {
 					// add all the entries in the array to the width array
 					var entries = widthArray.getObject(i);
 					for (var c = 0; c < entries.size(); c++) {
@@ -132,7 +134,7 @@ CIDFontType2.prototype.parseWidths = function(fontObj) {
 				first = widthArray.getObject(i).value;
 			} else if (entryIdx == 1) {
 				// second value -- is it an int or array?
-				if (widthArray.getObject(i) instanceof COSArray) {
+				if (widthArray.getObject(i) instanceof trapeze.cos.COSArray) {
 					// add all the entries in the array to the width array
 					var entries = widthArray.getObject(i);
 					for (var c = 0; c < entries.size(); c++) {

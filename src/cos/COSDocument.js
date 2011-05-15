@@ -1,5 +1,6 @@
 goog.provide("trapeze.cos.COSDocument");
 goog.require("trapeze.cos.COSObject");
+goog.require("trapeze.cos.COSObjectStreamLocation");
 /**
  * Represents the whole PDF Document. 
  * Keeps track of all the objects and the loading of them.
@@ -29,7 +30,7 @@ trapeze.cos.COSDocument.prototype = {
 	/**
 	 * Sets a cross reference in the cross reference table
 	 * If a string(number) is passed extra 0 in front are stripped off
-	 * @param COSObjectKey key
+	 * @param {trapeze.cos.COSObjectKey} key
 	 * @param mixed offset can be a number(offset in the file) or a COSObjectStreamLocation
 	 */
 	setXRef: function(key, offset) {
@@ -60,11 +61,11 @@ trapeze.cos.COSDocument.prototype = {
 	 * There are two types of objects that could be loaded:
 	 * 	1 - Regular ones defined by an offset
 	 * 	2 - Object in a object stream
-	 * @param COSObjectKey key
+	 * @param {trapeze.cos.COSObjectKey} key
 	 */
 	loadObject: function(key) {
 		var pos = this._xrefTable[key.getKey()];
-		if(pos instanceof COSObjectStreamLocation) { // Object Stream Object
+		if(pos instanceof trapeze.cos.COSObjectStreamLocation) { // Object Stream Object
 			// For now just load all the objects in the stream, could be done lazily
 			// Get the object stream
 			var obj = this.getObjectFromPool(pos.streamObjectKey);

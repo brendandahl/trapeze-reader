@@ -1,4 +1,5 @@
-function COSObjectKey(num, gen) {
+goog.provide("trapeze.cos.COSObjectKey");
+trapeze.cos.COSObjectKey = function(num, gen) {
 	if(typeof num == "string")
 		this.number = parseInt(num);
 	else
@@ -8,7 +9,7 @@ function COSObjectKey(num, gen) {
 	else
 		this.generation = gen;
 }
-COSObjectKey.prototype = {
+trapeze.cos.COSObjectKey.prototype = {
 	getKey: function() {
 		return this.number + "-" + this.generation;
 	},

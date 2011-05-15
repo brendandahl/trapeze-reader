@@ -1,4 +1,5 @@
 goog.require("trapeze.cos.COSName");
+goog.require("trapeze.cos.COSStream");
 /**
  * A CMap maps from a character in a composite font to a font/glyph number
  * pair in a CID font.
@@ -15,7 +16,7 @@ PDFCMap.prototype.getFontID = function(src) {
 PDFCMap.getCMap = function(map) {
 	if (map instanceof trapeze.cos.COSName) {
 		return new PDFCMap();
-	} else if (map instanceof COSStream) {
+	} else if (map instanceof trapeze.cos.COSStream) {
 		throw new UnimplementedException("Parsing a CMAP from a stream is not supported");
 	} else {
 		throw new IOException("CMap type not Name or Stream!");

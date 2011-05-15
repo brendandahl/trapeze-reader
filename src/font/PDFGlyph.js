@@ -1,3 +1,4 @@
+goog.require("trapeze.cos.COSStream");
 function PDFGlyph(src, name, shape, advance) {
 	this.shape = shape;
 	this.advance = advance;
@@ -6,7 +7,7 @@ function PDFGlyph(src, name, shape, advance) {
 }
 PDFGlyph.prototype.render = function(graphics, engine) {
 	// first do the affine transformation
-	if(this.shape instanceof COSStream) { // Type3Font stream of pdf commands
+	if(this.shape instanceof trapeze.cos.COSStream) { // Type3Font stream of pdf commands
 		console.warn("todo type3font");
 		//engine.streamEngine.processSubStream( null, null, this.shape);
 	} else {

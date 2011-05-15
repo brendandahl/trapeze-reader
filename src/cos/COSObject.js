@@ -1,7 +1,7 @@
 goog.provide("trapeze.cos.COSObject");
 /**
  * @param object object the object that this wraps, null if its not loaded yet
- * @param COSObjectKey key of the object
+ * @param {trapeze.cos.COSObjectKey} key of the object
  * @param {trapeze.cos.COSDocument} document that the object belongs to
  */
 trapeze.cos.COSObject = function(object, key, document) {
@@ -30,7 +30,7 @@ trapeze.cos.COSObject.prototype = {
 		return this._object;
 	},
 	/**
-	 * @return COSObjectKey 
+	 * @returns {trapeze.cos.COSObjectKey}
 	 */
 	getKey: function() {
 		return this._key;

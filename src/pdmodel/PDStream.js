@@ -1,3 +1,5 @@
+goog.require("trapeze.cos.COSArray");
+goog.require("trapeze.cos.COSStreamArray");
 function PDStream(stream) {
 	this.stream = stream;
 	this.getStream = function() {
@@ -12,10 +14,10 @@ function PDStream(stream) {
  */
 PDStream.createFromCOS = function(base) {
 	var retval = null;
-	if( base instanceof COSStream) {
+	if( base instanceof trapeze.cos.COSStream) {
 		retval = new PDStream(base);
-	} else if(base instanceof COSArray) {
-		retval = new PDStream( new COSStreamArray( base ) );
+	} else if(base instanceof trapeze.cos.COSArray) {
+		retval = new PDStream( new trapeze.cos.COSStreamArray( base ) );
 	} else {
 		if(base != null) {
 			throw new IOException("Contents are unknown type:" + base.getClass().getName());

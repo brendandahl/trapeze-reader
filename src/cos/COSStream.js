@@ -1,9 +1,11 @@
+goog.provide("trapeze.cos.COSStream");
 goog.require("trapeze.cos.COSName");
-function COSStream(dictionary, file) {
+goog.require("trapeze.cos.COSArray");
+trapeze.cos.COSStream = function(dictionary, file) {
 	this.dictionary = dictionary;
 	this.file = file;
 }
-COSStream.prototype = {
+trapeze.cos.COSStream.prototype = {
 	decode: function() {
 		var value = this.dictionary.getItem("Filter");
 		var filters = [];
@@ -14,7 +16,7 @@ COSStream.prototype = {
 			if(value instanceof trapeze.cos.COSName) {
 				filters.push(value.name);
 				params.push(this.dictionary.getDictionaryObject('DecodeParms'));
-			} else if(value instanceof COSArray) {
+			} else if(value instanceof trapeze.cos.COSArray) {
 				var paramsArray = this.dictionary.getDictionaryObject('DecodeParms');
 				for(var i = 0; i < value.size(); i++) {
 					filters.push(value.getObject(i).name);

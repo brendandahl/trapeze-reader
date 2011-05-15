@@ -1,3 +1,4 @@
+goog.require("trapeze.cos.COSArray");
 goog.require("trapeze.cos.COSString");
 goog.require("trapeze.cos.COSBoolean");
 goog.require("trapeze.cos.COSDictionary");
@@ -5,6 +6,8 @@ goog.require("trapeze.cos.COSName");
 goog.require("trapeze.cos.COSNull");
 goog.require("trapeze.cos.COSNumber");
 goog.require("trapeze.cos.COSObject");
+goog.require("trapeze.cos.COSObjectKey");
+goog.require("trapeze.cos.COSStream");
 
 function BaseParser() {
 }
@@ -26,7 +29,7 @@ BaseParser.prototype.parseCOSStream = function(dictionary) {
 	for(var i = start; i < offset; i++) {
 		streamText += this.stream.read();
 	}
-	var cosStream = new COSStream(dictionary, streamText);
+	var cosStream = new trapeze.cos.COSStream(dictionary, streamText);
 	
 	return cosStream;
 };
@@ -103,7 +106,7 @@ BaseParser.prototype.parseCOSDictionaryValue = function() {
 		{
 			throw "Expected='R' actual='" + r + "'";
 		}
-		var key = new COSObjectKey(number.value, generationNumber.value);
+		var key = new trapeze.cos.COSObjectKey(number.value, generationNumber.value);
 		retval = this.document.getObjectFromPool(key);
 	}
 	else
@@ -120,7 +123,7 @@ BaseParser.prototype.parseCOSDictionaryValue = function() {
  *
  */
 BaseParser.prototype.parseCOSArray = function() {
-	var po = new COSArray();
+	var po = new trapeze.cos.COSArray();
 	var pbo = null;
 	this.skipSpaces();
 	var i = this.stream.peek();
@@ -137,7 +140,7 @@ BaseParser.prototype.parseCOSArray = function() {
 				if (po.get(po.size() - 1) instanceof trapeze.cos.COSNumber)
 				{
 					var number = po.remove();
-					var key = new COSObjectKey(number.value, genNumber.value);
+					var key = new trapeze.cos.COSObjectKey(number.value, genNumber.value);
 					pbo = this.document.getObjectFromPool(key);
 				}
 				else 

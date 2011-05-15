@@ -1,8 +1,9 @@
+goog.provide("trapeze.cos.COSArray");
 goog.require("trapeze.cos.COSObject");
-function COSArray() {
+trapeze.cos.COSArray = function() {
 	this._objects = [];
 }
-COSArray.prototype = {
+trapeze.cos.COSArray.prototype = {
 	add: function(object) {
 		this._objects.push(object);
 	},

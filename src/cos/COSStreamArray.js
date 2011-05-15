@@ -1,4 +1,5 @@
-function COSStreamArray(base) {
+goog.provide("trapeze.cos.COSStreamArray");
+trapeze.cos.COSStreamArray = function(base) {
 	this.streams = base;
 	
 	this.decode = function() {

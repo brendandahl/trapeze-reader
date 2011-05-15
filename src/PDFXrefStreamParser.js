@@ -1,4 +1,7 @@
 goog.require("trapeze.cos.COSNumber");
+goog.require("trapeze.cos.COSArray");
+goog.require("trapeze.cos.COSObjectKey");
+goog.require("trapeze.cos.COSObjectStreamLocation");
 function PDFXrefStreamParser(stream, doc) {
 	this.stream = stream;
 	this.pdfSource = new StreamBuffer(stream.decode());
@@ -17,7 +20,7 @@ PDFXrefStreamParser.prototype = {
 		 * If Index doesn't exist, we will use the default values. 
 		 */
 		if(indexArray == null) {
-			indexArray = new COSArray();
+			indexArray = new trapeze.cos.COSArray();
 			indexArray.add(new trapeze.cos.COSNumber(0));
 			indexArray.add(dictionary.getDictionaryObject("Size"));
 		}
@@ -81,7 +84,7 @@ PDFXrefStreamParser.prototype = {
 					for(var i = 0; i < w2; i++) {
 						genNum += (currLine[i + w0 + w1] & 0x00ff) << ((w2 - i - 1) * 8);
 					}
-					var objKey = new COSObjectKey(objID, genNum);
+					var objKey = new trapeze.cos.COSObjectKey(objID, genNum);
 					this.document.setXRef(objKey, offset);
 					break;
 				case 2: // Link to a compressed object
@@ -93,8 +96,8 @@ PDFXrefStreamParser.prototype = {
 					for(var i = 0; i < w2; i++) {
 						index += (currLine[i + w0 + w1] & 0x00ff) << ((w2 - i - 1) * 8);
 					}
-					var objKey = new COSObjectKey(objID, 0);
-					this.document.setXRef(objKey, new COSObjectStreamLocation(new COSObjectKey(streamObjectNumber, 0), index));
+					var objKey = new trapeze.cos.COSObjectKey(objID, 0);
+					this.document.setXRef(objKey, new trapeze.cos.COSObjectStreamLocation(new trapeze.cos.COSObjectKey(streamObjectNumber, 0), index));
 					break;
 				default:
 					break;

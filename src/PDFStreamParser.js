@@ -2,6 +2,7 @@ goog.require("trapeze.cos.COSBoolean");
 goog.require("trapeze.cos.COSDictionary");
 goog.require("trapeze.cos.COSNull");
 goog.require("trapeze.cos.COSNumber");
+goog.require("trapeze.cos.COSStream");
 
 function PDFStreamParser(stream) {
 	var streamText = stream.decode();
@@ -278,7 +279,7 @@ PDFStreamParser.prototype.parseInlineImage = function() {
 		streamText += this.stream.readAt(i);
 	}
 
-	var obj = new COSStream(new trapeze.cos.COSDictionary(hm), streamText);
+	var obj = new trapeze.cos.COSStream(new trapeze.cos.COSDictionary(hm), streamText);
 	loc += 1;
 	this.stream.setPosition(loc);
 	return obj;

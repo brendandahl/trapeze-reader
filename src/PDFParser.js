@@ -1,5 +1,6 @@
 goog.require("trapeze.cos.COSDictionary");
 goog.require("trapeze.cos.COSDocument");
+goog.require("trapeze.cos.COSObjectKey");
 function PDFParser(stream) {
 	this.stream = stream;
 	this.document = new trapeze.cos.COSDocument();
@@ -94,7 +95,7 @@ PDFParser.prototype.parseObject = function() {
 			endObjectKey  = this.readString();
 		}
 		//console.log("--Object was: " + pb);
-		var key = new COSObjectKey(objectNumber, genNumber);
+		var key = new trapeze.cos.COSObjectKey(objectNumber, genNumber);
 		var pdfObject = this.document.getObjectFromPool(key);
 		pdfObject.setObject(pb);
 		return pb;
@@ -174,7 +175,7 @@ PDFParser.prototype.parseXrefTable = function() {
 				var currOffset = splitString[0];
 				var currGenID = splitString[1];
 				//console.log("adding key: " + currObjID + " " + currGenID);
-				var objKey = new COSObjectKey(currObjID, currGenID);
+				var objKey = new trapeze.cos.COSObjectKey(currObjID, currGenID);
 				this.document.setXRef(objKey, currOffset);
 			}
 			else if(splitString[2] != "f")
