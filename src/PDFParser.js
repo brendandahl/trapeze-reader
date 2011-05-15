@@ -1,7 +1,8 @@
 goog.require("trapeze.cos.COSDictionary");
+goog.require("trapeze.cos.COSDocument");
 function PDFParser(stream) {
 	this.stream = stream;
-	this.document = new COSDocument();
+	this.document = new trapeze.cos.COSDocument();
 	this.document.parser = this;
 }
 extend(PDFParser, BaseParser);

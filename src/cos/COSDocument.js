@@ -1,15 +1,16 @@
+goog.provide("trapeze.cos.COSDocument");
 /**
  * Represents the whole PDF Document. 
  * Keeps track of all the objects and the loading of them.
  */
-function COSDocument() {
+trapeze.cos.COSDocument = function() {
 	this.version;
 	this.parser;
 	this._objectPool = {};
 	this._xrefTable = {};
 	this._trailer = null;
 }
-COSDocument.prototype = {
+trapeze.cos.COSDocument.prototype = {
 	/**
 	 * Gets an object from the pool. If the object hasn't been loaded
 	 * a COSObject is returned that will be lazily loaded.

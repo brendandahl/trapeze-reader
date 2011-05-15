@@ -15,7 +15,6 @@ if(typeof window == 'undefined') {
 		"external/deflate.js",
 		"AsyncFileReader.js",
 		"Rectangle2D.js",
-		"cos/COSDocument.js",
 		"cos/COSArray.js",
 		"cos/COSStream.js",
 		"cos/COSName.js",

@@ -1,7 +1,7 @@
 /**
  * @param object object the object that this wraps, null if its not loaded yet
  * @param COSObjectKey key of the object
- * @param COSDocument document that the object belongs to
+ * @param {trapeze.cos.COSDocument} document that the object belongs to
  */
 function COSObject(object, key, document) {
 	this._object = object;
