@@ -1,3 +1,4 @@
+goog.require("trapeze.cos.COSObject");
 function COSArray() {
 	this._objects = [];
 }
@@ -25,7 +26,7 @@ COSArray.prototype = {
      */
     getObject: function(index) {
         var obj = this._objects[index];
-        if(obj instanceof COSObject) {
+        if(obj instanceof trapeze.cos.COSObject) {
             obj = obj.getObject();
         }
         return obj;

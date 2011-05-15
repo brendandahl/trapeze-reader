@@ -1,4 +1,5 @@
 goog.provide("trapeze.cos.COSDocument");
+goog.require("trapeze.cos.COSObject");
 /**
  * Represents the whole PDF Document. 
  * Keeps track of all the objects and the loading of them.
@@ -20,7 +21,7 @@ trapeze.cos.COSDocument.prototype = {
 		var hash = key.getKey();
 		var object = this._objectPool[hash];
 		if(object == null) {
-			object = new COSObject(null, key, this);
+			object = new trapeze.cos.COSObject(null, key, this);
 			this._objectPool[hash] = object;
 		}
 		return object;
@@ -34,8 +35,8 @@ trapeze.cos.COSDocument.prototype = {
 	setXRef: function(key, offset) {
 		if(typeof offset == "string") {
 			while (offset.charAt(0) == '0') {
-				if (offset.length == 1) { break };
-				if (offset.charAt(1) == '.') { break };
+				if (offset.length == 1) {break};
+				if (offset.charAt(1) == '.') {break};
 				offset = offset.substr(1, offset.length-1)
 			}
 			offset = parseInt(offset);

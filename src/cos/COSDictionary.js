@@ -1,4 +1,5 @@
 goog.provide("trapeze.cos.COSDictionary");
+goog.require("trapeze.cos.COSObject");
 
 trapeze.cos.COSDictionary = function(items) {
 	if(typeof items != 'undefined')
@@ -28,7 +29,7 @@ trapeze.cos.COSDictionary.prototype = {
 		var retval = this._items[key];
 		if(typeof(retval) == 'undefined')
 			return null;
-        if( retval instanceof COSObject )
+        if( retval instanceof trapeze.cos.COSObject )
         {
             return retval.getObject();
         }

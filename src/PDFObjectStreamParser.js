@@ -1,3 +1,4 @@
+goog.require("trapeze.cos.COSObject");
 function PDFObjectStreamParser(stream, doc) {
 	PDFObjectStreamParser.baseConstructor.call(this);
 	this.dictionary = stream.dictionary;
@@ -29,7 +30,7 @@ PDFObjectStreamParser.prototype.parse = function() {
 	var objectCounter = 0;
 	while(this.stream.hasRemaining() && (cosObject = this.parseDirObject()) != null ) {
 		var key = new COSObjectKey(this.objectNumbers[objectCounter], 0);
-		object = new COSObject(cosObject, key);
+		object = new trapeze.cos.COSObject(cosObject, key);
 		this.streamObjects.push( object );
 		objectCounter++;
 	}

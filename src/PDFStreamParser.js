@@ -123,7 +123,7 @@ PDFStreamParser.prototype.parseNextToken = function() {
 			var line = this.readString();
 			if( line == "R" )
 			{
-				retval = new COSObject( null );
+				retval = new trapeze.cos.COSObject( null );
 			}
 			else
 			{

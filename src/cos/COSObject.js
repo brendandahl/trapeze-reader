@@ -1,14 +1,15 @@
+goog.provide("trapeze.cos.COSObject");
 /**
  * @param object object the object that this wraps, null if its not loaded yet
  * @param COSObjectKey key of the object
  * @param {trapeze.cos.COSDocument} document that the object belongs to
  */
-function COSObject(object, key, document) {
+trapeze.cos.COSObject = function(object, key, document) {
 	this._object = object;
 	this._key = key;
 	this._document = document;
 }
-COSObject.prototype = {
+trapeze.cos.COSObject.prototype = {
 	/**
 	 * Set the interal object
 	 */

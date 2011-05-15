@@ -4,6 +4,7 @@ goog.require("trapeze.cos.COSDictionary");
 goog.require("trapeze.cos.COSName");
 goog.require("trapeze.cos.COSNull");
 goog.require("trapeze.cos.COSNumber");
+goog.require("trapeze.cos.COSObject");
 
 function BaseParser() {
 }
@@ -127,7 +128,7 @@ BaseParser.prototype.parseCOSArray = function() {
 	{
 		pbo = this.parseDirObject();
 		
-		if( pbo instanceof COSObject )
+		if( pbo instanceof trapeze.cos.COSObject )
 		{
 			// We have to check if the expected values are there or not PDFBOX-385 
 			if (po.get(po.size() - 1) instanceof trapeze.cos.COSNumber)
@@ -399,7 +400,7 @@ BaseParser.prototype.parseDirObject = function() {
 	} else if (c == '/') {
 		return this.parseCOSName();
 	} else if(c == 'R') {
-		return new COSObject(null);
+		return new trapeze.cos.COSObject(null);
 	} else if (c == '.' || c == '-' || (c >= '0' && c <= '9')) {
 		this.stream.rewindOne();
 		return this.parseCOSNumber();

@@ -1,4 +1,5 @@
 goog.require("trapeze.Commander");
+goog.require("trapeze.cos.COSObject");
 function PDFStreamEngine(canvas, initialMatrix) {
     this.page;
 	this.canvas = canvas;
@@ -27,7 +28,7 @@ function PDFStreamEngine(canvas, initialMatrix) {
 		var length = tokens.length;
 		for(var i = 0; i < length; i++) {
 			var next = tokens[i];
-			if( next instanceof COSObject ) {
+			if( next instanceof trapeze.cos.COSObject ) {
 				arguments.push( next.getObject() );
 			} else if( next instanceof PDFOperator ) {
 				this.processOperator( next, arguments, (i + 1) == length  );
