@@ -1,3 +1,4 @@
+goog.require("trapeze.cos.COSNumber");
 function PDFXrefStreamParser(stream, doc) {
 	this.stream = stream;
 	this.pdfSource = new StreamBuffer(stream.decode());
@@ -17,7 +18,7 @@ PDFXrefStreamParser.prototype = {
 		 */
 		if(indexArray == null) {
 			indexArray = new COSArray();
-			indexArray.add(new COSNumber(0));
+			indexArray.add(new trapeze.cos.COSNumber(0));
 			indexArray.add(dictionary.getDictionaryObject("Size"));
 		}
 		

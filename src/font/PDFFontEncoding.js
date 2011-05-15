@@ -1,5 +1,6 @@
 goog.require("trapeze.cos.COSDictionary");
 goog.require("trapeze.cos.COSName");
+goog.require("trapeze.cos.COSNumber");
 function PDFFontEncoding(fontType, encoding) {
 		this.differences = {};
 		if(encoding instanceof trapeze.cos.COSDictionary) {
@@ -64,7 +65,7 @@ PDFFontEncoding.prototype.parseEncoding = function(encoding) {
 
             for (var i = 0; i < diffArray.size(); i++) {
                 var test = diffArray.get(i);
-				if (test instanceof COSNumber) {
+				if (test instanceof trapeze.cos.COSNumber) {
                     curPosition = test.value;
                 } else if (test instanceof trapeze.cos.COSName) {
                     var key = String.fromCharCode(curPosition);

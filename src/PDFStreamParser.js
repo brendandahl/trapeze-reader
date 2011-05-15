@@ -1,6 +1,7 @@
 goog.require("trapeze.cos.COSBoolean");
 goog.require("trapeze.cos.COSDictionary");
 goog.require("trapeze.cos.COSNull");
+goog.require("trapeze.cos.COSNumber");
 
 function PDFStreamParser(stream) {
 	var streamText = stream.decode();
@@ -161,7 +162,7 @@ PDFStreamParser.prototype.parseNextToken = function() {
 					dotNotRead = false;
 				}
 			}
-			retval = new COSNumber( buf );
+			retval = new trapeze.cos.COSNumber( buf );
 			break;
 		}
 		case 'B':

@@ -19,7 +19,6 @@ if(typeof window == 'undefined') {
 		"cos/COSStream.js",
 		"cos/COSObject.js",
 		"cos/COSObjectKey.js",
-		"cos/COSNumber.js",
 		"cos/COSStreamArray.js",
 		"cos/COSObjectReference.js",
 		"cos/COSObjectStreamLocation.js",

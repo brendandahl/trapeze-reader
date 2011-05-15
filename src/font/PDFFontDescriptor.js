@@ -1,5 +1,6 @@
 goog.require("trapeze.cos.COSDictionary");
 goog.require("trapeze.cos.COSName");
+goog.require("trapeze.cos.COSNumber");
 function PDFFontDescriptor(obj) {
 	if(obj instanceof trapeze.cos.COSDictionary) {
 		// required parameters
@@ -45,7 +46,7 @@ function PDFFontDescriptor(obj) {
 		var test = obj.getDictionaryObject(key);
 		if(test == null)
 			return null;
-		else if(test instanceof COSNumber)
+		else if(test instanceof trapeze.cos.COSNumber)
 			return test.value;
 		else if(test instanceof trapeze.cos.COSName)
 			return test.name;

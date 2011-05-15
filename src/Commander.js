@@ -2,6 +2,7 @@ goog.provide("trapeze.Commander");
 
 goog.require("trapeze.cos.COSString");
 goog.require("trapeze.cos.COSDictionary");
+goog.require("trapeze.cos.COSNumber");
 
 trapeze.Commander = function(graphics, resources, initialMatrix, streamEngine) {
 	// The 2D context of the canvas
@@ -261,7 +262,7 @@ trapeze.Commander.prototype = {
 		var length = textArray.size();
 		for(var i = 0; i < length; i++) {
 			var obj = textArray.get(i);
-			if(obj instanceof COSNumber) {
+			if(obj instanceof trapeze.cos.COSNumber) {
 				var val = obj.value / 1000;
 				this.text.textMatrix = this.text.textMatrix.translate(-val * this.text.fontSize * this.text.horizontalScaling, 0);
 			} else if(obj instanceof trapeze.cos.COSString) {

@@ -3,6 +3,7 @@ goog.require("trapeze.cos.COSBoolean");
 goog.require("trapeze.cos.COSDictionary");
 goog.require("trapeze.cos.COSName");
 goog.require("trapeze.cos.COSNull");
+goog.require("trapeze.cos.COSNumber");
 
 function BaseParser() {
 }
@@ -129,10 +130,10 @@ BaseParser.prototype.parseCOSArray = function() {
 		if( pbo instanceof COSObject )
 		{
 			// We have to check if the expected values are there or not PDFBOX-385 
-			if (po.get(po.size() - 1) instanceof COSNumber) 
+			if (po.get(po.size() - 1) instanceof trapeze.cos.COSNumber)
 			{
 				var genNumber = po.remove();
-				if (po.get(po.size() - 1) instanceof COSNumber) 
+				if (po.get(po.size() - 1) instanceof trapeze.cos.COSNumber)
 				{
 					var number = po.remove();
 					var key = new COSObjectKey(number.value, genNumber.value);
@@ -210,7 +211,7 @@ BaseParser.prototype.parseCOSNumber = function() {
 	if (neg) {
 		value = -value;
 	}
-	return new COSNumber(value);
+	return new trapeze.cos.COSNumber(value);
 }
 	/**
  * <p>read a String from the stream.  Strings begin with a '('
@@ -406,7 +407,7 @@ BaseParser.prototype.parseDirObject = function() {
 		var st = this.readString();
 		if(st != 'ull')
 			throw "Expecting null string found " + st;
-		return new trapeze.cos.COSNull.NULL;
+		return trapeze.cos.COSNull.NULL;
 	} else if(c == 't') {
 		var st = this.readString();
 		if(st != 'rue')
