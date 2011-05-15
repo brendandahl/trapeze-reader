@@ -1,6 +1,8 @@
 goog.require("trapeze.cos.COSString");
 goog.require("trapeze.cos.COSBoolean");
 goog.require("trapeze.cos.COSDictionary");
+goog.require("trapeze.cos.COSName");
+goog.require("trapeze.cos.COSNull");
 
 function BaseParser() {
 }
@@ -175,7 +177,7 @@ BaseParser.prototype.parseCOSName = function() {
 		sb += c;
 	}
 	this.stream.rewindOne();
-	return new COSName(sb);
+	return new trapeze.cos.COSName(sb);
 }
 BaseParser.prototype.parseCOSNumber = function() {
 	var c = this.stream.read();
@@ -404,7 +406,7 @@ BaseParser.prototype.parseDirObject = function() {
 		var st = this.readString();
 		if(st != 'ull')
 			throw "Expecting null string found " + st;
-		return new COSNull();
+		return new trapeze.cos.COSNull.NULL;
 	} else if(c == 't') {
 		var st = this.readString();
 		if(st != 'rue')

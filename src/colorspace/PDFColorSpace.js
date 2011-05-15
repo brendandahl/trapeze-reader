@@ -1,3 +1,4 @@
+goog.require("trapeze.cos.COSName")
 function PDFColorSpace(cs) {
 	this._cs = cs;
 }
@@ -50,7 +51,7 @@ PDFColorSpace.getColorSpaceByName = function(name) {
 }
 PDFColorSpace.getColorSpace = function(csobj, resources) {
 	var name;
-	if(csobj instanceof COSName) {
+	if(csobj instanceof trapeze.cos.COSName) {
 		name = csobj.name;
 		var colorSpaces;
 		

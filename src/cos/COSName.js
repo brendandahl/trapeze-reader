@@ -1,7 +1,8 @@
-function COSName(name) {
+goog.provide("trapeze.cos.COSName");
+trapeze.cos.COSName = function(name) {
 	this.name = name;
 }
-COSName.prototype = {
+trapeze.cos.COSName.prototype = {
 	toString: function(depth) {
 		depth = depth || 0;
 		return "\t".repeat(depth) + "COSName: " + this.name;

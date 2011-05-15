@@ -1,5 +1,6 @@
 goog.require("trapeze.cos.COSBoolean");
 goog.require("trapeze.cos.COSDictionary");
+goog.require("trapeze.cos.COSNull");
 
 function PDFStreamParser(stream) {
 	var streamText = stream.decode();
@@ -89,7 +90,7 @@ PDFStreamParser.prototype.parseNextToken = function() {
 			var nullString = this.readString();
 			if( nullString == "null" )
 			{
-				retval = new COSNull();
+				retval = trapeze.cos.COSNull.NULL;
 			}
 			else
 			{
@@ -181,7 +182,7 @@ PDFStreamParser.prototype.parseNextToken = function() {
 			// some ']' around without its previous '['
 			// this means a PDF is somewhat corrupt but we will continue to parse.
 			this.stream.read();
-			retval = COSNull.NULL;  // must be a better solution than null...
+			retval = trapeze.cos.COSNull.NULL;  // must be a better solution than null...
 			break;
 		}
 		default:

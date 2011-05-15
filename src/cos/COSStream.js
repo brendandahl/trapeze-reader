@@ -1,3 +1,4 @@
+goog.require("trapeze.cos.COSName");
 function COSStream(dictionary, file) {
 	this.dictionary = dictionary;
 	this.file = file;
@@ -10,7 +11,7 @@ COSStream.prototype = {
 		if(value == null) {// Assume there is no filter
 			filters.push('NoFilter');
 		} else {
-			if(value instanceof COSName) {
+			if(value instanceof trapeze.cos.COSName) {
 				filters.push(value.name);
 				params.push(this.dictionary.getDictionaryObject('DecodeParms'));
 			} else if(value instanceof COSArray) {

@@ -1,4 +1,5 @@
 goog.require("trapeze.cos.COSDictionary");
+goog.require("trapeze.cos.COSName");
 function PDFFontEncoding(fontType, encoding) {
 		this.differences = {};
 		if(encoding instanceof trapeze.cos.COSDictionary) {
@@ -16,7 +17,7 @@ function PDFFontEncoding(fontType, encoding) {
             } else {
                 throw "Uknown encoding type: " + type;
             }
-		} else if (encoding instanceof COSName) {
+		} else if (encoding instanceof trapeze.cos.COSName) {
             // if the encoding is a String, it is the name of an encoding
             // or the name of a CMap, depending on the type of the font
             if (fontType == "Type0") {
@@ -65,7 +66,7 @@ PDFFontEncoding.prototype.parseEncoding = function(encoding) {
                 var test = diffArray.get(i);
 				if (test instanceof COSNumber) {
                     curPosition = test.value;
-                } else if (test instanceof COSName) {
+                } else if (test instanceof trapeze.cos.COSName) {
                     var key = String.fromCharCode(curPosition);
                     this.differences[key] = test.name;
                     curPosition++;
