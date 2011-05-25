@@ -1,18 +1,26 @@
+goog.provide("trapeze.font.TTFFont");
+goog.require("trapeze.font.OutlineFont");
+goog.require("trapeze.font.TrueTypeFont");
+goog.require("trapeze.font.AdobeGlyphList");
+goog.require("trapeze.font.GlyfSimple");
+goog.require("trapeze.font.GlyfCompound");
+goog.require("trapeze.GeneralPath");
+goog.require("trapeze.AffineTransform");
 /**
  * True Type Font
  * @param string baseFont
  * @param {trapeze.cos.COSDictionary} fontObj
  * @param PDFFontDescriptor descriptor
  */
-function TTFFont(baseFont, fontObj, descriptor) {
-	TTFFont.baseConstructor.call(this, baseFont, fontObj, descriptor);
+trapeze.font.TTFFont = function(baseFont, fontObj, descriptor) {
+	trapeze.font.TTFFont.baseConstructor.call(this, baseFont, fontObj, descriptor);
 	
 	this.font;
 	this.unitsPerEm;
 	
 	var ttfObj = descriptor.fontFile2;
 	if (ttfObj != null) {
-		this.font = TrueTypeFont.parseFont(ttfObj.decode());
+		this.font = trapeze.font.TrueTypeFont.parseFont(ttfObj.decode());
 		// read the units per em from the head table
 		var head = this.font.getTable("head");
 		this.unitsPerEm = head.unitsPerEm;
@@ -20,12 +28,12 @@ function TTFFont(baseFont, fontObj, descriptor) {
 		this.font = null;
 	}
 }
-extend(TTFFont, OutlineFont);
+extend(trapeze.font.TTFFont, trapeze.font.OutlineFont);
 
 /*
  * Methods for TTFFont
  */
-TTFFont.prototype.getOutlineByName = function(name, width) {
+trapeze.font.TTFFont.prototype.getOutlineByName = function(name, width) {
 	var idx;
 	var postTable = this.font.getTable("post");
 	if (postTable != null) {
@@ -35,14 +43,14 @@ TTFFont.prototype.getOutlineByName = function(name, width) {
 		}
 		return null;
 	}
-	var res = AdobeGlyphList.getGlyphNameIndex(name);
+	var res = trapeze.font.AdobeGlyphList.getGlyphNameIndex(name);
 	if(res != null) {
 		idx = res;
 		return this.getOutlineFromCMaps(idx, width);
 	}        		        
 	return null;
 };
-TTFFont.prototype.getOutlineByCode = function(src, width) {
+trapeze.font.TTFFont.prototype.getOutlineByCode = function(src, width) {
 	// find the cmaps
 	var cmap = this.font.getTable("cmap");
 
@@ -67,18 +75,18 @@ TTFFont.prototype.getOutlineByCode = function(src, width) {
 	// not found, return the empty glyph
 	return this.getOutlineById(0, width);
 };
-TTFFont.prototype.getOutlineById = function(glyphId, width) {
+trapeze.font.TTFFont.prototype.getOutlineById = function(glyphId, width) {
 	// find the glyph itself
 	var glyf = this.font.getTable("glyf");
    var g = glyf.getGlyf(glyphId);
 
 	var gp = null;
-	if (g instanceof GlyfSimple) {
+	if (g instanceof trapeze.font.GlyfSimple) {
 		gp = this.renderSimpleGlyph(g);
-	} else if (g instanceof GlyfCompound) {
+	} else if (g instanceof trapeze.font.GlyfCompound) {
 		gp = this.renderCompoundGlyph(glyf, g);
 	} else {
-		gp = new GeneralPath();
+		gp = new trapeze.GeneralPath();
 	}
 
 	// calculate the advance
@@ -89,9 +97,9 @@ TTFFont.prototype.getOutlineById = function(glyphId, width) {
 	var widthfactor = width / advance;
 
 	// the base transform scales the glyph to 1x1
-	var at = AffineTransform.getScaleInstance(1 / this.unitsPerEm,
+	var at = trapeze.AffineTransform.getScaleInstance(1 / this.unitsPerEm,
 			1 / this.unitsPerEm);
-	at = at.multiply(AffineTransform.getScaleInstance(widthfactor, 1));
+	at = at.multiply(trapeze.AffineTransform.getScaleInstance(widthfactor, 1));
 
 	gp.transform(at);
 
@@ -105,7 +113,7 @@ TTFFont.prototype.getOutlineById = function(glyphId, width) {
  * @param width
  * @return GeneralPath
  */
-TTFFont.prototype.getOutlineFromCMaps = function(val, width) {
+trapeze.font.TTFFont.prototype.getOutlineFromCMaps = function(val, width) {
 	// find the cmaps
 	var cmap = this.font.getTable("cmap");
 
@@ -128,13 +136,13 @@ TTFFont.prototype.getOutlineFromCMaps = function(val, width) {
   /**
  * Render a simple glyf
  */
-TTFFont.prototype.renderSimpleGlyph = function(g) {
+trapeze.font.TTFFont.prototype.renderSimpleGlyph = function(g) {
 	// the current contour
 	var curContour = 0;
 
 	// the render state
 	var rs = new RenderState();
-	rs.gp = new GeneralPath();
+	rs.gp = new trapeze.GeneralPath();
 
 	for (var i = 0; i < g.getNumPoints(); i++) {
 		var rec = new PointRec(g, i);
@@ -168,8 +176,8 @@ TTFFont.prototype.renderSimpleGlyph = function(g) {
  /**
      * Render a compound glyf
      */
-TTFFont.prototype.renderCompoundGlyph = function(glyf, g) {
-	var gp = new GeneralPath();
+trapeze.font.TTFFont.prototype.renderCompoundGlyph = function(glyf, g) {
+	var gp = new trapeze.GeneralPath();
 
 	for (var i = 0; i < g.getNumComponents(); i++) {
 		// find and render the component glyf
@@ -180,7 +188,7 @@ TTFFont.prototype.renderCompoundGlyph = function(glyf, g) {
 		var matrix = g.getTransform(i);
 
 		// transform the path
-		path.transform(new AffineTransform(matrix[0], matrix[1], matrix[2], matrix[3], matrix[4], matrix[5]));
+		path.transform(new trapeze.AffineTransform(matrix[0], matrix[1], matrix[2], matrix[3], matrix[4], matrix[5]));
 
 		// add it to the global path
 		gp.append(path);
@@ -188,7 +196,7 @@ TTFFont.prototype.renderCompoundGlyph = function(glyf, g) {
 
 	return gp;
 }
-TTFFont.prototype.addOnCurvePoint = function(rec, rs) {
+trapeze.font.TTFFont.prototype.addOnCurvePoint = function(rec, rs) {
 	// if the point is on the curve, either move to it,
 	// or draw a line from the previous point
 	if (rs.firstOn == null) {
@@ -201,7 +209,7 @@ TTFFont.prototype.addOnCurvePoint = function(rec, rs) {
 		rs.gp.lineTo(rec.x, rec.y);
 	}
 }
-TTFFont.prototype.addOffCurvePoint = function(rec, rs) {
+trapeze.font.TTFFont.prototype.addOffCurvePoint = function(rec, rs) {
 	if (rs.prevOff != null) {
 		var oc = new PointRec((rec.x + rs.prevOff.x) / 2,
 				(rec.y + rs.prevOff.y) / 2,
@@ -225,7 +233,7 @@ function RenderState() {
 }
 /** a point on the stack of points */
 function PointRec(a, b, c) {
-	if(a instanceof GlyfSimple) {
+	if(a instanceof trapeze.font.GlyfSimple) {
 		this.x = a.getXCoord(b);
 		this.y = a.getYCoord(b);
 		this.onCurve = a.onCurve(b);

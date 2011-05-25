@@ -1,7 +1,19 @@
+goog.provide("trapeze.font.PDFFont");
+goog.require("trapeze.font.OutlineFont");
+goog.require("trapeze.font.Type3Font");
+goog.require("trapeze.font.Type1Font");
+goog.require("trapeze.font.Type1CFont");
+goog.require("trapeze.font.Type0Font");
+goog.require("trapeze.font.TTFFont");
+goog.require("trapeze.font.PDFFontEncoding");
+goog.require("trapeze.font.PDFFontDescriptor");
+goog.require("trapeze.font.CIDFontType2");
+goog.require("trapeze.font.BuiltInFont");
+
 /**
  * The base object that all other fonts inherit from.
  */
-function PDFFont(baseFont, descriptor) {
+trapeze.font.PDFFont = function(baseFont, descriptor) {
 	this.baseFont = baseFont;
 	this.descriptor = descriptor;
 	this.subType;
@@ -14,7 +26,7 @@ function PDFFont(baseFont, descriptor) {
  * @param text the text to translate into glyphs
  * @return array of PDFGlyph
  */
-PDFFont.prototype.getGlyphs = function(text) {
+trapeze.font.PDFFont.prototype.getGlyphs = function(text) {
 	if(this.encoding != null) {
 		return this.encoding.getGlyphs(this, text);
 	} else {
@@ -37,7 +49,7 @@ PDFFont.prototype.getGlyphs = function(text) {
  * @param name the name of the glyph, or null if the name is unknown
  * @return PDFGlyph a glyph for this character
  */
-PDFFont.prototype.getCachedGlyph = function(src, name) {
+trapeze.font.PDFFont.prototype.getCachedGlyph = function(src, name) {
 	if(this.glyphCache[src] != null) {
 		return this.glyphCache[src];
 	}
@@ -49,7 +61,7 @@ PDFFont.prototype.getCachedGlyph = function(src, name) {
  * Static function to get the right font object.
  *
  */
-PDFFont.getFont = function(obj, resources) {
+trapeze.font.PDFFont.getFont = function(obj, resources) {
 
 	if(obj['cachedFont'] != null)
 		return obj['cachedFont'];
@@ -75,48 +87,48 @@ PDFFont.getFont = function(obj, resources) {
 	}
 
 	if (encodingObj != null) {
-		encoding = new PDFFontEncoding(subType, encodingObj);
+		encoding = new trapeze.font.PDFFontEncoding(subType, encodingObj);
 	}
 
 	if (descObj != null) {
-		descriptor = new PDFFontDescriptor(descObj);
+		descriptor = new trapeze.font.PDFFontDescriptor(descObj);
 	} else {
-		descriptor = new PDFFontDescriptor(baseFont);
+		descriptor = new trapeze.font.PDFFontDescriptor(baseFont);
 	}
 
 	if (subType == "Type0") {
-		font = new Type0Font(baseFont, obj, descriptor);
+		font = new trapeze.font.Type0Font(baseFont, obj, descriptor);
 	} else if (subType == "Type1") {
 		// load a type1 font
 		if (descriptor == null) { // TODO this can't happen remove this
 			// it's one of the built-in fonts
-			font = new BuiltInFont(baseFont, obj);
+			font = new trapeze.font.BuiltInFont(baseFont, obj);
 		} else if (descriptor.fontFile != null) {
 			// it's a Type1 font, included.
-			font = new Type1Font(baseFont, obj, descriptor);
+			font = new trapeze.font.Type1Font(baseFont, obj, descriptor);
 		} else if (descriptor.fontFile3 != null) {
 			// it's a CFF (Type1C) font
-			font = new Type1CFont(baseFont, obj, descriptor);
+			font = new trapeze.font.Type1CFont(baseFont, obj, descriptor);
 		} else {
 			// no font info. Fake it based on the FontDescriptor
 			//		System.out.println("Fakeout native font");
-			font = new BuiltInFont(baseFont, obj, descriptor);
+			font = new trapeze.font.BuiltInFont(baseFont, obj, descriptor);
 		}
 	} else if (subType == "TrueType") {
 		if (descriptor.fontFile2 != null) {
 			// load a TrueType font
-			font = new TTFFont(baseFont, obj, descriptor);
+			font = new trapeze.font.TTFFont(baseFont, obj, descriptor);
 		} else {
 			// fake it with a built-in font
-			font = new BuiltInFont(baseFont, obj, descriptor);
+			font = new trapeze.font.BuiltInFont(baseFont, obj, descriptor);
 		}
 	} else if (subType == "Type3") {
 		// load a type 3 font
-		font = new Type3Font(baseFont, obj, resources, descriptor);
+		font = new trapeze.font.Type3Font(baseFont, obj, resources, descriptor);
 	} else if (subType == "CIDFontType2") {
-		font = new CIDFontType2(baseFont, obj, descriptor);
+		font = new trapeze.font.CIDFontType2(baseFont, obj, descriptor);
 	} else if (subType == "CIDFontType0") {
-		font = new CIDFontType2(baseFont, obj, descriptor);
+		font = new trapeze.font.CIDFontType2(baseFont, obj, descriptor);
 //            font = new CIDFontType0(baseFont, obj, descriptor);
 //            throw new IOException ("CIDFontType0 is unimplemented. " + obj);
 	} else {

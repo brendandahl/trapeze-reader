@@ -1,13 +1,15 @@
+goog.provide("trapeze.PDFStreamEngine");
+goog.require("trapeze.PDFOperatorMap");
 goog.require("trapeze.Commander");
 goog.require("trapeze.cos.COSObject");
-function PDFStreamEngine(canvas, initialMatrix) {
+trapeze.PDFStreamEngine = function(canvas, initialMatrix) {
     this.page;
 	this.canvas = canvas;
 	this.initialMatrix = initialMatrix;
 	this.resources;
 	this.processStream = function(aPage, resources, cosStream) {
 		this.commander = new trapeze.Commander(this.canvas, resources, this.initialMatrix, this);
-		this.map = new PDFOperatorMap(this.commander).map;
+		this.map = new trapeze.PDFOperatorMap(this.commander).map;
 		this.resources = resources;
 		this.processSubStream(aPage, resources, cosStream);
 	};
@@ -30,7 +32,7 @@ function PDFStreamEngine(canvas, initialMatrix) {
 			var next = tokens[i];
 			if( next instanceof trapeze.cos.COSObject ) {
 				arguments.push( next.getObject() );
-			} else if( next instanceof PDFOperator ) {
+			} else if( next instanceof trapeze.PDFOperator ) {
 				this.processOperator( next, arguments, (i + 1) == length  );
 				arguments = [];
 			} else {

@@ -1,8 +1,11 @@
-function FunctionType0() {
-	FunctionType0.baseConstructor.call(this, PDFFunction.TYPE0);
+goog.provide("trapeze.function.FunctionType0");
+goog.require("trapeze.function.PDFFunction");
+goog.require("trapeze.StreamBuffer");
+trapeze.function.FunctionType0 = function() {
+	trapeze.function.FunctionType0.baseConstructor.call(this, trapeze.function.PDFFunction.TYPE0);
 }
-extend(FunctionType0, PDFFunction);
-FunctionType0.prototype.parse = function(obj) {
+extend(trapeze.function.FunctionType0, trapeze.function.PDFFunction);
+trapeze.function.FunctionType0.prototype.parse = function(obj) {
 	// read the size array (required)
 	var dictObj = obj.dictionary;
 	var sizeObj = dictObj.getDictionaryObject("Size");
@@ -52,9 +55,9 @@ FunctionType0.prototype.parse = function(obj) {
 	}
 	
 	// finally, read the samples
-	this.setSamples(this.readSamples(new StreamBuffer(obj.decode())));
+	this.setSamples(this.readSamples(new trapeze.StreamBuffer(obj.decode())));
 }
-FunctionType0.prototype.setSize = function(size) {
+trapeze.function.FunctionType0.prototype.setSize = function(size) {
 	this.size = size;
 }
 /**
@@ -63,31 +66,31 @@ FunctionType0.prototype.setSize = function(size) {
  * @param dimension the input dimension to get the size of
  * @return the number of samples in the given dimension
  */
-FunctionType0.prototype.getSize = function(dimension) {
+trapeze.function.FunctionType0.prototype.getSize = function(dimension) {
 	return this.size[dimension];
 }
 /** 
  * Get the number of bits per sample
  */
-FunctionType0.prototype.getBitsPerSample = function() {
+trapeze.function.FunctionType0.prototype.getBitsPerSample = function() {
 	return this.bitsPerSample;
 }
-FunctionType0.prototype.setBitsPerSample = function(bits) {
+trapeze.function.FunctionType0.prototype.setBitsPerSample = function(bits) {
 	this.bitsPerSample = bits;
 }
-FunctionType0.prototype.setOrder = function(order) {
+trapeze.function.FunctionType0.prototype.setOrder = function(order) {
 	this.order = order;
 }
-FunctionType0.prototype.setEncode = function(encode) {
+trapeze.function.FunctionType0.prototype.setEncode = function(encode) {
 	this.encode = encode;
 }
-FunctionType0.prototype.setDecode = function(decode) {
+trapeze.function.FunctionType0.prototype.setDecode = function(decode) {
 	this.decode = decode;
 }
 /**
  * Set the table of samples
  */
-FunctionType0.prototype.setSamples = function(samples) {
+trapeze.function.FunctionType0.prototype.setSamples = function(samples) {
 	this.samples = samples;
 }
  /**
@@ -95,7 +98,7 @@ FunctionType0.prototype.setSamples = function(samples) {
  * of <i>n</i> components, each of which has length <i>bitsPerSample</i>
  * bits.  The samples are arranged by dimension, then range
  */
-FunctionType0.prototype.readSamples = function(buf) {
+trapeze.function.FunctionType0.prototype.readSamples = function(buf) {
 	// calculate the number of samples in the table
 	var size = 1;
 	for (var i = 0; i < this.getNumInputs(); i++) {

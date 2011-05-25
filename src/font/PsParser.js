@@ -1,3 +1,5 @@
+goog.provide("trapeze.font.PSParser");
+goog.require("trapeze.font.Type1Font");
 /**
  * PostScript reader (not a parser, as the name would seem to indicate).
  */
@@ -7,7 +9,7 @@
  * @param data the bytes of the postscript information
  * @param start an initial offset into the data
  */
-function PSParser(data, start) {
+trapeze.font.PSParser = function(data, start) {
 
 	this.data = data;
 	this.loc = start;
@@ -87,7 +89,7 @@ function PSParser(data, start) {
 	 * will be n-skip.
 	 */
 	this.getNEncodedBytes = function(n, key, skip) {
-		var result = Type1Font.decrypt(this.data, this.loc, this.loc + n, key, skip);
+		var result = trapeze.font.Type1Font.decrypt(this.data, this.loc, this.loc + n, key, skip);
 		this.loc += n;
 		return result;
 	}

@@ -1,12 +1,14 @@
-function Type0Font(baseFont, fontObj, descriptor) {
-	Type0Font.baseConstructor.call(this, baseFont, fontObj, descriptor);
+goog.provide("trapeze.font.Type0Font");
+goog.require("trapeze.font.PDFFont");
+trapeze.font.Type0Font = function(baseFont, fontObj, descriptor) {
+	trapeze.font.Type0Font.baseConstructor.call(this, baseFont, fontObj, descriptor);
 	var descendantFonts = fontObj.getDictionaryObject("DescendantFonts");
 	
 	var size = descendantFonts.size();
 	this.fonts = new Array(size);
 	
 	for(var i = 0; i < size; i++) {
-		this.fonts[i] = PDFFont.getFont(descendantFonts.getObject(i), null);
+		this.fonts[i] = trapeze.font.PDFFont.getFont(descendantFonts.getObject(i), null);
 	}
 }
-extend(Type0Font, PDFFont);
+extend(trapeze.font.Type0Font, trapeze.font.PDFFont);

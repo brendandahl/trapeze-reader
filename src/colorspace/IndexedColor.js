@@ -1,3 +1,6 @@
+goog.provide("trapeze.colorspace.IndexedColor");
+goog.require("trapeze.colorspace.PDFColorSpace");
+goog.require("trapeze.StreamBuffer");
 goog.require("trapeze.cos.COSString");
 goog.require("trapeze.cos.COSStream");
 /**
@@ -11,8 +14,8 @@ goog.require("trapeze.cos.COSStream");
  * @param PDFObject stream a stream of bytes.  The number of bytes must be count*n,
  * where n is the number of components in the base colorspace.
  */
-function IndexedColor(base, count, stream) {
-	IndexedColor.baseConstructor.call(this, null);
+trapeze.colorspace.IndexedColor = function(base, count, stream) {
+	trapeze.colorspace.IndexedColor.baseConstructor.call(this, null);
 	/**
      * r,g,and b components of the color table as a single array, for
      * Java's IndexColorModel */
@@ -34,7 +37,7 @@ function IndexedColor(base, count, stream) {
 	else
 		throw new UnimplementedException("Unknown type of indexed colorspace");
 
-	var data = new StreamBuffer(value);
+	var data = new trapeze.StreamBuffer(value);
 	this.nchannels = base.getNumComponents();
 	var offSized = (data.getLimit() / this.nchannels) < count;
 	this.finalcolors = new Array(3 * count);
@@ -57,11 +60,11 @@ function IndexedColor(base, count, stream) {
 		this.finalcolors[finalloc++] = this.table[i][2];//.getBlue();
 	}
 }
-extend(IndexedColor, PDFColorSpace);
+extend(trapeze.colorspace.IndexedColor, trapeze.colorspace.PDFColorSpace);
 /**
  * get the number of components of this colorspace (1)
  */
-IndexedColor.prototype.getNumComponents = function() {
+trapeze.colorspace.IndexedColor.prototype.getNumComponents = function() {
 	return 1;
 }
 /**
@@ -69,14 +72,14 @@ IndexedColor.prototype.getNumComponents = function() {
  * @param components an array of exactly one integer number whose
  * value is between 0 and the size of the color table - 1.
  */
-IndexedColor.prototype.getPaint = function(components) {
+trapeze.colorspace.IndexedColor.prototype.getPaint = function(components) {
 	if(!this.table[components[0]])
 		throw new ParseException("Unknown indexed color for index " + components[0]);
 	return this.table[components[0]];
 }
-IndexedColor.prototype.toRGB = function(components) {
+trapeze.colorspace.IndexedColor.prototype.toRGB = function(components) {
 	return this.getPaint(components);
 }
-IndexedColor.prototype.toString = function() {
+trapeze.colorspace.IndexedColor.prototype.toString = function() {
 	return 'IndexedColor';
 }

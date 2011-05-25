@@ -1,3 +1,4 @@
+goog.provide("trapeze.FauxConsole");
 /**
  * Mock console to pass so we can still use some debugging inside web worker
  */

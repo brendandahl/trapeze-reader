@@ -1,4 +1,5 @@
-function LocaTable(ttf) {
+goog.provide("trapeze.font.LocaTable");
+trapeze.font.LocaTable = function(ttf) {
 	var maxp = ttf.getTable("maxp");
 	var numGlyphs = maxp.numGlyphs;
 

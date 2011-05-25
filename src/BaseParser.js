@@ -1,3 +1,4 @@
+goog.provide("trapeze.BaseParser");
 goog.require("trapeze.cos.COSArray");
 goog.require("trapeze.cos.COSString");
 goog.require("trapeze.cos.COSBoolean");
@@ -9,10 +10,10 @@ goog.require("trapeze.cos.COSObject");
 goog.require("trapeze.cos.COSObjectKey");
 goog.require("trapeze.cos.COSStream");
 
-function BaseParser() {
+trapeze.BaseParser = function() {
 }
 
-BaseParser.prototype.parseCOSStream = function(dictionary) {
+trapeze.BaseParser.prototype.parseCOSStream = function(dictionary) {
 	// Strip off any new line stuff before the string
 	this.stream.readLine();
 	/*
@@ -41,7 +42,7 @@ BaseParser.prototype.parseCOSStream = function(dictionary) {
  *
  * @throws IOException IF there is an error reading the stream.
  */
-BaseParser.prototype.parseCOSDictionary = function() {
+trapeze.BaseParser.prototype.parseCOSDictionary = function() {
 	// Make sure we start with <<
 	var c = this.stream.read();
 	if(c != "<")
@@ -92,7 +93,7 @@ BaseParser.prototype.parseCOSDictionary = function() {
 	}
 	return obj;
 };
-BaseParser.prototype.parseCOSDictionaryValue = function() {
+trapeze.BaseParser.prototype.parseCOSDictionaryValue = function() {
 	var retval = null;
 	var number = this.parseDirObject();
 	this.skipSpaces();
@@ -122,7 +123,7 @@ BaseParser.prototype.parseCOSDictionaryValue = function() {
  * @return The parsed PDF array.
  *
  */
-BaseParser.prototype.parseCOSArray = function() {
+trapeze.BaseParser.prototype.parseCOSArray = function() {
 	var po = new trapeze.cos.COSArray();
 	var pbo = null;
 	this.skipSpaces();
@@ -175,7 +176,7 @@ BaseParser.prototype.parseCOSArray = function() {
  * read a name (sequence of non-PDF-delimiting characters) from the
  * stream.
  */
-BaseParser.prototype.parseCOSName = function() {
+trapeze.BaseParser.prototype.parseCOSName = function() {
 	var c;
 	var sb = "";
 	while (this.stream.getPosition() < this.stream.getLimit() && this.isRegularCharacter(c = this.stream.read())) {
@@ -184,7 +185,7 @@ BaseParser.prototype.parseCOSName = function() {
 	this.stream.rewindOne();
 	return new trapeze.cos.COSName(sb);
 }
-BaseParser.prototype.parseCOSNumber = function() {
+trapeze.BaseParser.prototype.parseCOSNumber = function() {
 	var c = this.stream.read();
 	var neg = c == '-';
 	var sawdot = c == '.';
@@ -229,7 +230,7 @@ BaseParser.prototype.parseCOSNumber = function() {
  * @return the string with escape sequences replaced with their
  * values
  */
-BaseParser.prototype.parseCOSString = function() {
+trapeze.BaseParser.prototype.parseCOSString = function() {
 	var parenLevel = 0;
 	var sb = "";
 	var openBrace = this.stream.read();
@@ -290,7 +291,7 @@ BaseParser.prototype.parseCOSString = function() {
 	else
 		return new trapeze.cos.COSString(sb);
 }
-BaseParser.prototype.skipSpaces = function() {
+trapeze.BaseParser.prototype.skipSpaces = function() {
 	if(!this.stream.hasRemaining())
 		return;
 	var c = this.stream.read();
@@ -322,7 +323,7 @@ BaseParser.prototype.skipSpaces = function() {
 /**
  * read a floating point number from the stream
  */
-BaseParser.prototype.readNum = function() {
+trapeze.BaseParser.prototype.readNum = function() {
 	var c = this.stream.read();
 	var neg = c == '-';
 	var sawdot = c == '.';
@@ -359,7 +360,7 @@ BaseParser.prototype.readNum = function() {
  * Is the argument a white space character according to the PDF spec?.
  * ISO Spec 32000-1:2008 - Table 1
  */
-BaseParser.prototype.isWhiteSpace = function(c) {
+trapeze.BaseParser.prototype.isWhiteSpace = function(c) {
 	switch (c) {
 		case ' ':	// Space (SP)
 		case '\n':	// Line Feed (LF)
@@ -374,7 +375,7 @@ BaseParser.prototype.isWhiteSpace = function(c) {
 }
 
 
-BaseParser.prototype.readString = function() {
+trapeze.BaseParser.prototype.readString = function() {
 	this.skipSpaces();
 	var c;
 	var sb = "";
@@ -385,7 +386,7 @@ BaseParser.prototype.readString = function() {
 		this.stream.rewindOne();
 	return sb;
 }
-BaseParser.prototype.parseDirObject = function() {
+trapeze.BaseParser.prototype.parseDirObject = function() {
 	this.skipSpaces();
 	var c = this.stream.read();
 	var peek = this.stream.peek();
@@ -436,7 +437,7 @@ BaseParser.prototype.parseDirObject = function() {
  * @param c the character to test
  * @return boolean
  */
-BaseParser.prototype.isRegularCharacter = function(c) {
+trapeze.BaseParser.prototype.isRegularCharacter = function(c) {
 	return !(this.isWhiteSpace(c) || this.isDelimiter(c));
 }
 /**
@@ -446,7 +447,7 @@ BaseParser.prototype.isRegularCharacter = function(c) {
  *
  * @param c the character to test
  */
-BaseParser.prototype.isDelimiter = function(c) {
+trapeze.BaseParser.prototype.isDelimiter = function(c) {
 	switch (c) {
 		case '(':   // LEFT PARENTHESIS
 		case ')':   // RIGHT PARENTHESIS
@@ -469,7 +470,7 @@ BaseParser.prototype.isDelimiter = function(c) {
  * @param ch The character
  * @return <code>true</code> if the character terminates a PDF name, otherwise <code>false</code>.
  */
-BaseParser.prototype.isEndOfName = function(ch) {
+trapeze.BaseParser.prototype.isEndOfName = function(ch) {
 	return (ch == ' ' || ch == '\r'	|| ch == '\n' || ch == '\t' || ch == '>' || ch == '<'
 		|| ch == '[' || ch =='/' || ch ==']' || ch ==')' || ch =='(' ||
 		ch == -1 //EOF
@@ -480,7 +481,7 @@ BaseParser.prototype.isEndOfName = function(ch) {
  * Is the argument a white space character according to the PDF spec?.
  * ISO Spec 32000-1:2008 - Table 1
  */
-BaseParser.isWhiteSpace = function(c) {
+trapeze.BaseParser.isWhiteSpace = function(c) {
 	switch (c) {
 		case ' ':	// Space (SP)
 		case '\n':	// Line Feed (LF)

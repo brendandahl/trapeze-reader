@@ -1,7 +1,10 @@
+goog.provide("trapeze.font.PDFFontEncoding");
+goog.require("trapeze.font.PDFCMap");
+goog.require("trapeze.font.FontSupport");
 goog.require("trapeze.cos.COSDictionary");
 goog.require("trapeze.cos.COSName");
 goog.require("trapeze.cos.COSNumber");
-function PDFFontEncoding(fontType, encoding) {
+trapeze.font.PDFFontEncoding = function(fontType, encoding) {
 		this.differences = {};
 		if(encoding instanceof trapeze.cos.COSDictionary) {
 			// loook at the "Type" entry of the encoding to determine the type
@@ -9,12 +12,12 @@ function PDFFontEncoding(fontType, encoding) {
 
             if (typeStr == "Encoding") {
                 // it is an encoding
-                this.type = PDFFontEncoding.TYPE_ENCODING;
+                this.type = trapeze.font.PDFFontEncoding.TYPE_ENCODING;
                 this.parseEncoding(encoding);
             } else if (typeStr == "CMap") {
                 // it is a CMap
-                this.type = PDFFontEncoding.TYPE_CMAP;
-                this.cmap = PDFCMap.getCMap(encoding);
+                this.type = trapeze.font.PDFFontEncoding.TYPE_CMAP;
+                this.cmap = trapeze.font.PDFCMap.getCMap(encoding);
             } else {
                 throw "Uknown encoding type: " + type;
             }
@@ -22,10 +25,10 @@ function PDFFontEncoding(fontType, encoding) {
             // if the encoding is a String, it is the name of an encoding
             // or the name of a CMap, depending on the type of the font
             if (fontType == "Type0") {
-                this.type = PDFFontEncoding.TYPE_CMAP;
-                this.cmap = PDFCMap.getCMap(encoding);
+                this.type = trapeze.font.PDFFontEncoding.TYPE_CMAP;
+                this.cmap = trapeze.font.PDFCMap.getCMap(encoding);
             } else {
-                this.type = PDFFontEncoding.TYPE_ENCODING;
+                this.type = trapeze.font.PDFFontEncoding.TYPE_ENCODING;
 
                 this.differences = {};
                 this.baseEncoding = this.getBaseEncoding(encoding.name);
@@ -42,13 +45,13 @@ function PDFFontEncoding(fontType, encoding) {
             } else if (typeStr.equals("CMap")) {
                 // it is a CMap
                 type = TYPE_CMAP;
-                cmap = PDFCMap.getCMap(encoding);
+                cmap = trapeze.font.PDFCMap.getCMap(encoding);
             } else {
                 throw new IllegalArgumentException("Uknown encoding type: " + type);
             } */
         } 
 }
-PDFFontEncoding.prototype.parseEncoding = function(encoding) {
+trapeze.font.PDFFontEncoding.prototype.parseEncoding = function(encoding) {
 		this.differences = {}; // char to string map
 
         // figure out the base encoding, if one exists
@@ -77,27 +80,27 @@ PDFFontEncoding.prototype.parseEncoding = function(encoding) {
             }
         }
 }
-PDFFontEncoding.prototype.getBaseEncoding = function(encodingName) {
+trapeze.font.PDFFontEncoding.prototype.getBaseEncoding = function(encodingName) {
         if (encodingName == "MacRomanEncoding") {
-            return FontSupport.macRomanEncoding;
+            return trapeze.font.FontSupport.macRomanEncoding;
         } else if (encodingName == "MacExpertEncoding") {
-            return FontSupport.type1CExpertCharset;
+            return trapeze.font.FontSupport.type1CExpertCharset;
         } else if (encodingName == "WinAnsiEncoding") {
-            return FontSupport.winAnsiEncoding;
+            return trapeze.font.FontSupport.winAnsiEncoding;
         } else {
             throw "Unknown encoding: " + encodingName;
         }
 }
-PDFFontEncoding.prototype.getGlyphs = function(font, text) {
+trapeze.font.PDFFontEncoding.prototype.getGlyphs = function(font, text) {
 	var outList = [];
 
 	// go character by character through the text
 	for (var i = 0; i < text.length; i++) {
 		switch (this.type) {
-			case PDFFontEncoding.TYPE_ENCODING:
+			case trapeze.font.PDFFontEncoding.TYPE_ENCODING:
 				outList.push(this.getGlyphFromEncoding(font, text.charAt(i)));
 				break;
-			case PDFFontEncoding.TYPE_CMAP:
+			case trapeze.font.PDFFontEncoding.TYPE_CMAP:
 /* 				// 2 bytes -> 1 character in a CMap
 				var c = ((arry[i] & 0xff) << 8);
 				if (i < arry.length - 1) {
@@ -110,7 +113,7 @@ PDFFontEncoding.prototype.getGlyphs = function(font, text) {
 
 	return outList;
 }
-PDFFontEncoding.prototype.getGlyphFromEncoding = function(font, src) {
+trapeze.font.PDFFontEncoding.prototype.getGlyphFromEncoding = function(font, src) {
 	var charName;
 
 	// see if this character is in the differences list
@@ -119,10 +122,10 @@ PDFFontEncoding.prototype.getGlyphFromEncoding = function(font, src) {
 	} else if (this.baseEncoding != null) {
 		// get the character name from the base encoding
 		var charID = this.baseEncoding[src.charCodeAt(0)];//[toSignedByte(src)];
-		charName = FontSupport.getName(charID);
+		charName = trapeze.font.FontSupport.getName(charID);
 	}
 
 	return font.getCachedGlyph(src, charName);
 }
-PDFFontEncoding.TYPE_ENCODING = 0;
-PDFFontEncoding.TYPE_CMAP = 1;
+trapeze.font.PDFFontEncoding.TYPE_ENCODING = 0;
+trapeze.font.PDFFontEncoding.TYPE_CMAP = 1;

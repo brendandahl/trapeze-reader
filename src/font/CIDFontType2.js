@@ -1,7 +1,9 @@
+goog.provide("trapeze.font.CIDFontType2");
+goog.require("trapeze.font.TTFFont");
 goog.require("trapeze.cos.COSArray");
 goog.require("trapeze.cos.COSStream");
-function CIDFontType2(baseFont, fontObj, descriptor) {
-	CIDFontType2.baseConstructor.call(this, baseFont, fontObj, descriptor);
+trapeze.font.CIDFontType2 = function(baseFont, fontObj, descriptor) {
+	trapeze.font.CIDFontType2.baseConstructor.call(this, baseFont, fontObj, descriptor);
 	/**
      * The width of each glyph from the DW and W arrays
      */
@@ -35,9 +37,9 @@ function CIDFontType2(baseFont, fontObj, descriptor) {
 		this.cidToGidMap = mapObj.getStreamBuffer();
 	}
 }
-extend(CIDFontType2, TTFFont);
+extend(trapeze.font.CIDFontType2, trapeze.font.TTFFont);
 
-CIDFontType2.prototype.parseWidths = function(fontObj) {
+trapeze.font.CIDFontType2.prototype.parseWidths = function(fontObj) {
 	// read the default width (otpional)
 	var defaultWidthObj = fontObj.getDictionaryObject("DW");
 	if (defaultWidthObj != null) {
@@ -170,6 +172,6 @@ CIDFontType2.prototype.parseWidths = function(fontObj) {
  * @return int default width
  * @override
  */
-CIDFontType2.prototype.getDefaultWidth = function() {
+trapeze.font.CIDFontType2.prototype.getDefaultWidth = function() {
 	return this.defaultWidth;
 }

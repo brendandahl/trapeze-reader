@@ -1,4 +1,5 @@
 goog.provide("trapeze.cos.COSStreamArray");
+goog.require("trapeze.PDFStreamParser");
 trapeze.cos.COSStreamArray = function(base) {
 	this.streams = base;
 	
@@ -10,7 +11,7 @@ trapeze.cos.COSStreamArray = function(base) {
 		return out;
 	};
 	this.getStreamTokens = function() {
-		var parser = new PDFStreamParser( this );
+		var parser = new trapeze.PDFStreamParser( this );
         parser.parse();
         return parser.getTokens();
 	};

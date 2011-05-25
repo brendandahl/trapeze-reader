@@ -1,4 +1,7 @@
-function ASCII85Filter() {
+goog.provide("trapeze.filter.ASCII85Filter");
+goog.require("trapeze.StreamBuffer");
+goog.require("trapeze.BaseParser");
+trapeze.filter.ASCII85Filter = function() {
 	var buf =  null;
 	 /**
      * get the next character from the input.
@@ -10,7 +13,7 @@ function ASCII85Filter() {
         while (buf.remaining() > 0) {
             var c = buf.get();
 
-            if (!BaseParser.isWhiteSpace(String.fromCharCode(c))) {
+            if (!trapeze.BaseParser.isWhiteSpace(String.fromCharCode(c))) {
                 return c;
             }
         }
@@ -77,7 +80,7 @@ function ASCII85Filter() {
         return (i == 4);
     }
 	this.decode = function(stream) {
-		buf = new StreamBuffer(stream);
+		buf = new trapeze.StreamBuffer(stream);
 		var baos = {
 			output: [],
 			write: function(b) {

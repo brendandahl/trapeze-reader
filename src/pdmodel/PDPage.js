@@ -1,4 +1,10 @@
-function PDPage(pageDic) {
+goog.provide("trapeze.pdmodel.PDPage");
+goog.require("trapeze.pdmodel.PDStream");
+goog.require("trapeze.pdmodel.PDResources");
+goog.require("trapeze.pdmodel.PDPageNode");
+goog.require("trapeze.Rectangle2D");
+goog.require("trapeze.AffineTransform");
+trapeze.pdmodel.PDPage = function(pageDic) {
 	this.page = pageDic;
 	/**
      * A rectangle, expressed
@@ -17,7 +23,7 @@ function PDPage(pageDic) {
         var array = this.page.getDictionaryObject('MediaBox');
         if( array != null )
         {
-			retval = new Rectangle2D(
+			retval = new trapeze.Rectangle2D(
 				array.getObject(0).value,
 				array.getObject(1).value,
 				array.getObject(2).value - array.getObject(0).value,
@@ -62,7 +68,7 @@ function PDPage(pageDic) {
         var parentDic = this.page.getDictionaryObjectTwoKey( "Parent", "P" );
         if( parentDic != null )
         {
-            parent = new PDPageNode( parentDic );
+            parent = new trapeze.pdmodel.PDPageNode( parentDic );
         }
         return parent;
     }
@@ -80,7 +86,7 @@ function PDPage(pageDic) {
         var resources = this.page.getDictionaryObject( 'Resources' );
         if( resources != null )
         {
-            retval = new PDResources( resources );
+            retval = new trapeze.pdmodel.PDResources( resources );
         }
         return retval;
     }
@@ -111,7 +117,7 @@ function PDPage(pageDic) {
      */
     this.getContents = function()
     {
-        return PDStream.createFromCOS( this.page.getDictionaryObject( 'Contents' ) );
+        return trapeze.pdmodel.PDStream.createFromCOS( this.page.getDictionaryObject( 'Contents' ) );
     }
 	
 	this.drawToCanvas = function()
@@ -136,20 +142,20 @@ function PDPage(pageDic) {
      *             the page's bounding box
      */
     this.getInitialTransform = function(width, height){ // TODO, clip) {
-        var at = new AffineTransform();
+        var at = new trapeze.AffineTransform();
         switch (this.getRotation()) {
         // TODDO switch (getRotation()) {
             case 0:
-                at = new AffineTransform(1, 0, 0, -1, 0, height);
+                at = new trapeze.AffineTransform(1, 0, 0, -1, 0, height);
                 break;
             case 90:
-                at = new AffineTransform(0, 1, 1, 0, 0, 0);
+                at = new trapeze.AffineTransform(0, 1, 1, 0, 0, 0);
                 break;
             case 180:
-                at = new AffineTransform(-1, 0, 0, 1, width, 0);
+                at = new trapeze.AffineTransform(-1, 0, 0, 1, width, 0);
                 break;
             case 270:
-                at = new AffineTransform(0, -1, -1, 0, width, height);
+                at = new trapeze.AffineTransform(0, -1, -1, 0, width, height);
                 break;
         }
 
@@ -201,7 +207,7 @@ function PDPage(pageDic) {
 			clip = bbox;
         } else {
             if (this.getRotation() == 90 || this.getRotation() == 270) {
-                clip = new Rectangle2D(
+                clip = new trapeze.Rectangle2D(
 					clip.getX(),
 					clip.getY(),
 					clip.getHeight(),

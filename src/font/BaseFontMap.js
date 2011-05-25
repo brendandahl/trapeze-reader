@@ -1,4 +1,5 @@
-BaseFontMap = {
+goog.provide("trapeze.font.BaseFontMap");
+trapeze.font.BaseFontMap = {
 	"Courier": {
 		"file": "n022003l.pfb",
 		"length": 96263

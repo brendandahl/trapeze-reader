@@ -1,5 +1,9 @@
+goog.provide("trapeze.pdmodel.PDPageNode");
+goog.require("trapeze.pdmodel.PDResources");
+goog.require("trapeze.pdmodel.PDPage");
+goog.require("trapeze.Rectangle2D");
 goog.require("trapeze.cos.COSDictionary");
-function PDPageNode(pages) {
+trapeze.pdmodel.PDPageNode = function(pages) {
 	this.page = pages;
 	/**
      * This will get the count of descendent page objects.
@@ -12,7 +16,7 @@ function PDPageNode(pages) {
     }
 	
 	this.getAllKids = function(result) {
-		PDPageNode.getAllKidsStatic(result, this.page, true);
+		trapeze.pdmodel.PDPageNode.getAllKidsStatic(result, this.page, true);
 	};
 	
 	/**
@@ -26,7 +30,7 @@ function PDPageNode(pages) {
         var parentDic = this.page.getDictionaryObjectTwoKey( "Parent", "P" );
         if( parentDic != null )
         {
-            parent = new PDPageNode( parentDic );
+            parent = new trapeze.pdmodel.PDPageNode( parentDic );
         }
         return parent;
     }
@@ -43,7 +47,7 @@ function PDPageNode(pages) {
         var array = this.page.getDictionaryObject( 'MediaBox' );
         if( array != null )
         {
-            retval = new Rectangle2D(
+            retval = new trapeze.Rectangle2D(
 				array.getObject(0).value,
 				array.getObject(1).value,
 				array.getObject(2).value - array.getObject(0).value,
@@ -81,7 +85,7 @@ function PDPageNode(pages) {
         var resources = this.page.getDictionaryObject( 'Resources' );
         if( resources != null )
         {
-            retval = new PDResources( resources );
+            retval = new trapeze.pdmodel.PDResources( resources );
         }
         return retval;
     }
@@ -104,13 +108,13 @@ function PDPageNode(pages) {
 	
 }
 /**
- * This will return all kids of the given page node as PDPage.
+ * This will return all kids of the given page node as trapeze.pdmodel.PDPage.
  *
  * @param result All direct and optionally indirect descendents of this node are added to this list.
  * @param page Page dictionary of a page node.
  * @param recurse if true indirect descendents are processed recursively
  */
-PDPageNode.getAllKidsStatic = function (result, page, recurse)
+trapeze.pdmodel.PDPageNode.getAllKidsStatic = function (result, page, recurse)
 {
 	var kids = page.getDictionaryObject( 'Kids' );
 	if(kids == null)
@@ -123,17 +127,17 @@ PDPageNode.getAllKidsStatic = function (result, page, recurse)
 			var kid = obj;
 			if( 'Page' == kid.getDictionaryObject( 'Type' ).name )
 			{
-				result.push( new PDPage( kid ) );
+				result.push( new trapeze.pdmodel.PDPage( kid ) );
 			}
 			else
 			{
 				if (recurse)
 				{
-					PDPageNode.getAllKidsStatic(result, kid, recurse);
+					trapeze.pdmodel.PDPageNode.getAllKidsStatic(result, kid, recurse);
 				}
 				else
 				{
-					result.push( new PDPageNode( kid ) );
+					result.push( new trapeze.pdmodel.PDPageNode( kid ) );
 				}
 			}
 		}

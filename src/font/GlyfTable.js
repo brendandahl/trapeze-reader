@@ -1,4 +1,7 @@
-function GlyfTable(ttf) {
+goog.provide("trapeze.font.GlyfTable");
+goog.require("trapeze.font.Glyf");
+goog.require("trapeze.StreamBuffer");
+trapeze.font.GlyfTable = function(ttf) {
 	this.loca = ttf.getTable("loca");
 
 	this.maxp = ttf.getTable("maxp");
@@ -25,8 +28,8 @@ function GlyfTable(ttf) {
             return null;
         }
         
-        if (o instanceof StreamBuffer) {
-            var g = Glyf.getGlyf(o);
+        if (o instanceof trapeze.StreamBuffer) {
+            var g = trapeze.font.Glyf.getGlyf(o);
             this.glyfs[index] = g;
             return g;
         } else {

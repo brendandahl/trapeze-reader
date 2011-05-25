@@ -1,10 +1,11 @@
-function AsyncFileReader(url, context, callback, progress) {
+goog.provide("trapeze.AsyncFileReader");
+trapeze.AsyncFileReader = function(url, context, callback, progress) {
 	this.url = url;
 	this.callback = callback;
 	this.progress = progress;
 	this.context = context;
 }
-AsyncFileReader.prototype.start = function() {
+trapeze.AsyncFileReader.prototype.start = function() {
 	var that = this;
 	if(this.url instanceof File) {
 		var reader = new FileReader();

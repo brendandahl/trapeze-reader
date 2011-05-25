@@ -1,11 +1,15 @@
+goog.provide("trapeze.font.OutlineFont");
+goog.require("trapeze.font.PDFFont");
+goog.require("trapeze.font.PDFGlyph");
+
 /**
  * Supports width operations for Type1, Type1C, TrueType and Type3 fonts
  * @param string baseFont
  * @param {trapeze.cos.COSDictionary} fontObj
  * @param PDFFontDescriptor descriptor
  */
-function OutlineFont(baseFont, fontObj, descriptor) {
-	OutlineFont.baseConstructor.call(this, baseFont, descriptor);
+trapeze.font.OutlineFont = function(baseFont, fontObj, descriptor) {
+	trapeze.font.PDFFont.call(this, baseFont, descriptor);
 	
 	this.firstChar = -1;
 	this.lastChar = -1;
@@ -30,11 +34,11 @@ function OutlineFont(baseFont, fontObj, descriptor) {
 		}
 	}
 }
-extend(OutlineFont, PDFFont);
+goog.inherits(trapeze.font.OutlineFont, trapeze.font.PDFFont);
 /*
  * Methods
  */
-OutlineFont.prototype.getGlyph = function(src, name) {
+trapeze.font.OutlineFont.prototype.getGlyph = function(src, name) {
 	var outline = null;
 	var width = this.getWidth(src, name);
 	// first try by name
@@ -49,9 +53,9 @@ OutlineFont.prototype.getGlyph = function(src, name) {
 
 	// calculate the advance
 	var advance = {'x': width, 'y': 0};
-	return new PDFGlyph(src, name, outline, advance);
+	return new trapeze.font.PDFGlyph(src, name, outline, advance);
 }
-OutlineFont.prototype.getWidth = function(code, name) {
+trapeze.font.OutlineFont.prototype.getWidth = function(code, name) {
 	var charCode = code.charCodeAt(0) & 0xFF;
 	var idx = charCode - this.firstChar;
 
@@ -67,6 +71,6 @@ OutlineFont.prototype.getWidth = function(code, name) {
 
 	return this.widths[idx];
 };
-OutlineFont.prototype.getDefaultWidth = function() {
+trapeze.font.OutlineFont.prototype.getDefaultWidth = function() {
 	return 1000;
 };

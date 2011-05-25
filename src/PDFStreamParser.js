@@ -1,17 +1,21 @@
+goog.provide("trapeze.PDFStreamParser");
+goog.require("trapeze.BaseParser");
+goog.require("trapeze.StreamBuffer");
+goog.require("trapeze.PDFOperator");
 goog.require("trapeze.cos.COSBoolean");
 goog.require("trapeze.cos.COSDictionary");
 goog.require("trapeze.cos.COSNull");
 goog.require("trapeze.cos.COSNumber");
 goog.require("trapeze.cos.COSStream");
 
-function PDFStreamParser(stream) {
+trapeze.PDFStreamParser = function(stream) {
 	var streamText = stream.decode();
-	this.stream = new StreamBuffer(streamText);
+	this.stream = new trapeze.StreamBuffer(streamText);
 	//console.log("stream");
 	//console.log(streamText);
 	this.streamObjects = [];
 }
-extend(PDFStreamParser, BaseParser);
+extend(trapeze.PDFStreamParser, trapeze.BaseParser);
 
 /**
  * This will parse the tokens in the stream.  This will close the
@@ -19,7 +23,7 @@ extend(PDFStreamParser, BaseParser);
  *
  * @throws IOException If there is an error while parsing the stream.
  */
-PDFStreamParser.prototype.parse = function() {
+trapeze.PDFStreamParser.prototype.parse = function() {
 	var token = null;
 	while( (token = this.parseNextToken()) != null )
 	{
@@ -27,7 +31,7 @@ PDFStreamParser.prototype.parse = function() {
 		//logger().fine( "parsed=" + token );
 	}
 }
-PDFStreamParser.prototype.getTokens = function() {
+trapeze.PDFStreamParser.prototype.getTokens = function() {
 	return this.streamObjects;
 };
 /**
@@ -37,7 +41,7 @@ PDFStreamParser.prototype.getTokens = function() {
  *
  * @throws IOException If an io error occurs while parsing the stream.
  */
-PDFStreamParser.prototype.parseNextToken = function() {
+trapeze.PDFStreamParser.prototype.parseNextToken = function() {
 	var retval = null;
 	if(this.stream.getPosition() >= this.stream.getLimit())
 		return null;
@@ -96,7 +100,7 @@ PDFStreamParser.prototype.parseNextToken = function() {
 			}
 			else
 			{
-				retval = PDFOperator.getOperator( nullString );
+				retval = trapeze.PDFOperator.getOperator( nullString );
 			}
 			break;
 		}
@@ -115,7 +119,7 @@ PDFStreamParser.prototype.parseNextToken = function() {
 			}
 			else
 			{
-				retval = PDFOperator.getOperator( next );
+				retval = trapeze.PDFOperator.getOperator( next );
 			}
 			break;
 		}
@@ -128,7 +132,7 @@ PDFStreamParser.prototype.parseNextToken = function() {
 			}
 			else
 			{
-				retval = PDFOperator.getOperator( line );
+				retval = trapeze.PDFOperator.getOperator( line );
 			}
 			break;
 		}
@@ -169,7 +173,7 @@ PDFStreamParser.prototype.parseNextToken = function() {
 		case 'B':
 		{
 			var next = this.readString();
-			retval = PDFOperator.getOperator( next );
+			retval = trapeze.PDFOperator.getOperator( next );
 
 			if(next == "BI")
 			{
@@ -198,7 +202,7 @@ PDFStreamParser.prototype.parseNextToken = function() {
 			}
 			else
 			{
-				retval = PDFOperator.getOperator( operator );
+				retval = trapeze.PDFOperator.getOperator( operator );
 			}
 		}
 
@@ -206,12 +210,12 @@ PDFStreamParser.prototype.parseNextToken = function() {
 
 	return retval;
 }
-PDFStreamParser.prototype.parseInlineImage = function() {
+trapeze.PDFStreamParser.prototype.parseInlineImage = function() {
 	// build dictionary until ID, then read image until EI
 	var hm = {};
 	while (true) {
 		var t = this.parseNextToken();
-		if(t instanceof PDFOperator && t.operator == "ID") {
+		if(t instanceof trapeze.PDFOperator && t.operator == "ID") {
 			break;
 		}
 		// it should be a name;
@@ -291,7 +295,7 @@ PDFStreamParser.prototype.parseInlineImage = function() {
  *
  * @throws IOException If there is an error reading from the stream.
  */
-PDFStreamParser.prototype.readOperator = function() {
+trapeze.PDFStreamParser.prototype.readOperator = function() {
 	this.skipSpaces();
 	var buffer = "";
 	var c = this.stream.peek();

@@ -1,4 +1,5 @@
-function HmtxTable(ttf) {
+goog.provide("trapeze.font.HmtxTable");
+trapeze.font.HmtxTable = function(ttf) {
 	// the number of glyphs stored in the maxp table may be incorrect
 	// in the case of subsetted fonts produced by some pdf generators
 	var maxp = ttf.getTable("maxp");

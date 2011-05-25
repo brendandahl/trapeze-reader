@@ -1,4 +1,6 @@
-function CmapTable() {
+goog.provide("trapeze.font.CmapTable");
+goog.require("trapeze.font.CMap");
+trapeze.font.CmapTable = function() {
 	this.subTables = {};
 	this.setVersion = function(version) {
 		this.version = version;
@@ -15,7 +17,7 @@ function CmapTable() {
             
 			var mapData = data.subStream(offset);
             
-			var cMap = CMap.getMap(mapData);
+			var cMap = trapeze.font.CMap.getMap(mapData);
 			if (cMap != null) {
 				this.addCMap(platformID, platformSpecificID, cMap);
 			}

@@ -1,5 +1,8 @@
+goog.provide("trapeze.pdmodel.PDDocument");
+goog.require("trapeze.pdmodel.PDDocumentInformation");
+goog.require("trapeze.pdmodel.PDDocumentCatalog");
 goog.require("trapeze.cos.COSDictionary");
-function PDDocument(cosDocument) {
+trapeze.pdmodel.PDDocument = function(cosDocument) {
 	this.document = cosDocument;
 	
 	this.getNumberOfPages = function() {
@@ -12,11 +15,11 @@ function PDDocument(cosDocument) {
 		if( infoDic == null )
 		{
 			console.error(" ");throw "hello";
-			documentCatalog = new PDDocumentCatalog( this ); // TODO
+			documentCatalog = new trapeze.pdmodel.PDDocumentCatalog( this ); // TODO
 		}
 		else
 		{
-			documentCatalog = new PDDocumentCatalog( this, infoDic );
+			documentCatalog = new trapeze.pdmodel.PDDocumentCatalog( this, infoDic );
 		}
 		return documentCatalog;
 	};
@@ -28,7 +31,7 @@ function PDDocument(cosDocument) {
 			infoDic = new trapeze.cos.COSDictionary();
 			trailer.setItem( {name: 'Info'}, infoDic );
 		}
-		var documentInformation = new PDDocumentInformation( infoDic );
+		var documentInformation = new trapeze.pdmodel.PDDocumentInformation( infoDic );
 		return documentInformation;
 	}
 }

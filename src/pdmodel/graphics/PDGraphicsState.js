@@ -1,12 +1,14 @@
-function PDGraphicsState() {
+goog.provide("trapeze.pdmodel.graphics.PDGraphicsState");
+goog.require("trapeze.pdmodel.text.PDTextState");
+trapeze.pdmodel.graphics.PDGraphicsState = function() {
 	var currentTransformationMatrix = new Matrix();
-	var textState = new PDTextState();
+	var textState = new trapeze.pdmodel.text.PDTextState();
     //Here are some attributes of the Graphics state, but have not been created yet.
     //
 /*     //clippingPath
     var strokingColor = new PDColorState();
     private PDColorState nonStrokingColor = new PDColorState();
-    private PDTextState textState = new PDTextState();
+    private PDTextState textState = new trapeze.pdmodel.text.PDTextState();
     private double lineWidth = 0;
     private int lineCap = 0;
     private int lineJoin = 0;

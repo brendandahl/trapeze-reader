@@ -1,16 +1,19 @@
-function PNGPredictor() {
-	PNGPredictor.baseConstructor.call(this);
+goog.provide("trapeze.filter.PNGPredictor");
+goog.require("trapeze.filter.Predictor");
+goog.require("trapeze.StreamBuffer");
+trapeze.filter.PNGPredictor = function() {
+	trapeze.filter.PNGPredictor.baseConstructor.call(this);
 }
-extend(PNGPredictor, Predictor);
+extend(trapeze.filter.PNGPredictor, trapeze.filter.Predictor);
 /**
  * Undo data based on the png algorithm
  */
-PNGPredictor.prototype.unpredict = function(imageData) {
+trapeze.filter.PNGPredictor.prototype.unpredict = function(imageData) {
 	var rows = [];
 	
 	var curLine = null;
 	var prevLine = null;
-	imageData = new StreamBuffer(imageData);
+	imageData = new trapeze.StreamBuffer(imageData);
 	// get the number of bytes per row
 	var rowSize = this.getColumns() * this.getColors() * this.getBitsPerComponent();
 	rowSize = Math.ceil(rowSize / 8.0);
@@ -74,7 +77,7 @@ PNGPredictor.prototype.unpredict = function(imageData) {
  * Return the value of the Sub algorithm on the line (compare bytes to
  * the previous byte of the same color on this line).
  */
-PNGPredictor.prototype.doSubLine = function(curLine) {
+trapeze.filter.PNGPredictor.prototype.doSubLine = function(curLine) {
 	// get the number of bytes per sample
 	var sub = Math.ceil((this.getBitsPerComponent() * this.getColors()) / 8.0); 
 	
@@ -90,7 +93,7 @@ PNGPredictor.prototype.doSubLine = function(curLine) {
  * Return the value of the up algorithm on the line (compare bytes to
  * the same byte in the previous line)
  */
-PNGPredictor.prototype.doUpLine = function(curLine, prevLine) {
+trapeze.filter.PNGPredictor.prototype.doUpLine = function(curLine, prevLine) {
 	if (prevLine == null) {
 		// do nothing if this is the first line
 		return;
@@ -106,7 +109,7 @@ PNGPredictor.prototype.doUpLine = function(curLine, prevLine) {
  * bytes to the average of the previous byte of the same color and 
  * the same byte on the previous line)
  */
-PNGPredictor.prototype.doAverageLine = function(curLine, prevLine) {
+trapeze.filter.PNGPredictor.prototype.doAverageLine = function(curLine, prevLine) {
 	 // get the number of bytes per sample
 	var sub = Math.ceil((this.getBitsPerComponent() * this.getColors()) / 8.0); 
 	
@@ -135,7 +138,7 @@ PNGPredictor.prototype.doAverageLine = function(curLine, prevLine) {
  * bytes to the average of the previous byte of the same color and 
  * the same byte on the previous line)
  */
-PNGPredictor.prototype.doPaethLine = function(curLine, prevLine) {
+trapeze.filter.PNGPredictor.prototype.doPaethLine = function(curLine, prevLine) {
 	 // get the number of bytes per sample
 	var sub = Math.ceil((this.getBitsPerComponent() * this.getColors()) / 8.0); 
 	
@@ -167,7 +170,7 @@ PNGPredictor.prototype.doPaethLine = function(curLine, prevLine) {
 /**
  * The paeth algorithm
  */
-PNGPredictor.prototype.paeth = function(left, up, upLeft) {
+trapeze.filter.PNGPredictor.prototype.paeth = function(left, up, upLeft) {
 	var p = left + up - upLeft;
 	var pa = Math.abs(p - left);
 	var pb = Math.abs(p - up);

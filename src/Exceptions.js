@@ -1,3 +1,4 @@
+goog.provide("trapeze.Exceptions");
 function UnimplementedException(message) {
 	this.message = "UnimplementedException: " + message;
 	console.error(this.message); // Trigger this to so we can see a stack trace

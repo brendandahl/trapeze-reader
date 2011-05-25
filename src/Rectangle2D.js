@@ -1,3 +1,4 @@
+goog.provide("trapeze.Rectangle2D");
 /**
  * Constructs and initializes a <code>Rectangle2D</code>
  * from the specified <code>float</code> coordinates.
@@ -12,13 +13,13 @@
  *          <code>Rectangle2D</code>
  * @since 1.2
 */
-function Rectangle2D(x, y, w, h) {
+trapeze.Rectangle2D = function(x, y, w, h) {
 	this.x = x;
 	this.y = y;
 	this.width = w;
 	this.height = h;
 }
-Rectangle2D.prototype = {
+trapeze.Rectangle2D.prototype = {
 	getX: function() {
 		return this.x;
 	},

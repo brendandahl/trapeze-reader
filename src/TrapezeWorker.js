@@ -1,113 +1,47 @@
 if(typeof window == 'undefined') {
-	/*importScript(
-		"trapeze-worker-min.js"
-	);*/
-	
+
 	// We are in a web worker, we need to import everything
-	
-	importScripts(
-		"../lib/closure-library/closure/goog/bootstrap/webworkers.js",
-		"../lib/closure-library/closure/goog/base.js",
-		"deps.js",
-		"util.js",
-		"Exceptions.js",
-		"GeneralPath.js",
-		"external/deflate.js",
-		"AsyncFileReader.js",
-		"Rectangle2D.js",
-		"PDFObject.js",
-		"pdmodel/PDDocument.js",
-		"pdmodel/PDDocumentCatalog.js",
-		"pdmodel/PDPageNode.js",
-		"pdmodel/PDPage.js",
-		"pdmodel/PDStream.js",
-		"pdmodel/PDDocumentInformation.js",
-		"pdmodel/PDResources.js",
-		"filter/FilterManager.js",
-		"filter/FlateFilter.js",
-		"filter/LzwFilter.js",
-		"filter/ASCII85Filter.js",
-		"filter/NoFilter.js",
-		"filter/Predictor.js",
-		"filter/PNGPredictor.js",
-		"BaseParser.js",
-		"PDFParser.js",
-		"PDFStreamEngine.js",
-		"PDFXrefStreamParser.js",
-		"PDFObjectStreamParser.js",
-		"PDFOperatorMap.js",
-		"PDFOperator.js",
-		"PDFStreamParser.js",
-		"PDFImage.js",
-		"AffineTransform.js",
-		"pdmodel/graphics/PDGraphicsState.js",
-		"pdmodel/text/PDTextState.js",
-		"colorspace/PatternSpace.js",
-		"colorspace/PDFColorSpace.js",
-		"colorspace/AlternateColorSpace.js",
-		"colorspace/IndexedColor.js",
-		"colorspace/ICC_ColorSpace.js",
-		"font/PDFFontEncoding.js",
-		"font/PDFFont.js",
-		"font/OutlineFont.js",
-		"font/TTFFont.js",
-		"font/TrueTypeFont.js",
-		"font/PDFFontDescriptor.js",
-		"font/FontSupport.js",
-		"font/TrueTypeTable.js",
-		"font/CmapTable.js",
-		"font/HeadTable.js",
-		"font/MaxpTable.js",
-		"font/LocaTable.js",
-		"font/GlyfTable.js",
-		"font/HheaTable.js",
-		"font/HmtxTable.js",
-		"font/PostTable.js",
-		"font/Glyf.js",
-		"font/GlyfSimple.js",
-		"font/CMap.js",
-		"font/CMapFormat0.js",
-		"font/CMapFormat4.js",
-		"font/PDFGlyph.js",
-		"font/GlyfCompound.js",
-		"font/PSParser.js",
-		"font/CIDFontType2.js",
-		"font/Type0Font.js",
-		"font/Type1Font.js",
-		"font/Type1CFont.js",
-		"font/Type3Font.js",
-		"font/BuiltInFont.js",
-		"font/BaseFontMap.js",
-		"font/AdobeGlyphList.js",
-		"font/PDFCMap.js",
-		"function/PDFFunction.js",
-		"function/FunctionType0.js",
-		"external/base64.js",
-		"StreamBuffer.js"
-	);
-goog.require("trapeze.Faux2dContext");
+	CLOSURE_BASE_PATH = "http://trapeze/lib/closure-library/closure/goog/";
+	//debugger;
+	if(typeof goog == 'undefined')
+		importScripts(
+			"../lib/closure-library/closure/goog/bootstrap/webworkers.js",
+			"../lib/closure-library/closure/goog/base.js",
+			"deps.js"
+			
+		);
 	// Files only needed for a web worker
 	importScripts(
 		"FauxConsole.js",
+		"util.js",
 		"Image.js",
-		"external/jquerywebworker.js"
+		"external/jquerywebworker.js",
+		"external/deflate.js",
+		"external/base64.js"
 	);
-	
+	 
    //importScripts("TrapezeWorker.js");
 	
 }
+goog.provide("trapeze.TrapezeWorker");
+goog.require("trapeze.StreamBuffer");
+goog.require("trapeze.PDFStreamEngine");
+goog.require("trapeze.PDFParser");
+goog.require("trapeze.fauxworker.MainThread");
+goog.require("trapeze.Faux2dContext");
+
 (function(mainThread) {
 	var postMessage = mainThread.postMessage;
 
-	function TrapezeWorker() {
+	trapeze.TrapezeWorker = function() {
 	}
-	TrapezeWorker.prototype = {
+	trapeze.TrapezeWorker.prototype = {
 		onmessage: function(event) {
 			if(event.data['type'] == 'init') {
 				console.time('process');
 				// Go start processing the file and drawing pages
-				var stream = new StreamBuffer(event.data['fileContents']);
-				var parser = new PDFParser(stream);
+				var stream = new trapeze.StreamBuffer(event.data['fileContents']);
+				var parser = new trapeze.PDFParser(stream);
 				parser.parse();
 				var myDocument = parser.getPDDocument();
 				var info = myDocument.getDocumentInformation();
@@ -171,7 +105,7 @@ goog.require("trapeze.Faux2dContext");
 			canvas.height = pageSize.height;
 			ctx.transform(transform.m00, transform.m10, transform.m01, transform.m11, transform.m02, transform.m12);
 
-			var engine = new PDFStreamEngine(canvas.getContext("2d"), transform);
+			var engine = new trapeze.PDFStreamEngine(canvas.getContext("2d"), transform);
 			engine.processStream(page, resources, page.getContents().getStream());
 			page.drawToCanvas();
 
@@ -191,7 +125,7 @@ goog.require("trapeze.Faux2dContext");
 		}
 	}
 
-	var worker = new TrapezeWorker();
+	var worker = new trapeze.TrapezeWorker();
 	mainThread.setOnMessage(function(event) {
 		worker.onmessage(event);
 	});
@@ -207,4 +141,4 @@ goog.require("trapeze.Faux2dContext");
 			}
 		}
 	:
-		WorkerThread);
+		trapeze.fauxworker.WorkerThread);

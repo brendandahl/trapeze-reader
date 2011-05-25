@@ -1,4 +1,5 @@
-function HeadTable() {
+goog.provide("trapeze.font.HeadTable");
+trapeze.font.HeadTable = function() {
 	this.setData = function(data) {
 		this.version = data.getInt();
         this.fontRevision = data.getInt();

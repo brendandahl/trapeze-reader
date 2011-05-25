@@ -1,4 +1,6 @@
-function FlateFilter() {
+goog.provide("trapeze.filter.FlateFilter");
+goog.require("trapeze.filter.Predictor");
+trapeze.filter.FlateFilter = function() {
 	this.decode = function(stream, params) {
 		var inflator = new Inflator(new function() {
 			var filePointer = 2;
@@ -17,7 +19,7 @@ function FlateFilter() {
 		if(params != null)
 			var predictor = params.getDictionaryObject("Predictor");
 		if (params != null && predictor != null) {
-            var predictor = Predictor.getPredictor(params);
+            var predictor = trapeze.filter.Predictor.getPredictor(params);
             if (predictor != null) {
                 outBytes = predictor.unpredict(outBytes);
             }

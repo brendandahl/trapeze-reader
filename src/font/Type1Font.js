@@ -1,5 +1,13 @@
-function Type1Font(baseFont, fontObj, descriptor) {
-	Type1Font.baseConstructor.call(this, baseFont, fontObj, descriptor);
+goog.provide("trapeze.font.Type1Font");
+goog.require("trapeze.font.OutlineFont");
+goog.require("trapeze.font.PSParser");
+goog.require("trapeze.font.FontSupport");
+goog.require("trapeze.StreamBuffer");
+goog.require("trapeze.GeneralPath");
+goog.require("trapeze.AffineTransform");
+
+trapeze.font.Type1Font = function(baseFont, fontObj, descriptor) {
+	trapeze.font.OutlineFont.call(this, baseFont, fontObj, descriptor);
 	this.name2width;
 	this.char2name;
 	this.password = 0;
@@ -21,15 +29,15 @@ function Type1Font(baseFont, fontObj, descriptor) {
 		// parse that file, filling name2outline and chr2name
 		var start = descriptor.fontFile.dictionary.getDictionaryObject("Length1").value;
 		var len = descriptor.fontFile.dictionary.getDictionaryObject("Length2").value;
-		var font = new StreamBuffer(descriptor.fontFile.decode());
+		var font = new trapeze.StreamBuffer(descriptor.fontFile.decode());
 
 		this.parseFontFromStream(font, start, len);
 	}
 }
-extend(Type1Font, OutlineFont);
+goog.inherits(trapeze.font.Type1Font, trapeze.font.OutlineFont);
 
 
-Type1Font.prototype.parseFontFromStream = function(font, start, len) {
+trapeze.font.Type1Font.prototype.parseFontFromStream = function(font, start, len) {
 	this.name2width = {};
 
 	var data = null;
@@ -40,7 +48,7 @@ Type1Font.prototype.parseFontFromStream = function(font, start, len) {
 		// TODO
 		throw "not done in type1font ascii";
 	} else {
-		data = Type1Font.decrypt(font, start, start + len, 55665, 4);
+		data = trapeze.font.Type1Font.decrypt(font, start, start + len, 55665, 4);
 	}
 	var fontArray = [];
 	var i = 0;
@@ -53,7 +61,7 @@ Type1Font.prototype.parseFontFromStream = function(font, start, len) {
 	this.chr2name = this.readEncoding(fontArray);
 	var lenIVLoc = this.findSlashName(data, "lenIV");
 	
-	var psp = new PSParser(data, 0);
+	var psp = new trapeze.font.PSParser(data, 0);
 	if (lenIVLoc < 0) {
 		this.lenIV = 4;
 	} else {
@@ -64,13 +72,13 @@ Type1Font.prototype.parseFontFromStream = function(font, start, len) {
 	var matrixloc = this.findSlashName(fontArray, "FontMatrix");
 	if (matrixloc < 0) {
 		System.out.println("No FontMatrix!");
-		this.at = new AffineTransform(0.001, 0, 0, 0.001, 0, 0);
+		this.at = new trapeze.AffineTransform(0.001, 0, 0, 0.001, 0, 0);
 	} else {
-		var psp2 = new PSParser(fontArray, matrixloc + 11);
+		var psp2 = new trapeze.font.PSParser(fontArray, matrixloc + 11);
 		// read [num num num num num num]
 		var xf = psp2.readArray(6);
 		//	    System.out.println("FONT MATRIX: "+xf);
-		this.at = new AffineTransform(xf[0], xf[1], xf[2], xf[3], xf[4], xf[5]);
+		this.at = new trapeze.AffineTransform(xf[0], xf[1], xf[2], xf[3], xf[4], xf[5]);
 	}
 
 	this.subrs = this.readArray(data, "Subrs", "index");
@@ -82,7 +90,7 @@ Type1Font.prototype.parseFontFromStream = function(font, start, len) {
  * 'A' - 'F' or 'a' - 'f'), then the data is binary.  Otherwise it is
  * ASCII
  */
-Type1Font.prototype.isASCII = function(data, start) {
+trapeze.font.Type1Font.prototype.isASCII = function(data, start) {
 	// look at the first 4 bytes
 	for (var i = start; i < start + 4; i++) {
 		// get the byte as a character
@@ -106,7 +114,7 @@ Type1Font.prototype.isASCII = function(data, start) {
  * @param d the font definition stream
  * @return an array of the glyphs corresponding to each byte
  */
-Type1Font.prototype.readEncoding = function(d) {
+trapeze.font.Type1Font.prototype.readEncoding = function(d) {
 	var ary = this.readArray(d, "Encoding", "def");
 	return ary;
 	/*
@@ -138,7 +146,7 @@ Type1Font.prototype.readEncoding = function(d) {
  * @param end a string that appears at the end of the array
  * @return an array consisting of a byte array for each entry
  */
-Type1Font.prototype.readArray = function(d, key, end) {
+trapeze.font.Type1Font.prototype.readArray = function(d, key, end) {
 	var i = this.findSlashName(d, key);
 	if (i < 0) {
 		// not found.
@@ -146,15 +154,15 @@ Type1Font.prototype.readArray = function(d, key, end) {
 	}
 	// now find things that look like "dup id elt put"
 	// end at "def"
-	var psp = new PSParser(d, i);
+	var psp = new trapeze.font.PSParser(d, i);
 	var type = psp.readThing();     // read the key (i is the start of the key)
 	var val;
 	type = psp.readThing();
 	if (type == "StandardEncoding") {
 		var stdenc = [];
-		var length = FontSupport.standardEncoding.length;
+		var length = trapeze.font.FontSupport.standardEncoding.length;
 		for (i = 0; i < length; i++) {
-			stdenc[i] = FontSupport.getName(FontSupport.standardEncoding[i]); //.getBytes();
+			stdenc[i] = trapeze.font.FontSupport.getName(trapeze.font.FontSupport.standardEncoding[i]); //.getBytes();
 		}
 		return stdenc;
 	}
@@ -189,7 +197,7 @@ Type1Font.prototype.readArray = function(d, key, end) {
  * @param name the name to look for, without the initial /
  * @return the index of the first occurance of /name in the array.
  */
-Type1Font.prototype.findSlashName = function(d, name) {
+trapeze.font.Type1Font.prototype.findSlashName = function(d, name) {
 	var i;
 	for (i = 0; i < d.length; i++) {
 		if (d[i] == '/'.charCodeAt(0)) {
@@ -214,7 +222,7 @@ Type1Font.prototype.findSlashName = function(d, name) {
  * @return a HashMap that maps string glyph names to byte arrays of
  * decoded font data.
  */
-Type1Font.prototype.readChars = function(d) {
+trapeze.font.Type1Font.prototype.readChars = function(d) {
 	// skip thru data until we find "/"+key
 	var hm = {};
 	var i = this.findSlashName(d, "CharStrings");
@@ -222,7 +230,7 @@ Type1Font.prototype.readChars = function(d) {
 		// not found
 		return hm;
 	}
-	var psp = new PSParser(d, i);
+	var psp = new trapeze.font.PSParser(d, i);
 	// read /name len -| [len bytes] |-
 	// until "end"
 	while (true) {
@@ -248,7 +256,7 @@ Type1Font.prototype.readChars = function(d) {
  * This method is overridden to work if the width array hasn't been
  * populated (as for one of the 14 base fonts)
  */
-Type1Font.prototype.getWidth = function(code, name) {
+trapeze.font.Type1Font.prototype.getWidth = function(code, name) {
 	// we don't have first and last chars, so therefore no width array
 	if (this.firstChar == -1 || this.lastChar == -1) {
 		var key = this.chr2name[toSignedByte(code)];
@@ -275,7 +283,7 @@ Type1Font.prototype.getWidth = function(code, name) {
 	}
 
 	// return the width that has been specified
-	return Type1Font.superClass.getWidth.call(this, code, name);
+	return trapeze.font.Type1Font.superClass_.getWidth.call(this, code, name);
 }
 /**
  * Get a glyph outline by name
@@ -283,7 +291,7 @@ Type1Font.prototype.getWidth = function(code, name) {
  * @param name the name of the desired glyph
  * @return the glyph outline, or null if unavailable
  */
-Type1Font.prototype.getOutlineByName = function(name, width) {
+trapeze.font.Type1Font.prototype.getOutlineByName = function(name, width) {
 	// make sure we have a valid name
 	if (name == null || this.name2outline[name] == null) {
 		name = ".notdef";
@@ -294,7 +302,7 @@ Type1Font.prototype.getOutlineByName = function(name, width) {
 
 	// if it's a byte array, it needs to be parsed
 	// otherwise, just return the path
-	if (obj instanceof GeneralPath) {
+	if (obj instanceof trapeze.GeneralPath) {
 		return obj;
 	} else {
 		var cs = obj;
@@ -308,7 +316,7 @@ Type1Font.prototype.getOutlineByName = function(name, width) {
 			p = this.at.transform(p);
 
 			var scale = width / p.x;
-			var xform = AffineTransform.getScaleInstance(scale, 1.0);
+			var xform = trapeze.AffineTransform.getScaleInstance(scale, 1.0);
 			gp.transform(xform);
 		}
 
@@ -326,14 +334,14 @@ Type1Font.prototype.getOutlineByName = function(name, width) {
  * @param src the character code of the desired glyph
  * @return the glyph outline
  */
-Type1Font.prototype.getOutlineByCode = function(src, width) {
+trapeze.font.Type1Font.prototype.getOutlineByCode = function(src, width) {
 	return this.getOutlineByName(this.chr2name[toSignedByte(src)], width);
 }
  /**
  * Decrypt a glyph stored in byte form
  */
-Type1Font.prototype.parseGlyph = function(cs, advance, at) {
-	var gp = new GeneralPath();
+trapeze.font.Type1Font.prototype.parseGlyph = function(cs, advance, at) {
+	var gp = new trapeze.GeneralPath();
 	var curpoint = {"x": null, "y": null};
 
 	this.sloc = 0;
@@ -345,7 +353,7 @@ Type1Font.prototype.parseGlyph = function(cs, advance, at) {
  /**
  * pop the next item off the stack
  */
-Type1Font.prototype.pop = function() {
+trapeze.font.Type1Font.prototype.pop = function() {
 	var val = 0;
 	if (this.sloc > 0) {
 		val = this.stack[--this.sloc];
@@ -361,7 +369,7 @@ Type1Font.prototype.pop = function() {
  * @param gp the GeneralPath into which the combined glyph will be
  * written.
  */
-Type1Font.prototype.buildAccentChar = function(x, y, a, b, gp) {
+trapeze.font.Type1Font.prototype.buildAccentChar = function(x, y, a, b, gp) {
 	// get the outline of the accent
 	console.warn("build aaccent char not finished yet");
 	/*
@@ -388,7 +396,7 @@ Type1Font.prototype.buildAccentChar = function(x, y, a, b, gp) {
  * @param pt a FlPoint object that will be used to generate the path
  * @param wid a FlPoint into which the advance width will be placed.
  */
-Type1Font.prototype.parse = function(cs, gp, pt, wid) {
+trapeze.font.Type1Font.prototype.parse = function(cs, gp, pt, wid) {
 	//	System.out.println("--- cmd length is "+cs.length);
 	var loc = 0;
 	var x1, x2, x3, y1, y2, y3;
@@ -620,7 +628,7 @@ Type1Font.prototype.parse = function(cs, gp, pt, wid) {
  * @return the decrypted bytes.  The length of this array will be
  * (start-end-skip) bytes long
  */
-Type1Font.decrypt = function(d, start, end, key, skip) {
+trapeze.font.Type1Font.decrypt = function(d, start, end, key, skip) {
 	if (end - start - skip < 0) {
 		skip = 0;
 	}
@@ -631,7 +639,7 @@ Type1Font.decrypt = function(d, start, end, key, skip) {
 	var c2 = 22719;
 	for (ipos = start; ipos < end; ipos++) {
 		var c;
-		if(d instanceof StreamBuffer)
+		if(d instanceof trapeze.StreamBuffer)
 			c = d.getByteAt(ipos) & 0xff;
 		else
 			c = d[ipos] & 0xff;

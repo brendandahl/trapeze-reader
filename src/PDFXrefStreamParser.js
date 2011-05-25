@@ -1,17 +1,19 @@
+goog.provide("trapeze.PDFXrefStreamParser");
+goog.require("trapeze.StreamBuffer");
 goog.require("trapeze.cos.COSNumber");
 goog.require("trapeze.cos.COSArray");
 goog.require("trapeze.cos.COSObjectKey");
 goog.require("trapeze.cos.COSObjectStreamLocation");
-function PDFXrefStreamParser(stream, doc) {
+trapeze.PDFXrefStreamParser = function(stream, doc) {
 	this.stream = stream;
-	this.pdfSource = new StreamBuffer(stream.decode());
+	this.pdfSource = new trapeze.StreamBuffer(stream.decode());
 	this.document = doc;
 }
 /**
  * Parses through the unfiltered stream and populates the xrefTable HashMap.
  * @throws IOException If there is an error while parsing the stream.
  */
-PDFXrefStreamParser.prototype = {
+trapeze.PDFXrefStreamParser.prototype = {
 	parse: function() {
 		var dictionary = this.stream.dictionary;
 		var xrefFormat = dictionary.getDictionaryObject("W");

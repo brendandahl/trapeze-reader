@@ -1,4 +1,5 @@
-function MaxpTable() {
+goog.provide("trapeze.font.MaxpTable");
+trapeze.font.MaxpTable = function() {
 	this.setData = function(data) {
 		this.version = data.getInt();
         this.numGlyphs = data.getShort();

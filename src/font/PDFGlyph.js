@@ -1,11 +1,12 @@
+goog.provide("trapeze.font.PDFGlyph");
 goog.require("trapeze.cos.COSStream");
-function PDFGlyph(src, name, shape, advance) {
+trapeze.font.PDFGlyph = function(src, name, shape, advance) {
 	this.shape = shape;
 	this.advance = advance;
 	this.src = src;
 	this.name = name;
 }
-PDFGlyph.prototype.render = function(graphics, engine) {
+trapeze.font.PDFGlyph.prototype.render = function(graphics, engine) {
 	// first do the affine transformation
 	if(this.shape instanceof trapeze.cos.COSStream) { // Type3Font stream of pdf commands
 		console.warn("todo type3font");
@@ -20,6 +21,6 @@ PDFGlyph.prototype.render = function(graphics, engine) {
 	}
 	return this.advance;
 }
-PDFGlyph.prototype.getChar = function() {
+trapeze.font.PDFGlyph.prototype.getChar = function() {
 	return this.src;
 }

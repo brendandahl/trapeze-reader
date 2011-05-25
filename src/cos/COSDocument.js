@@ -1,4 +1,5 @@
 goog.provide("trapeze.cos.COSDocument");
+goog.require("trapeze.PDFObjectStreamParser");
 goog.require("trapeze.cos.COSObject");
 goog.require("trapeze.cos.COSObjectStreamLocation");
 /**
@@ -69,7 +70,7 @@ trapeze.cos.COSDocument.prototype = {
 			// For now just load all the objects in the stream, could be done lazily
 			// Get the object stream
 			var obj = this.getObjectFromPool(pos.streamObjectKey);
-			var parser = new PDFObjectStreamParser(obj.getObject(), this );
+			var parser = new trapeze.PDFObjectStreamParser(obj.getObject(), this );
             parser.parse();
 			var compressedObjects = parser.streamObjects;
 			var coLength = compressedObjects.length;

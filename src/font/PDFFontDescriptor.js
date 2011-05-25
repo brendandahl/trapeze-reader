@@ -1,7 +1,9 @@
+goog.provide("trapeze.font.PDFFontDescriptor");
+goog.require("trapeze.Rectangle2D");
 goog.require("trapeze.cos.COSDictionary");
 goog.require("trapeze.cos.COSName");
 goog.require("trapeze.cos.COSNumber");
-function PDFFontDescriptor(obj) {
+trapeze.font.PDFFontDescriptor = function(obj) {
 	if(obj instanceof trapeze.cos.COSDictionary) {
 		// required parameters
 		this.ascent = obj.getDictionaryObject("Ascent").value;
@@ -20,7 +22,7 @@ function PDFFontDescriptor(obj) {
 		for (int i = 0; i < 4; i++) {
 			bboxfdef[i] = bboxdef[i].getFloatValue();
 		}
-		this.FontBBox(new Rectangle2D.Float(bboxfdef[0], bboxfdef[1],
+		this.FontBBox(new trapeze.Rectangle2D.Float(bboxfdef[0], bboxfdef[1],
 				bboxfdef[2] - bboxfdef[0],
 				bboxfdef[3] - bboxfdef[1])); */
 
@@ -54,25 +56,25 @@ function PDFFontDescriptor(obj) {
 			return test;
 	}
 }
-PDFFontDescriptor.PLAIN = 0;
-PDFFontDescriptor.BOLD = 1;
-PDFFontDescriptor.ITALIC = 2;
+trapeze.font.PDFFontDescriptor.PLAIN = 0;
+trapeze.font.PDFFontDescriptor.BOLD = 1;
+trapeze.font.PDFFontDescriptor.ITALIC = 2;
 /** All glyphs have the same width. */
-PDFFontDescriptor.FIXED_PITCH = 1 << (1-1);
+trapeze.font.PDFFontDescriptor.FIXED_PITCH = 1 << (1-1);
 /** Glyphs have serifs. */
-PDFFontDescriptor.SERIF = 1 << (2-1);
+trapeze.font.PDFFontDescriptor.SERIF = 1 << (2-1);
 /** Font contains glyphs outside the Adobe standard Latin. */
-PDFFontDescriptor.SYMBOLIC = 1 << (3-1);
+trapeze.font.PDFFontDescriptor.SYMBOLIC = 1 << (3-1);
 /** Glyphs resemble cursive handwriting. */
-PDFFontDescriptor.SCRIPT = 1 << (4-1);
+trapeze.font.PDFFontDescriptor.SCRIPT = 1 << (4-1);
 /** Font uses the Adobe standard Latic character set. */
-PDFFontDescriptor.NONSYMBOLIC = 1 << (6-1);
+trapeze.font.PDFFontDescriptor.NONSYMBOLIC = 1 << (6-1);
 /** Glyphs have dominant vertical strokes that are slanted. */
-PDFFontDescriptor.ITALIC = 1 << (7-1);
+trapeze.font.PDFFontDescriptor.ITALIC = 1 << (7-1);
 /** Font contains no lowercase letters. */
-PDFFontDescriptor.ALLCAP = 1 << (17-1);
+trapeze.font.PDFFontDescriptor.ALLCAP = 1 << (17-1);
 /** Font contains both uppercase and lowercase letters.. */
-PDFFontDescriptor.SMALLCAP = 1 << (18-1);
+trapeze.font.PDFFontDescriptor.SMALLCAP = 1 << (18-1);
 /** Determines whether bold glyphs shall be painted with
  * extra pixels even at very small text sizes. */
-PDFFontDescriptor.FORCEBOLD = 1 << (19-1);
+trapeze.font.PDFFontDescriptor.FORCEBOLD = 1 << (19-1);

@@ -1,21 +1,22 @@
-function GlyfCompound() {
+goog.provide("trapeze.font.GlyfCompound");
+trapeze.font.GlyfCompound = function() {
 	/** the flags for each compound glyph */
     this._components;
     
     /** the instructions for the compound as a whole */
     this._instructions;
 }
-GlyfCompound.ARG_1_AND_2_ARE_WORDS    = 0x1;
-GlyfCompound.ARGS_ARE_XY_VALUES       = 0x2;
-GlyfCompound.ROUND_XY_TO_GRID         = 0x4;
-GlyfCompound.WE_HAVE_A_SCALE          = 0x8;
-GlyfCompound.MORE_COMPONENTS          = 0x20;
-GlyfCompound.WE_HAVE_AN_X_AND_Y_SCALE = 0x40; 
-GlyfCompound.WE_HAVE_A_TWO_BY_TWO     = 0x80;
-GlyfCompound.WE_HAVE_INSTRUCTIONS     = 0x100;
-GlyfCompound.USE_MY_METRICS 	      = 0x200;
-GlyfCompound.OVERLAP_COMPOUND         = 0x400;
-GlyfCompound.prototype.setData = function(data) {
+trapeze.font.GlyfCompound.ARG_1_AND_2_ARE_WORDS    = 0x1;
+trapeze.font.GlyfCompound.ARGS_ARE_XY_VALUES       = 0x2;
+trapeze.font.GlyfCompound.ROUND_XY_TO_GRID         = 0x4;
+trapeze.font.GlyfCompound.WE_HAVE_A_SCALE          = 0x8;
+trapeze.font.GlyfCompound.MORE_COMPONENTS          = 0x20;
+trapeze.font.GlyfCompound.WE_HAVE_AN_X_AND_Y_SCALE = 0x40; 
+trapeze.font.GlyfCompound.WE_HAVE_A_TWO_BY_TWO     = 0x80;
+trapeze.font.GlyfCompound.WE_HAVE_INSTRUCTIONS     = 0x100;
+trapeze.font.GlyfCompound.USE_MY_METRICS 	      = 0x200;
+trapeze.font.GlyfCompound.OVERLAP_COMPOUND         = 0x400;
+trapeze.font.GlyfCompound.prototype.setData = function(data) {
 	// int pos = data.position();
 	// byte[] prdata = new byte[data.remaining()];
 	// data.get(prdata);
@@ -33,16 +34,16 @@ GlyfCompound.prototype.setData = function(data) {
 		cur.glyphIndex = data.getShort();
 	  
 		// read either e/f or matching points, as shorts or bytes...
-		if (((cur.flags & GlyfCompound.ARG_1_AND_2_ARE_WORDS) != 0) &&
-			((cur.flags & GlyfCompound.ARGS_ARE_XY_VALUES) != 0)) {
+		if (((cur.flags & trapeze.font.GlyfCompound.ARG_1_AND_2_ARE_WORDS) != 0) &&
+			((cur.flags & trapeze.font.GlyfCompound.ARGS_ARE_XY_VALUES) != 0)) {
 			cur.e = data.getShort();
 			cur.f = data.getShort();
-		} else if (!((cur.flags & GlyfCompound.ARG_1_AND_2_ARE_WORDS) != 0) &&
-					((cur.flags & GlyfCompound.ARGS_ARE_XY_VALUES) != 0)) {
+		} else if (!((cur.flags & trapeze.font.GlyfCompound.ARG_1_AND_2_ARE_WORDS) != 0) &&
+					((cur.flags & trapeze.font.GlyfCompound.ARGS_ARE_XY_VALUES) != 0)) {
 			cur.e = data.get();
 			cur.f = data.get();
-		} else if ( ((cur.flags & GlyfCompound.ARG_1_AND_2_ARE_WORDS) != 0) &&
-				   !((cur.flags & GlyfCompound.ARGS_ARE_XY_VALUES) != 0)) {
+		} else if ( ((cur.flags & trapeze.font.GlyfCompound.ARG_1_AND_2_ARE_WORDS) != 0) &&
+				   !((cur.flags & trapeze.font.GlyfCompound.ARGS_ARE_XY_VALUES) != 0)) {
 			cur.compoundPoint = data.getShort();
 			cur.componentPoint = data.getShort();
 		} else {
@@ -51,25 +52,25 @@ GlyfCompound.prototype.setData = function(data) {
 		}
 	 
 		// read the linear transform
-		if ((cur.flags & GlyfCompound.WE_HAVE_A_SCALE) != 0) {
+		if ((cur.flags & trapeze.font.GlyfCompound.WE_HAVE_A_SCALE) != 0) {
 			cur.a = data.getShort() / (1 << 14);
 			cur.d = cur.a;
-		} else if ((cur.flags & GlyfCompound.WE_HAVE_AN_X_AND_Y_SCALE) != 0) {
+		} else if ((cur.flags & trapeze.font.GlyfCompound.WE_HAVE_AN_X_AND_Y_SCALE) != 0) {
 			cur.a = data.getShort() / (1 << 14);
 			cur.d = data.getShort() / (1 << 14);
-		} else if ((cur.flags & GlyfCompound.WE_HAVE_A_TWO_BY_TWO) != 0) {
+		} else if ((cur.flags & trapeze.font.GlyfCompound.WE_HAVE_A_TWO_BY_TWO) != 0) {
 			cur.a = data.getShort() / (1 << 14);
 			cur.b = data.getShort() / (1 << 14);
 			cur.c = data.getShort() / (1 << 14);
 			cur.d = data.getShort() / (1 << 14);
 		}
 	
-		if ((cur.flags & GlyfCompound.WE_HAVE_INSTRUCTIONS) != 0) {
+		if ((cur.flags & trapeze.font.GlyfCompound.WE_HAVE_INSTRUCTIONS) != 0) {
 			hasInstructions = true;
 		}
 
 		comps.push(cur);
-	} while ((cur.flags & GlyfCompound.MORE_COMPONENTS) != 0);
+	} while ((cur.flags & trapeze.font.GlyfCompound.MORE_COMPONENTS) != 0);
 	
 	this._components = comps;
 	
@@ -89,20 +90,20 @@ GlyfCompound.prototype.setData = function(data) {
 /**
  * Get the number of components in this compound
  */
-GlyfCompound.prototype.getNumComponents = function() {
+trapeze.font.GlyfCompound.prototype.getNumComponents = function() {
 	return this._components.length;
 }
 /**
  * Get the glyf index for a given glyf
  */
-GlyfCompound.prototype.getGlyphIndex = function(index) {
+trapeze.font.GlyfCompound.prototype.getGlyphIndex = function(index) {
 	return this._components[index].glyphIndex;
 }
 /**
  * Get the base affine transform.  This is based on a whacy formula
  * defined in the true type font spec.
  */
-GlyfCompound.prototype.getTransform = function(index) {
+trapeze.font.GlyfCompound.prototype.getTransform = function(index) {
 	var gc = this._components[index];
 
 	var m = Math.max(Math.abs(gc.a), Math.abs(gc.b));

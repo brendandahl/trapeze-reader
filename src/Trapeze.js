@@ -1,4 +1,7 @@
-//goog.require("trapeze.AsyncFileReader");
+goog.require("trapeze.Image");
+goog.require("trapeze.AsyncFileReader");
+goog.require("trapeze.fauxworker.MainThread");
+goog.require("trapeze.TrapezeWorker");
 function Trapeze(file, settings) {
 	var defaults = {
 		enableWebWorkers: true
@@ -11,7 +14,7 @@ function Trapeze(file, settings) {
 	this.width = window.innerWidth - 40;
 	this.height = window.innerHeight - 40;
 	$('#progress').show();
-	var asyncFileReader = new AsyncFileReader(file, this, this.loaded, this.progress);
+	var asyncFileReader = new trapeze.AsyncFileReader(file, this, this.loaded, this.progress);
 	asyncFileReader.start();
 }
 Trapeze.prototype = {
@@ -43,7 +46,7 @@ Trapeze.prototype = {
 		if(this.settings.enableWebWorkers)
 			this.worker = new Worker("TrapezeWorker.js");
 		else
-			this.worker = MainThread;
+			this.worker = trapeze.fauxworker.MainThread;
 		var that = this;
 		this.worker.onmessage = function(event) {
 			var method = event.data[0];
@@ -143,7 +146,7 @@ Trapeze.prototype = {
 				args = action[2];
 
 				if(method == 'drawImage') {
-					var image = new Image();
+					var image = new trapeze.Image();
 					image.src = args[0].src;
 					var transform = args[1];
 					/*

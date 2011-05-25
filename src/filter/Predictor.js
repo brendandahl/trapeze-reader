@@ -1,4 +1,6 @@
-function Predictor() {
+goog.provide("trapeze.filter.Predictor");
+goog.require("trapeze.filter.PNGPredictor");
+trapeze.filter.Predictor = function() {
 	/** the algorithm to use */
 	this._algorithm;
 
@@ -16,53 +18,53 @@ function Predictor() {
  *
  * @return one of the known algorithm types
  */
-Predictor.prototype.getAlgorithm = function() {
+trapeze.filter.Predictor.prototype.getAlgorithm = function() {
 	return this._algorithm;
 }
 
 /**
  * Get the number of colors per sample
  */
-Predictor.prototype.getColors = function() {
+trapeze.filter.Predictor.prototype.getColors = function() {
 	return this._colors;
 }
 
 /**
  * Set the number of colors per sample
  */
-Predictor.prototype.setColors = function(colors) {
+trapeze.filter.Predictor.prototype.setColors = function(colors) {
 	this._colors = colors;
 }
 
 /**
  * Get the number of bits per color component
  */
-Predictor.prototype.getBitsPerComponent = function() {
+trapeze.filter.Predictor.prototype.getBitsPerComponent = function() {
 	return this._bpc;
 }
 
 /**
  * Set the number of bits per color component
  */
-Predictor.prototype.setBitsPerComponent = function(bpc) {
+trapeze.filter.Predictor.prototype.setBitsPerComponent = function(bpc) {
 	this._bpc = bpc;
 }
 
 /**
  * Get the number of columns
  */
-Predictor.prototype.getColumns = function() {
+trapeze.filter.Predictor.prototype.getColumns = function() {
 	return this._columns;
 }
 
 /**
  * Set the number of columns
  */
-Predictor.prototype.setColumns = function(columns) {
+trapeze.filter.Predictor.prototype.setColumns = function(columns) {
 	this._columns = columns;
 }
 
-Predictor.getPredictor = function(params) {
+trapeze.filter.Predictor.getPredictor = function(params) {
  // get the algorithm (required)
 	var algorithmObj = params.getDictionaryObject("Predictor");
 	if (algorithmObj == null) {
@@ -85,7 +87,7 @@ Predictor.getPredictor = function(params) {
 		case 13:
 		case 14:
 		case 15:
-			predictor = new PNGPredictor();
+			predictor = new trapeze.filter.PNGPredictor();
 			break;
 		default:
 			throw new PDFParseException("Unknown predictor: " + algorithm);

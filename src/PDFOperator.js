@@ -1,6 +1,7 @@
-function PDFOperator(operator) {
+goog.provide("trapeze.PDFOperator");
+trapeze.PDFOperator = function(operator) {
 	this.operator = operator;
 }
-PDFOperator.getOperator = function(operator) {
-	return new PDFOperator(operator);
+trapeze.PDFOperator.getOperator = function(operator) {
+	return new trapeze.PDFOperator(operator);
 }

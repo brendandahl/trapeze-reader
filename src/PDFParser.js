@@ -1,14 +1,18 @@
+goog.provide("trapeze.PDFParser");
+goog.require("trapeze.BaseParser");
+goog.require("trapeze.pdmodel.PDDocument");
+goog.require("trapeze.PDFXrefStreamParser");
 goog.require("trapeze.cos.COSDictionary");
 goog.require("trapeze.cos.COSDocument");
 goog.require("trapeze.cos.COSObjectKey");
-function PDFParser(stream) {
+trapeze.PDFParser = function(stream) {
 	this.stream = stream;
 	this.document = new trapeze.cos.COSDocument();
 	this.document.parser = this;
 }
-extend(PDFParser, BaseParser);
+extend(trapeze.PDFParser, trapeze.BaseParser);
 
-PDFParser.prototype.parse = function() {
+trapeze.PDFParser.prototype.parse = function() {
 	// Find the end start xref
 	var startXrefPos = this.stream.lastIndexOf("startxref");
 	if(startXrefPos == -1)
@@ -37,13 +41,13 @@ PDFParser.prototype.parse = function() {
 		}
 	}
 };
-PDFParser.prototype.parseHeader = function() {
+trapeze.PDFParser.prototype.parseHeader = function() {
 	var header = this.stream.readLine();
 	// "%PDF-"
 	var version = header.substring(5);
 	this.document.version = version;
 };
-PDFParser.prototype.parseObject = function() {
+trapeze.PDFParser.prototype.parseObject = function() {
 	if(!this.stream.hasRemaining())
 		return true;
 	this.skipSpaces();
@@ -110,9 +114,9 @@ PDFParser.prototype.parseObject = function() {
  * @return false on parsing error 
  * @throws IOException If an IO error occurs.
  */
-PDFParser.prototype.parseXrefStream = function() {
+trapeze.PDFParser.prototype.parseXrefStream = function() {
 	var obj = this.parseObject();
-	var parser = new PDFXrefStreamParser(obj, this.document);
+	var parser = new trapeze.PDFXrefStreamParser(obj, this.document);
 	parser.parse();
 	var parsedTrailer = obj.dictionary;
 	var docTrailer = this.document.getTrailer();
@@ -133,7 +137,7 @@ PDFParser.prototype.parseXrefStream = function() {
  * @return false on parsing error 
  * @throws IOException If an IO error occurs.
  */
-PDFParser.prototype.parseXrefTable = function() {
+trapeze.PDFParser.prototype.parseXrefTable = function() {
 	var xref = this.readString();
 	if( xref != "xref") 
 	{
@@ -194,7 +198,7 @@ PDFParser.prototype.parseXrefTable = function() {
 	}
 	return true;
 };
-PDFParser.prototype.parseTrailer = function() {
+trapeze.PDFParser.prototype.parseTrailer = function() {
 	var nextLine = this.stream.read(7);
 	if(nextLine != "trailer")
 		throw new ParseException("Expected trailer found '" + nextLine + "'");
@@ -214,7 +218,7 @@ PDFParser.prototype.parseTrailer = function() {
 	this.skipSpaces();
 	return parsedTrailer;
 };
-PDFParser.prototype.parseStartXref = function() {
+trapeze.PDFParser.prototype.parseStartXref = function() {
 	var startXRef = this.stream.readLine();
 	if( startXRef != "startxref")
 	{
@@ -227,6 +231,6 @@ PDFParser.prototype.parseStartXref = function() {
 	this.readNum();
 	return true;
 };
-PDFParser.prototype.getPDDocument = function() {
-	return new PDDocument(this.document);
+trapeze.PDFParser.prototype.getPDDocument = function() {
+	return new trapeze.pdmodel.PDDocument(this.document);
 };

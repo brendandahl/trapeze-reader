@@ -1,4 +1,7 @@
 goog.provide("trapeze.cos.COSStream");
+goog.require("trapeze.filter.FilterManager");
+goog.require("trapeze.PDFStreamParser");
+goog.require("trapeze.PDFImage");
 goog.require("trapeze.cos.COSName");
 goog.require("trapeze.cos.COSArray");
 trapeze.cos.COSStream = function(dictionary, file) {
@@ -30,7 +33,7 @@ trapeze.cos.COSStream.prototype = {
 		var buf = this.file;
 		for(var i = 0; i < filters.length; i++) {
 			var filterName = filters[i];
-			var filter = FilterManager.getFilter(filterName);
+			var filter = trapeze.filter.FilterManager.getFilter(filterName);
 			buf = filter.decode(buf, params[i]);
 		}
 		return buf;
@@ -43,7 +46,7 @@ trapeze.cos.COSStream.prototype = {
      * @throws IOException If there is an error parsing the stream.
      */
     getStreamTokens: function() {
-        var parser = new PDFStreamParser( this );
+        var parser = new trapeze.PDFStreamParser( this );
         parser.parse();
         return parser.getTokens();
     },
@@ -60,7 +63,7 @@ trapeze.cos.COSStream.prototype = {
 			if(filterType == 'DCTDecode') { // Jpeg Image
 				this.cache = 'data:image/jpeg;base64,' + base64.encode(this.file);
 			} else if(filterType == 'FlateDecode'  || filterType == "Fl") {
-				this.cache = PDFImage.create(this, resources, graphics).getImageString();
+				this.cache = trapeze.PDFImage.create(this, resources, graphics).getImageString();
 			} else {
 				console.error("Uknown filter type for image '" + filterType + "'");
 				this.cache = "";

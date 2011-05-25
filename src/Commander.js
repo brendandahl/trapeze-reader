@@ -1,4 +1,11 @@
 goog.provide("trapeze.Commander");
+goog.require("trapeze.colorspace.PDFColorSpace");
+goog.require("trapeze.colorspace.PatternSpace");
+goog.require("trapeze.font.PDFFont");
+goog.require("trapeze.pdmodel.PDResources");
+goog.require("trapeze.Rectangle2D");
+goog.require("trapeze.Image");
+goog.require("trapeze.AffineTransform");
 
 goog.require("trapeze.cos.COSString");
 goog.require("trapeze.cos.COSDictionary");
@@ -52,7 +59,7 @@ trapeze.Commander.prototype = {
 		var f = args[5].value;
 
 		this.graphics.transform(a, b, c, d, e, f);
-		this.transform = this.transform.multiply(new AffineTransform(a, b, c, d, e, f));
+		this.transform = this.transform.multiply(new trapeze.AffineTransform(a, b, c, d, e, f));
 	},
 	/**
 	 * 're' Append rectangle to path
@@ -72,8 +79,8 @@ trapeze.Commander.prototype = {
 	 * 'BT' Begin text object
 	 */
 	beginText: function(args) {
-		this.text.textMatrix = new AffineTransform();
-		this.text.textLineMatrix = new AffineTransform();
+		this.text.textMatrix = new trapeze.AffineTransform();
+		this.text.textLineMatrix = new trapeze.AffineTransform();
 	},
 	/**
 	 * 'n' End path without filling or stroking
@@ -206,7 +213,7 @@ trapeze.Commander.prototype = {
 		var e = args[4].value;
 		var f = args[5].value;
 
-        var textMatrix = new AffineTransform(a, b, c, d, e, f);
+        var textMatrix = new trapeze.AffineTransform(a, b, c, d, e, f);
 		
         this.text.textMatrix = textMatrix;
         this.text.textLineMatrix = textMatrix.clone();
@@ -225,7 +232,7 @@ trapeze.Commander.prototype = {
 			if(fontObj != null) {
 				var fontName = fontObj.getDictionaryObject('BaseFont');
 				//this.text.font = fontName.name;
-				this.text.font = PDFFont.getFont(fontObj, this.resources);
+				this.text.font = trapeze.font.PDFFont.getFont(fontObj, this.resources);
 			} else {
 			debugger;
 				
@@ -365,7 +372,7 @@ trapeze.Commander.prototype = {
 		var y = args[2].value;
 		var k = args[3].value;
 		
-		var rgb = PDFColorSpace.CMYKtoRGB(c, m, y, k);
+		var rgb = trapeze.colorspace.PDFColorSpace.CMYKtoRGB(c, m, y, k);
 		this.graphics.fillStyle = 'rgb(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ')';
 	},
 	/**
@@ -377,7 +384,7 @@ trapeze.Commander.prototype = {
 		var y = args[2].value;
 		var k = args[3].value;
  
-		var rgb = PDFColorSpace.CMYKtoRGB(c, m, y, k);
+		var rgb = trapeze.colorspace.PDFColorSpace.CMYKtoRGB(c, m, y, k);
  
 		this.graphics.strokeStyle = 'rgb(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ')';
 	},
@@ -387,14 +394,14 @@ trapeze.Commander.prototype = {
 	setNonStrokingColorSpace: function(args) {
 		//debugger;
 		console.warn('not finished with "cs"');
-		this.fillCS = PDFColorSpace.getColorSpace(args[0], this.resources);
+		this.fillCS = trapeze.colorspace.PDFColorSpace.getColorSpace(args[0], this.resources);
 	},
 	/**
 	 * 'scn' Set non stroking color
 	 */
 	setNonStrokingColor: function(args) {
 		//debugger;
-		if(this.fillCS instanceof PatternSpace) {
+		if(this.fillCS instanceof trapeze.colorspace.PatternSpace) {
 			console.warn('not finished with "scn"');
 			this.graphics.fillStyle = 'rgb(' + 0 + ',' + 0 + ',' + 0 + ')';
 			return;
@@ -547,12 +554,12 @@ trapeze.Commander.prototype = {
 		var dictionary = obj.dictionary;
 		var width = dictionary.getDictionaryObject('Width').value;
 		var height = dictionary.getDictionaryObject('Height').value;
-		var at = new AffineTransform(1 / width, 0, 0, -1 / height, 0, 1);
+		var at = new trapeze.AffineTransform(1 / width, 0, 0, -1 / height, 0, 1);
 
 		// We have to store the transform since the image won't be loaded yet
 		var transform = this.transform.multiply(at);
 		var imageSource = obj.getImageString(this.resources, this.graphics);
-		var image = new Image();
+		var image = new trapeze.Image();
 		image.src = imageSource;
 		this.graphics.drawImage(image, transform);
 
@@ -566,16 +573,16 @@ trapeze.Commander.prototype = {
             //Rectangle2D bbox;
             var matrix = obj.dictionary.getDictionaryObject("Matrix");
             if (matrix == null) {
-                at = new AffineTransform();
+                at = new trapeze.AffineTransform();
             } else {
                 var elts = [];
                 for (var i = 0; i < 6; i++) {
                     elts[i] = matrix.get(i).value;
                 }
-                at = new AffineTransform(elts[0], elts[1], elts[2], elts[3], elts[4], elts[5]);
+                at = new trapeze.AffineTransform(elts[0], elts[1], elts[2], elts[3], elts[4], elts[5]);
             }
             var bobj = obj.dictionary.getDictionaryObject("BBox");
-            /*bbox = new Rectangle2D.Float(bobj.getAt(0).getFloatValue(),
+            /*bbox = new trapeze.Rectangle2D.Float(bobj.getAt(0).getFloatValue(),
                     bobj.getAt(1).getFloatValue(),
                     bobj.getAt(2).getFloatValue(),
                     bobj.getAt(3).getFloatValue());
@@ -592,12 +599,11 @@ trapeze.Commander.prototype = {
                 r.putAll(rsrc);
             }
 			var previousResources = this.resources;
-			this.resources = new PDResources(r);
+			this.resources = new trapeze.pdmodel.PDResources(r);
 			var transform = at;
 			this.graphics.save();
 			this.graphics.transform(transform.m00, transform.m10, transform.m01, transform.m11, transform.m02, transform.m12);
 			this.transform = this.transform.multiply(at);			
-			//var engine = new PDFStreamEngine(this.graphics, at);
 			this.streamEngine.processSubStream( null, r, obj);
 			this.graphics.restore();
 			this.resources = previousResources;
@@ -729,7 +735,8 @@ function TextState(commander) {
         this.renderingMode = mode;
     };
 	this.doText = function(text) {
-		var scale = new AffineTransform(this.fontSize, 0, 0, this.fontSize * this.horizontalScaling, 0, this.rise);
+		var scale = new trapeze.AffineTransform(this.fontSize, 0, 0, this.fontSize * this.horizontalScaling, 0, this.rise);
+		
 		var glyphs = this.font.getGlyphs(text);
         
         for (var i = 0; i < glyphs.length; i++) {

@@ -1,15 +1,17 @@
-function AdobeGlyphList() {
+goog.provide("trapeze.font.AdobeGlyphList");
+goog.require("trapeze.StreamBuffer");
+trapeze.font.AdobeGlyphList = function() {
 }
-AdobeGlyphList.glyphToUnicodes = null;
-AdobeGlyphList.unicodeToGlyph = null;
+trapeze.font.AdobeGlyphList.glyphToUnicodes = null;
+trapeze.font.AdobeGlyphList.unicodeToGlyph = null;
 /**
  * return a single index for a glyph, though there may be multiples.
  * 
  * @param glyphName
  * @return Integer
  */
-AdobeGlyphList.getGlyphNameIndex = function(glyphName) {
-	var unicodes = AdobeGlyphList.getUnicodeValues(glyphName);
+trapeze.font.AdobeGlyphList.getGlyphNameIndex = function(glyphName) {
+	var unicodes = trapeze.font.AdobeGlyphList.getUnicodeValues(glyphName);
 	if (unicodes == null) {
 		return null;
 	} else {
@@ -24,16 +26,16 @@ AdobeGlyphList.getGlyphNameIndex = function(glyphName) {
  * @param glyphName
  * @return int[]
  */
-AdobeGlyphList.getUnicodeValues = function(glyphName) {
-    AdobeGlyphList.intialize();
-	return AdobeGlyphList.glyphToUnicodes[glyphName];
+trapeze.font.AdobeGlyphList.getUnicodeValues = function(glyphName) {
+    trapeze.font.AdobeGlyphList.intialize();
+	return trapeze.font.AdobeGlyphList.glyphToUnicodes[glyphName];
 }
-AdobeGlyphList.intialize = function() {
-	if(AdobeGlyphList.glyphToUnicodes != null)
+trapeze.font.AdobeGlyphList.intialize = function() {
+	if(trapeze.font.AdobeGlyphList.glyphToUnicodes != null)
 		return;
-	AdobeGlyphList.glyphToUnicodes = {};
-	AdobeGlyphList.unicodeToGlyph = {};
-	var reader = StreamBuffer.createFromUrl('font/res/glyphlist.txt');
+	trapeze.font.AdobeGlyphList.glyphToUnicodes = {};
+	trapeze.font.AdobeGlyphList.unicodeToGlyph = {};
+	var reader = trapeze.StreamBuffer.createFromUrl('font/res/glyphlist.txt');
 	while(reader.hasRemaining()) {
 		var unicodes = [];
 		var line = reader.readLine();
@@ -48,9 +50,9 @@ AdobeGlyphList.intialize = function() {
 			var codes = new Array(unicodes.length);
 			for (var i = 0; i < unicodes.length; i++) {
 				codes[i] = parseInt(unicodes[i], 16);
-				AdobeGlyphList.unicodeToGlyph[codes[i]] = glyphName;
+				trapeze.font.AdobeGlyphList.unicodeToGlyph[codes[i]] = glyphName;
 			}
-			AdobeGlyphList.glyphToUnicodes[glyphName] = codes;
+			trapeze.font.AdobeGlyphList.glyphToUnicodes[glyphName] = codes;
 		}
 	}
 }

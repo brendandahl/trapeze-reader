@@ -1,10 +1,11 @@
+goog.provide("trapeze.StreamBuffer");
 /**
  * // TODO rename this class its not really a stream buffer anymore
  * This is loosely based off of java's ByteBuffer class.  Allows
  * you to read various binary data formats from a string.
  *
  */
-function StreamBuffer(streamText, bigEndian, start, length) {
+trapeze.StreamBuffer = function(streamText, bigEndian, start, length) {
 	var bigEndian = bigEndian || true;
 	/* Position is relative, its not always where the char is
 	 * the real position = position + offset
@@ -88,7 +89,7 @@ function StreamBuffer(streamText, bigEndian, start, length) {
 		if(length > (limit - start)) {
 			throw "Sub stream length is greater than it could be";
 		}
-		return new StreamBuffer(buffer, bigEndian, start + offset, length);
+		return new trapeze.StreamBuffer(buffer, bigEndian, start + offset, length);
 	};
 	/**
 	 * Read a single character. 
@@ -289,7 +290,7 @@ function StreamBuffer(streamText, bigEndian, start, length) {
 		return "StreamBuffer: pos " + position + " lim " + limit;
 	};
 };
-StreamBuffer.createFromUrl = function(fileURL) {
+trapeze.StreamBuffer.createFromUrl = function(fileURL) {
 	var req = new XMLHttpRequest();
 
 	req.open('GET', fileURL, false);
@@ -304,5 +305,5 @@ StreamBuffer.createFromUrl = function(fileURL) {
 
 	var fileSize = fileContents.length;
 
-	return new StreamBuffer(fileContents);
+	return new trapeze.StreamBuffer(fileContents);
 };

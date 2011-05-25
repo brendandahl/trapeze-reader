@@ -1,4 +1,5 @@
-function FontSupport() {
+goog.provide("trapeze.font.FontSupport");
+trapeze.font.FontSupport = function() {
 
 
 
@@ -19,7 +20,7 @@ function FontSupport() {
 
     /**
      * get the encoding value of a glyph given its name, in the standard
-     * charset.  This is equivalent to findName(name, FontSupport.stdNames).
+     * charset.  This is equivalent to findName(name, trapeze.font.FontSupport.stdNames).
      * @param name the name of the glyph
      * @return the index of the name in stdNames, or -1 if the name doesn't
      * appear in stdNames.
@@ -40,7 +41,7 @@ function FontSupport() {
  * @return the index of the name in the table, or -1 if the name
  * cannot be found in the table
  */
-FontSupport.findName = function(name, table) {
+trapeze.font.FontSupport.findName = function(name, table) {
 	for (var i = 0; i < table.length; i++) {
 		if (name == table[i]) {
 			return i;
@@ -52,13 +53,13 @@ FontSupport.findName = function(name, table) {
      * get the name of a glyph from its encoding value (NOT the character
      * value), using the standard encoding.
      */
-FontSupport.getName = function(i) {
-	if (i < FontSupport.stdNames.length) {
-		return FontSupport.stdNames[i];
+trapeze.font.FontSupport.getName = function(i) {
+	if (i < trapeze.font.FontSupport.stdNames.length) {
+		return trapeze.font.FontSupport.stdNames[i];
 	} else {
-		i -= FontSupport.stdNames.length;
-		if (i < FontSupport.macExtras.length) {
-			return FontSupport.macExtras[i];
+		i -= trapeze.font.FontSupport.stdNames.length;
+		if (i < trapeze.font.FontSupport.macExtras.length) {
+			return trapeze.font.FontSupport.macExtras[i];
 		}
 	}
 	return ".notdef";
@@ -68,7 +69,7 @@ FontSupport.getName = function(i) {
      * of the glyphs in a font, not the mapping of character number to
      * character.
      */
-FontSupport.stdNames = [
+trapeze.font.FontSupport.stdNames = [
         ".notdef", "space", "exclam", "quotedbl", "numbersign", "dollar",
         "percent", "ampersand", "quoteright", "parenleft", "parenright",
         "asterisk", "plus", "comma", "hyphen", "period", "slash", "zero",
@@ -152,7 +153,7 @@ FontSupport.stdNames = [
      * use the string if it contains 3 or fewer characters; otherwise,
      * grab the first character off the string and use that.
      */
-FontSupport.stdValues = [
+trapeze.font.FontSupport.stdValues = [
         "", " ", "!", "\"", "#", "$",
         "%", "&", "'", "(", ")",
         "*", "+", ",", "-", ".", "/", "0",
@@ -236,7 +237,7 @@ FontSupport.stdValues = [
      * glyph order of the glyphs for the Type1C Expert character set.  These
      * are indices into the glyph name array.
      */
-FontSupport.type1CExpertCharset = [
+trapeze.font.FontSupport.type1CExpertCharset = [
         1, 229, 230, 231, 232, 233, 234, 235, 236, 237, 238, 13, 14, 15, 99,
         239, 240, 241, 242, 243, 244, 245, 246, 247, 248, 27, 28, 249, 250,
         251, 252, 253, 254, 255, 256, 257, 258, 259, 260, 261, 262, 263, 264,
@@ -255,7 +256,7 @@ FontSupport.type1CExpertCharset = [
      * glyph order of the glyphs for the Type1C Expert Sub character set.
      * These are indices into the glyph name array.
      */
-FontSupport.type1CExpertSubCharset = [
+trapeze.font.FontSupport.type1CExpertSubCharset = [
         1, 231, 232, 235, 236, 237, 238, 13, 14, 15, 99, 239, 240, 241, 242,
         243, 244, 245, 246, 247, 248, 27, 28, 249, 250, 251, 253, 254, 255,
         256, 257, 258, 259, 260, 261, 262, 263, 264, 265, 266, 109, 110, 267,
@@ -270,7 +271,7 @@ FontSupport.type1CExpertSubCharset = [
      * considered to be appended to the stdNames array.  The stdValues array
      * already contains values for this set.
      */
-FontSupport.macExtras = [ // index starts at 391=NUL
+trapeze.font.FontSupport.macExtras = [ // index starts at 391=NUL
         "NUL", "HT", "LF", "CR", "DLE", "DC1", "DC2", "DC3", "DC4", "RS",
         "US", "notequal", "DEL", "infinity", "lessequal", "greaterequal",
         "partialdiff", "summation", "product", "pi", "integral", "Omega",
@@ -281,7 +282,7 @@ FontSupport.macExtras = [ // index starts at 391=NUL
      * character mapping from values to glyphs for the Macintosh MacRoman
      * encoding
      */
-FontSupport.macRomanEncoding = [
+trapeze.font.FontSupport.macRomanEncoding = [
         391, 154, 167, 140, 146, 192, 221, 197, 226, 392, 393, 157, 162, 394,
         199, 228, 395, 396, 397, 398, 399, 155, 158, 150, 163, 169, 164, 160,
         166, 168, 400, 401, 1, 2, 3, 4, 5, 6, 7, 104, 9, 10, 11, 12, 13, 14,
@@ -304,7 +305,7 @@ FontSupport.macRomanEncoding = [
     /**
      * character mapping from values to glyphs for the isoLatin1Encoding
      */
-FontSupport.isoLatin1Encoding = [
+trapeze.font.FontSupport.isoLatin1Encoding = [
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13,
         166, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
@@ -327,7 +328,7 @@ FontSupport.isoLatin1Encoding = [
      * character mapping from values to glyphs for the Windows winAnsi
      * character encoding
      */
-FontSupport.winAnsiEncoding = [
+trapeze.font.FontSupport.winAnsiEncoding = [
         124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 145,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 5,
         6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23,
@@ -351,7 +352,7 @@ FontSupport.winAnsiEncoding = [
      * character mapping from values to glyphs for Adobe's standard
      * character encoding
      */
-FontSupport.standardEncoding = [
+trapeze.font.FontSupport.standardEncoding = [
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13,
         14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30,

@@ -1,4 +1,5 @@
-function AffineTransform(m00, m10, m01, m11, m02, m12) {
+goog.provide("trapeze.AffineTransform");
+trapeze.AffineTransform = function(m00, m10, m01, m11, m02, m12) {
 	if(arguments.length == 0) {
 		m00 = 1; // Scale X = 		m00
 		m10 = 0; // Shear Y = 		m10
@@ -14,7 +15,7 @@ function AffineTransform(m00, m10, m01, m11, m02, m12) {
 	this.m02 = m02; // Translation X = 	m02
 	this.m12 = m12; // Translation Y = 	m12
 }
-AffineTransform.prototype = {
+trapeze.AffineTransform.prototype = {
 	/**
      * This will take the current AffineTransform and multipy it with a AffineTransform that is passed in.
      *
@@ -23,7 +24,7 @@ AffineTransform.prototype = {
      * @return The result of the two multiplied matrices.
      */
     multiply: function(b) {
-        var result = new AffineTransform();
+        var result = new trapeze.AffineTransform();
 
         if (b != null) 
         {
@@ -38,7 +39,7 @@ AffineTransform.prototype = {
         return result;
     },
 	/**
-     * This will return a string representation of the AffineTransform.
+     * This will return a string representation of the trapeze.AffineTransform.
      *
      * @return The AffineTransform as a string.
      */
@@ -60,7 +61,7 @@ AffineTransform.prototype = {
 	/*
 	this.createInverse = function() {
 		new funkytown();
-		var result = new AffineTransform();
+		var result = new trapeze.AffineTransform();
 		var mult = 1 / this.getDeterminant();
 		var resultAffineTransform = result.single;
 		resultAffineTransform[0] = mult*(single[4]*1-0);
@@ -82,14 +83,14 @@ AffineTransform.prototype = {
 		return this.m11;
 	},
 	clone: function() {
-		return new AffineTransform(this.m00, this.m10, this.m01, this.m11, this.m02, this.m12);
+		return new trapeze.AffineTransform(this.m00, this.m10, this.m01, this.m11, this.m02, this.m12);
 	},
 	scale: function(x, y) {
-		var scalor = AffineTransform.getScaleInstance(x, y);
+		var scalor = trapeze.AffineTransform.getScaleInstance(x, y);
 		return this.multiply(scalor);
 	},
 	translate: function(x, y) {
-		var scalor = AffineTransform.getTranslatingInstance(x, y);
+		var scalor = trapeze.AffineTransform.getTranslatingInstance(x, y);
 		return this.multiply(scalor);
 	},
 	transform: function(pt) {
@@ -97,14 +98,14 @@ AffineTransform.prototype = {
 				y: pt.x * this.m10 + pt.y * this.m11 + this.m12};
 	}
 }
-AffineTransform.getScaleInstance = function(x, y) {
-	var affineTransform = new AffineTransform();
+trapeze.AffineTransform.getScaleInstance = function(x, y) {
+	var affineTransform = new trapeze.AffineTransform();
 	affineTransform.m00 = x;
 	affineTransform.m11 = y;
 	return affineTransform;
 };
-AffineTransform.getTranslatingInstance = function(x, y) {
-	var affineTransform = new AffineTransform();
+trapeze.AffineTransform.getTranslatingInstance = function(x, y) {
+	var affineTransform = new trapeze.AffineTransform();
 	affineTransform.m02 = x;
 	affineTransform.m12 = y;
 	return affineTransform;

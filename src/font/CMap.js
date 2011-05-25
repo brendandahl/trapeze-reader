@@ -1,6 +1,9 @@
-function CMap() {
+goog.provide("trapeze.font.CMap");
+goog.require("trapeze.font.CMapFormat4");
+goog.require("trapeze.font.CMapFormat0");
+trapeze.font.CMap = function() {
 }
-CMap.getMap = function(data) {
+trapeze.font.CMap.getMap = function(data) {
 	var format = data.getShort();
 	var length = data.getShort();
 	
@@ -16,15 +19,15 @@ CMap.getMap = function(data) {
 
 	return outMap;
 };
-CMap.createMap = function(format, language) {
+trapeze.font.CMap.createMap = function(format, language) {
 	var outMap = null;
 
 	switch (format) {
 		case 0: // CMap format 0 - single byte codes
-			outMap = new CMapFormat0(language);
+			outMap = new trapeze.font.CMapFormat0(language);
 			break;
 		case 4: // CMap format 4 - two byte encoding
-			outMap = new CMapFormat4(language);
+			outMap = new trapeze.font.CMapFormat4(language);
 			break;
 		default:
 			throw "not done with any other CMaps";

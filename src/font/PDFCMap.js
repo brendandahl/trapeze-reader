@@ -1,3 +1,4 @@
+goog.provide("trapeze.font.PDFCMap");
 goog.require("trapeze.cos.COSName");
 goog.require("trapeze.cos.COSStream");
 /**
@@ -5,17 +6,17 @@ goog.require("trapeze.cos.COSStream");
  * pair in a CID font.
  *
  */
-function PDFCMap() {
+trapeze.font.PDFCMap = function() {
 }
-PDFCMap.prototype.map = function(src) {
+trapeze.font.PDFCMap.prototype.map = function(src) {
 	return src;
 }
-PDFCMap.prototype.getFontID = function(src) {
+trapeze.font.PDFCMap.prototype.getFontID = function(src) {
 	return 0;
 }
-PDFCMap.getCMap = function(map) {
+trapeze.font.PDFCMap.getCMap = function(map) {
 	if (map instanceof trapeze.cos.COSName) {
-		return new PDFCMap();
+		return new trapeze.font.PDFCMap();
 	} else if (map instanceof trapeze.cos.COSStream) {
 		throw new UnimplementedException("Parsing a CMAP from a stream is not supported");
 	} else {

@@ -1,10 +1,11 @@
+goog.provide("trapeze.PDFOperatorMap");
 /*
 This Table is a correspondance Map of the PDF stream operators with concretes class of the
 OperatorProcessor abstract class for the stategy pattern used in the
 org.apache.pdfbox.util.PDFStreamEngine class.
 To change the behaviour of the system', remplace the class name by a new class name.
 */
-function PDFOperatorMap() {
+trapeze.PDFOperatorMap = function() {
 	this.map = {
 		'b': 'closeStrokefillPath',
 		'B': 'fillNonZeroAndStrokePath',

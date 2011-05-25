@@ -1,4 +1,5 @@
-function HheaTable() {
+goog.provide("trapeze.font.HheaTable");
+trapeze.font.HheaTable = function() {
 	this.setData = function(data) {
 		/* if (data.remaining() != 36) {
             throw new IllegalArgumentException("Bad Head table size");

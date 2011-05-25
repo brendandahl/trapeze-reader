@@ -1,7 +1,9 @@
+goog.provide("trapeze.pdmodel.PDDocumentCatalog");
+goog.require("trapeze.pdmodel.PDPageNode");
 goog.require("trapeze.cos.COSString");
 goog.require("trapeze.cos.COSDictionary");
 
-function PDDocumentCatalog(doc, rootDictionary) {
+trapeze.pdmodel.PDDocumentCatalog = function(doc, rootDictionary) {
 	this.document = doc;
 	if(rootDictionary) {
 		this.root = rootDictionary;
@@ -18,7 +20,7 @@ function PDDocumentCatalog(doc, rootDictionary) {
      */
     this.getPages = function()
     {
-        return new PDPageNode( this.root.getDictionaryObject( 'Pages') );
+        return new trapeze.pdmodel.PDPageNode( this.root.getDictionaryObject( 'Pages') );
     }
 	
 	/**

@@ -1,4 +1,5 @@
-function PDTextState()
+goog.provide("trapeze.pdmodel.text.PDTextState");
+trapeze.pdmodel.text.PDTextState = function()
 {
     //these are set default according to PDF Reference 1.5 section 5.2
     var characterSpacing = 0;

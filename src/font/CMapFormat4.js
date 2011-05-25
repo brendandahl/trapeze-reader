@@ -1,4 +1,5 @@
-function CMapFormat4(languange) {
+goog.provide("trapeze.font.CMapFormat4");
+trapeze.font.CMapFormat4 = function(languange) {
 	this.glyphIndex;
 	this.segments = {
 		_keys: [],
@@ -28,7 +29,7 @@ function CMapFormat4(languange) {
 /**
  * Add a segment with an idDelta
  */
-CMapFormat4.prototype.addSegmentWithDelta = function(startCode, endCode, idDelta) {
+trapeze.font.CMapFormat4.prototype.addSegmentWithDelta = function(startCode, endCode, idDelta) {
 	var s = new Segment(startCode, endCode, false);
 	        
 	// make sure we remove any old entries
@@ -38,7 +39,7 @@ CMapFormat4.prototype.addSegmentWithDelta = function(startCode, endCode, idDelta
 /**
  * Add a segment with an idDelta
  */
-CMapFormat4.prototype.addSegmentWithMap = function(startCode, endCode, map) {
+trapeze.font.CMapFormat4.prototype.addSegmentWithMap = function(startCode, endCode, map) {
 	if (map.length != (endCode - startCode) + 1) {
 		throw new IllegalArgumentException("Wrong number of entries in map");
 	}
@@ -47,7 +48,7 @@ CMapFormat4.prototype.addSegmentWithMap = function(startCode, endCode, map) {
 	this.segments.remove(s);
 	this.segments.put(s, map);
 };
-CMapFormat4.prototype.setData = function(length, data) {
+trapeze.font.CMapFormat4.prototype.setData = function(length, data) {
 	// read the table size values
 	var segCount = data.getShort() / 2;
 	var searchRange = data.getShort();
@@ -115,7 +116,7 @@ CMapFormat4.prototype.setData = function(length, data) {
 		}
 	}       
 }
-CMapFormat4.prototype.map = function(src) {
+trapeze.font.CMapFormat4.prototype.map = function(src) {
 	// TODO make sure src is always INTGER, coudl be char that we need to convert
 	if(typeof src == "string")
 		src = src.charCodeAt(0);

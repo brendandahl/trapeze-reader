@@ -1,4 +1,6 @@
-function LzwFilter() {
+goog.provide("trapeze.filter.LzwFilter");
+goog.require("trapeze.StreamBuffer");
+trapeze.filter.LzwFilter = function() {
 	var buf;
 	var bytepos;
 	var bitpos;
@@ -44,7 +46,7 @@ function LzwFilter() {
         bitspercode = 9;
 	};
 	this.decode = function(stream) {
-		buf = new StreamBuffer(stream);
+		buf = new trapeze.StreamBuffer(stream);
 		
 		// algorithm derived from:
         // http://www.rasip.fer.hr/research/compress/algorithms/fund/lz/lzw.html

@@ -1,14 +1,17 @@
+goog.provide("trapeze.PDFObjectStreamParser");
+goog.require("trapeze.BaseParser");
+goog.require("trapeze.StreamBuffer");
 goog.require("trapeze.cos.COSObject");
 goog.require("trapeze.cos.COSObjectKey");
-function PDFObjectStreamParser(stream, doc) {
-	PDFObjectStreamParser.baseConstructor.call(this);
+trapeze.PDFObjectStreamParser = function(stream, doc) {
+	trapeze.PDFObjectStreamParser.baseConstructor.call(this);
 	this.dictionary = stream.dictionary;
-	this.stream = new StreamBuffer(stream.decode());
+	this.stream = new trapeze.StreamBuffer(stream.decode());
 	this.document = doc;
 	this.streamObjects = [];
 	this.objectNumbers = [];
 }
-extend(PDFObjectStreamParser, BaseParser);
+extend(trapeze.PDFObjectStreamParser, trapeze.BaseParser);
 
 	/**
      * This will parse the tokens in the stream.  This will close the
@@ -16,7 +19,7 @@ extend(PDFObjectStreamParser, BaseParser);
      *
      * @throws IOException If there is an error while parsing the stream.
      */
-PDFObjectStreamParser.prototype.parse = function() {
+trapeze.PDFObjectStreamParser.prototype.parse = function() {
 	//need to first parse the header.
 	var numberOfObjects = this.dictionary.getDictionaryObject("N").value;
 	this.objectNumbers = [];

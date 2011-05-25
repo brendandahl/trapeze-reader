@@ -1,7 +1,13 @@
-function Type1CFont(baseFont, fontObj, descriptor) {
-	Type1CFont.baseConstructor.call(this, baseFont, fontObj, descriptor);
+goog.provide("trapeze.font.Type1CFont");
+goog.require("trapeze.font.OutlineFont");
+goog.require("trapeze.font.FontSupport");
+goog.require("trapeze.StreamBuffer");
+goog.require("trapeze.GeneralPath");
+goog.require("trapeze.AffineTransform");
+trapeze.font.Type1CFont = function(baseFont, fontObj, descriptor) {
+	trapeze.font.Type1CFont.baseConstructor.call(this, baseFont, fontObj, descriptor);
 	this.pos = 0;
-	this.data = new StreamBuffer(descriptor.fontFile3.decode());
+	this.data = new trapeze.StreamBuffer(descriptor.fontFile3.decode());
 	
 	this.gsubrbase = 0;
 
@@ -17,7 +23,7 @@ function Type1CFont(baseFont, fontObj, descriptor) {
 	this.stack = [];
 	this.stackptr = 0;
 	this.myEncoding = [];
-	this.at = new AffineTransform(0.001, 0, 0, 0.001, 0, 0);
+	this.at = new trapeze.AffineTransform(0.001, 0, 0, 0.001, 0, 0);
 	// Top DICT: NAME    CODE   DEFAULT
     // charstringtype    12 6    2
     // fontmatrix        12 7    0.001 0 0 0.001
@@ -41,10 +47,10 @@ function Type1CFont(baseFont, fontObj, descriptor) {
 
 	this.parse();
 }
-extend(Type1CFont, OutlineFont);
-Type1CFont.CMD = 0;
-Type1CFont.NUM = 1;
-Type1CFont.FLT = 2;
+extend(trapeze.font.Type1CFont, trapeze.font.OutlineFont);
+trapeze.font.Type1CFont.CMD = 0;
+trapeze.font.Type1CFont.NUM = 1;
+trapeze.font.Type1CFont.FLT = 2;
 
 var temp = {
 	parse: function() {
@@ -239,7 +245,7 @@ var temp = {
                             this.stack[2], this.stack[3],
                             0, 0);
                 } else {
-                    this.at = new AffineTransform(this.stack[0], this.stack[1],
+                    this.at = new trapeze.AffineTransform(this.stack[0], this.stack[1],
                             this.stack[2], this.stack[3],
                             this.stack[4], this.stack[5]);
                 }
@@ -269,7 +275,7 @@ var temp = {
     readCommand: function(charstring) {
         while (true) {
             var t = this.readNext(charstring);
-            if (t == Type1CFont.CMD) {
+            if (t == trapeze.font.Type1CFont.CMD) {
                 /*
                 System.out.print("CMD= "+num+", args=");
                 for (int i=0; i<stackptr; i++) {
@@ -279,7 +285,7 @@ var temp = {
                  */
                 return this.num;
             } else {
-                this.stack[this.stackptr++] = (t == Type1CFont.NUM) ? this.num : this.fnum;
+                this.stack[this.stackptr++] = (t == trapeze.font.Type1CFont.NUM) ? this.num : this.fnum;
             }
         }
     },
@@ -291,37 +297,37 @@ var temp = {
         this.num = this.data.getByteAt(this.pos++);
         if (this.num == 30 && !charstring) { // goofy floatingpoint rep
             this.readFNum();
-            return this.type = Type1CFont.FLT;
+            return this.type = trapeze.font.Type1CFont.FLT;
         } else if (this.num == 28) {
 			// This is kind of funky because the first byte isn't cast to an int in the java pdf stuff
 			// There's probably a better/different way to do this.
 			this.num = (this.data.getAt(this.pos) << 8) + (this.data.getByteAt(this.pos + 1) & 0xff);
             this.pos += 2;
-            return this.type = Type1CFont.NUM;
+            return this.type = trapeze.font.Type1CFont.NUM;
         } else if (this.num == 29 && !charstring) {
             this.num = ((this.data.getByteAt(this.pos) & 0xff) << 24) |
                     ((this.data.getByteAt(this.pos + 1) & 0xff) << 16) |
                     ((this.data.getByteAt(this.pos + 2) & 0xff) << 8) |
                     ((this.data.getByteAt(this.pos + 3) & 0xff));
             this.pos += 4;
-            return this.type = Type1CFont.NUM;
+            return this.type = trapeze.font.Type1CFont.NUM;
         } else if (this.num == 12) {  // two-byte command
             this.num = 1000 + (this.data.getByteAt(this.pos) & 0xff);
 			this.pos++;
-            return this.type = Type1CFont.CMD;
+            return this.type = trapeze.font.Type1CFont.CMD;
         } else if (this.num < 32) {
-            return this.type = Type1CFont.CMD;
+            return this.type = trapeze.font.Type1CFont.CMD;
         } else if (this.num < 247) {
             this.num -= 139;
-            return this.type = Type1CFont.NUM;
+            return this.type = trapeze.font.Type1CFont.NUM;
         } else if (this.num < 251) {
             this.num = (this.num - 247) * 256 + (this.data.getByteAt(this.pos) & 0xff) + 108;
 			this.pos++;
-            return this.type = Type1CFont.NUM;
+            return this.type = trapeze.font.Type1CFont.NUM;
         } else if (this.num < 255) {
             this.num = -(this.num - 251) * 256 - (this.data.getByteAt(this.pos) & 0xff) - 108;
 			this.pos++;
-            return this.type = Type1CFont.NUM;
+            return this.type = trapeze.font.Type1CFont.NUM;
         } else if (!charstring) { // dict shouldn't have a 255 code
             printData ();
             throw new RuntimeException ("Got a 255 code while reading dict");
@@ -331,7 +337,7 @@ var temp = {
                     (( this.data.getByteAt(this.pos + 2)& 0xff) << 8) |
                     (( this.data.getByteAt(this.pos + 3) & 0xff))) / 65536;
             this.pos += 4;
-            return this.type = Type1CFont.FLT;
+            return this.type = trapeze.font.Type1CFont.FLT;
         }
     },
 	    /**
@@ -388,10 +394,10 @@ var temp = {
             }
             return;
         } else if (base == 1) {
-            this.glyphnames = FontSupport.type1CExpertCharset;
+            this.glyphnames = trapeze.font.FontSupport.type1CExpertCharset;
             return;
         } else if (base == 2) {
-            this.glyphnames = FontSupport.type1CExpertSubCharset;
+            this.glyphnames = trapeze.font.FontSupport.type1CExpertSubCharset;
             return;
         }
         // nglyphs has already been set.
@@ -431,7 +437,7 @@ var temp = {
     readEncodingData: function(base) {
 		if (base == 0) {  // this is the StandardEncoding
             //	    System.out.println("**** STANDARD ENCODING!");
-            this.myEncoding = FontSupport.standardEncoding;
+            this.myEncoding = trapeze.font.FontSupport.standardEncoding;
         } else if (base == 1) {  // this is the expert encoding
             System.out.println ("**** EXPERT ENCODING!");
             // TODO: copy ExpertEncoding
@@ -514,13 +520,13 @@ var temp = {
     },
 	 /**
      * get the index of a particular name.  The name table starts with
-     * the standard names in FontSupport.stdNames, and is appended by
+     * the standard names in trapeze.font.FontSupport.stdNames, and is appended by
      * any names in the name table from this font's dictionary.
      */
     getNameIndex: function(name) {
-        var val = FontSupport.findName (name, FontSupport.stdNames);
+        var val = trapeze.font.FontSupport.findName (name, trapeze.font.FontSupport.stdNames);
         if (val == -1) {
-            val = FontSupport.findName (name, this.names) + FontSupport.stdNames.length;
+            val = trapeze.font.FontSupport.findName (name, this.names) + trapeze.font.FontSupport.stdNames.length;
         }
         if (val == -1) {
             val = 0;
@@ -541,7 +547,7 @@ var temp = {
         var r = this.getIndexEntry(base, offset);
 
         // create a path
-        var gp = new GeneralPath();
+        var gp = new trapeze.GeneralPath();
 
 
         // rember the start position (for recursive calls due to seac)
@@ -994,5 +1000,5 @@ var temp = {
     }
 };
 for(var key in temp) {
-	Type1CFont.prototype[key] = temp[key];
+	trapeze.font.Type1CFont.prototype[key] = temp[key];
 }

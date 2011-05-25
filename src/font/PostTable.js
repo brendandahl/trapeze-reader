@@ -1,7 +1,8 @@
-function PostTable() {
+goog.provide("trapeze.font.PostTable");
+trapeze.font.PostTable = function() {
 	this._nameMap;
 }
-PostTable.prototype.setData = function(data) {
+trapeze.font.PostTable.prototype.setData = function(data) {
 	// TODO
 	this.format = data.getInt();
 	this.italicAngle = data.getInt();
@@ -41,7 +42,7 @@ PostTable.prototype.setData = function(data) {
 /**
  * Map a character name to a glyphNameIndex
  */
-PostTable.prototype.getGlyphNameIndex = function(name) {
+trapeze.font.PostTable.prototype.getGlyphNameIndex = function(name) {
 	return this._nameMap.getCharIndex(name);
 }
 

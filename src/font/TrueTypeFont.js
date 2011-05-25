@@ -1,4 +1,7 @@
-function TrueTypeFont(type) {
+goog.provide("trapeze.font.TrueTypeFont");
+goog.require("trapeze.font.TrueTypeTable");
+goog.require("trapeze.StreamBuffer");
+trapeze.font.TrueTypeFont = function(type) {
 	this.tables = {};
 	this.type = type;
 	
@@ -38,8 +41,8 @@ function TrueTypeFont(type) {
 		var table = this.tables[tagString];
 		if(table == null)
 			return null;
-		if(table instanceof StreamBuffer) {
-			table = TrueTypeTable.createTable(this, tagString, table)
+		if(table instanceof trapeze.StreamBuffer) {
+			table = trapeze.font.TrueTypeTable.createTable(this, tagString, table)
 			this.tables[tagString] = table;
 			return table;
 		} else {
@@ -47,8 +50,8 @@ function TrueTypeFont(type) {
 		}
 	};
 }
-TrueTypeFont.parseFont = function(stream) {
-	var buffer = new StreamBuffer(stream, true);
+trapeze.font.TrueTypeFont.parseFont = function(stream) {
+	var buffer = new trapeze.StreamBuffer(stream, true);
 	
 	var type = buffer.getInt();
 
@@ -57,7 +60,7 @@ TrueTypeFont.parseFont = function(stream) {
 	var entrySelector = buffer.getShort();
 	var rangeShift = buffer.getShort();
 
-	var font = new TrueTypeFont(type);
+	var font = new trapeze.font.TrueTypeFont(type);
 	font.parseDirectories (buffer, numTables);
 
 	return font;
