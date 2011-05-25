@@ -3,7 +3,7 @@ goog.require("trapeze.colorspace.PatternSpace");
 goog.require("trapeze.colorspace.IndexedColor");
 goog.require("trapeze.colorspace.ICC_ColorSpace");
 goog.require("trapeze.colorspace.AlternateColorSpace");
-goog.require("trapeze.function.PDFFunction");
+goog.require("trapeze.pdffunction.PDFFunction");
 goog.require("trapeze.StreamBuffer");
 goog.require("trapeze.cos.COSName")
 trapeze.colorspace.PDFColorSpace = function(cs) {
@@ -144,7 +144,7 @@ trapeze.colorspace.PDFColorSpace.getColorSpace = function(csobj, resources) {
 	} else if (name == "Separation" || name == "DeviceN") {
 		console.warn("Colorspace seperation and DevinceN are not implemented fullly");
 		var alternate = trapeze.colorspace.PDFColorSpace.getColorSpace(ary.getObject(2), resources);
-		var func = trapeze.function.PDFFunction.getFunction(ary.getObject(3));
+		var func = trapeze.pdffunction.PDFFunction.getFunction(ary.getObject(3));
 
 		value = new trapeze.colorspace.AlternateColorSpace(alternate, func);
 	} else if (name == "Indexed" || name == "I") {

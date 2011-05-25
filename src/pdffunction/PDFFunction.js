@@ -1,16 +1,16 @@
-goog.provide("trapeze.function.PDFFunction");
-goog.require("trapeze.function.FunctionType0");
-trapeze.function.PDFFunction = function() {
+goog.provide("trapeze.pdffunction.PDFFunction");
+goog.require("trapeze.pdffunction.FunctionType0");
+trapeze.pdffunction.PDFFunction = function() {
 }
-trapeze.function.PDFFunction.TYPE_0 = 0;
-trapeze.function.PDFFunction.TYPE_2 = 2;
-trapeze.function.PDFFunction.TYPE_3 = 3;
-trapeze.function.PDFFunction.TYPE_4 = 4;
+trapeze.pdffunction.PDFFunction.TYPE_0 = 0;
+trapeze.pdffunction.PDFFunction.TYPE_2 = 2;
+trapeze.pdffunction.PDFFunction.TYPE_3 = 3;
+trapeze.pdffunction.PDFFunction.TYPE_4 = 4;
 /**
  * Builds the pdf function.
  * @return PDFFunction
  */
-trapeze.function.PDFFunction.getFunction = function(obj) {
+trapeze.pdffunction.PDFFunction.getFunction = function(obj) {
 	var pdfFunction;
 	var type;
 	var domain = null;
@@ -51,20 +51,20 @@ trapeze.function.PDFFunction.getFunction = function(obj) {
 
 	// now create the acual function object
 	switch (type) {
-		case trapeze.function.PDFFunction.TYPE_0:
+		case trapeze.pdffunction.PDFFunction.TYPE_0:
 			if (rangeObj == null) {
 				throw new PDFParseException (
 						"No Range specified in Type 0 Function!");
 			}
-			pdfFunction = new trapeze.function.FunctionType0();
+			pdfFunction = new trapeze.pdffunction.FunctionType0();
 			break;
-		case trapeze.function.PDFFunction.TYPE_2:
+		case trapeze.pdffunction.PDFFunction.TYPE_2:
 			pdfFunction = new FunctionType2();
 			break;
-		case trapeze.function.PDFFunction.TYPE_3:
+		case trapeze.pdffunction.PDFFunction.TYPE_3:
 			pdfFunction = new FunctionType3();
 			break;
-		case trapeze.function.PDFFunction.TYPE_4:
+		case trapeze.pdffunction.PDFFunction.TYPE_4:
 			if (rangeObj == null) {
 				throw new PDFParseException (
 						"No Range specified in Type 4 Function!");
@@ -92,7 +92,7 @@ trapeze.function.PDFFunction.getFunction = function(obj) {
  *
  * @return the number of input values expected by this function
  */
-trapeze.function.PDFFunction.prototype.getNumInputs = function() {
+trapeze.pdffunction.PDFFunction.prototype.getNumInputs = function() {
 	return (this.domain.length / 2);
 }
 /**
@@ -100,7 +100,7 @@ trapeze.function.PDFFunction.prototype.getNumInputs = function() {
  *
  * @return the number of output values this function will return
  */
-trapeze.function.PDFFunction.prototype.getNumOutputs = function() {
+trapeze.pdffunction.PDFFunction.prototype.getNumOutputs = function() {
 	if (this.range == null) {
 		return 0;
 	}
@@ -109,12 +109,12 @@ trapeze.function.PDFFunction.prototype.getNumOutputs = function() {
 /**
  *  Set the domain of this function
  */
-trapeze.function.PDFFunction.prototype.setDomain = function(domain) {
+trapeze.pdffunction.PDFFunction.prototype.setDomain = function(domain) {
 	this.domain = domain;
 }
 /**
  * Set the range of this function
  */
-trapeze.function.PDFFunction.prototype.setRange = function(range) {
+trapeze.pdffunction.PDFFunction.prototype.setRange = function(range) {
 	this.range = range;
 }
