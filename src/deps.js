@@ -4,12 +4,11 @@ goog.addDependency('../../../../src/AffineTransform.js', ['trapeze.AffineTransfo
 goog.addDependency('../../../../src/AsyncFileReader.js', ['trapeze.AsyncFileReader'], []);
 goog.addDependency('../../../../src/BaseParser.js', ['trapeze.BaseParser'], ['trapeze.cos.COSArray', 'trapeze.cos.COSBoolean', 'trapeze.cos.COSDictionary', 'trapeze.cos.COSName', 'trapeze.cos.COSNull', 'trapeze.cos.COSNumber', 'trapeze.cos.COSObject', 'trapeze.cos.COSObjectKey', 'trapeze.cos.COSStream', 'trapeze.cos.COSString']);
 goog.addDependency('../../../../src/BinReader.js', ['trapeze.BinReader'], []);
-goog.addDependency('../../../../src/Commander.js', ['trapeze.Commander'], ['trapeze.AffineTransform', 'trapeze.Image', 'trapeze.Rectangle2D', 'trapeze.colorspace.PDFColorSpace', 'trapeze.colorspace.PatternSpace', 'trapeze.cos.COSDictionary', 'trapeze.cos.COSNumber', 'trapeze.cos.COSString', 'trapeze.font.PDFFont', 'trapeze.pdmodel.PDResources']);
+goog.addDependency('../../../../src/Commander.js', ['trapeze.Commander'], ['trapeze.AffineTransform', 'trapeze.Rectangle2D', 'trapeze.colorspace.PDFColorSpace', 'trapeze.colorspace.PatternSpace', 'trapeze.cos.COSDictionary', 'trapeze.cos.COSNumber', 'trapeze.cos.COSString', 'trapeze.font.PDFFont', 'trapeze.pdmodel.PDResources']);
 goog.addDependency('../../../../src/Exceptions.js', ['trapeze.Exceptions'], []);
 goog.addDependency('../../../../src/Faux2dContext.js', ['trapeze.Faux2dContext'], []);
 goog.addDependency('../../../../src/FauxConsole.js', ['trapeze.FauxConsole'], []);
 goog.addDependency('../../../../src/GeneralPath.js', ['trapeze.GeneralPath'], ['trapeze.AffineTransform']);
-goog.addDependency('../../../../src/Image.js', ['trapeze.Image'], []);
 goog.addDependency('../../../../src/PDFImage.js', ['trapeze.PDFImage'], ['trapeze.StreamBuffer', 'trapeze.colorspace.Color', 'trapeze.colorspace.IndexedColor', 'trapeze.colorspace.PDFColorSpace']);
 goog.addDependency('../../../../src/PDFObject.js', ['trapeze.PDFObject'], []);
 goog.addDependency('../../../../src/PDFObjectStreamParser.js', ['trapeze.PDFObjectStreamParser'], ['trapeze.BaseParser', 'trapeze.StreamBuffer', 'trapeze.cos.COSObject', 'trapeze.cos.COSObjectKey']);

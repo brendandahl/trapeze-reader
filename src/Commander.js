@@ -4,7 +4,6 @@ goog.require("trapeze.colorspace.PatternSpace");
 goog.require("trapeze.font.PDFFont");
 goog.require("trapeze.pdmodel.PDResources");
 goog.require("trapeze.Rectangle2D");
-goog.require("trapeze.Image");
 goog.require("trapeze.AffineTransform");
 
 goog.require("trapeze.cos.COSString");
@@ -559,7 +558,7 @@ trapeze.Commander.prototype = {
 		// We have to store the transform since the image won't be loaded yet
 		var transform = this.transform.multiply(at);
 		var imageSource = obj.getImageString(this.resources, this.graphics);
-		var image = new trapeze.Image();
+		var image = new Image();
 		image.src = imageSource;
 		this.graphics.drawImage(image, transform);
 

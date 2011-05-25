@@ -117,6 +117,7 @@ trapeze.PDFImage.prototype.getImageString = function() {
 	//return strEncoded;
 }
 trapeze.PDFImage.create = function(obj, resources, context) {
+	debugger;
 	var image = new trapeze.PDFImage();
 	var dictionary = obj.dictionary;
 	 // get the width (required)

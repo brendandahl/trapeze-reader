@@ -1,8 +1,6 @@
-goog.provide("trapeze.Image");
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * An fake image object for when we are in a web worker.
  */
-trapeze.Image = function() {
+Image = function() {
 }
 

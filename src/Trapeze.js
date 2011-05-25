@@ -1,4 +1,3 @@
-goog.require("trapeze.Image");
 goog.require("trapeze.AsyncFileReader");
 goog.require("trapeze.fauxworker.MainThread");
 goog.require("trapeze.TrapezeWorker");
@@ -146,7 +145,7 @@ Trapeze.prototype = {
 				args = action[2];
 
 				if(method == 'drawImage') {
-					var image = new trapeze.Image();
+					var image = new Image();
 					image.src = args[0].src;
 					var transform = args[1];
 					/*

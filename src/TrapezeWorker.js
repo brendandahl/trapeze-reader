@@ -2,14 +2,13 @@ if(typeof window == 'undefined') {
 
 	// We are in a web worker, we need to import everything
 	CLOSURE_BASE_PATH = "http://trapeze/lib/closure-library/closure/goog/";
-	//debugger;
-	if(typeof goog == 'undefined')
-		importScripts(
-			"../lib/closure-library/closure/goog/bootstrap/webworkers.js",
-			"../lib/closure-library/closure/goog/base.js",
-			"deps.js"
-			
-		);
+	
+	importScripts(
+		"../lib/closure-library/closure/goog/bootstrap/webworkers.js",
+		"../lib/closure-library/closure/goog/base.js",
+		"deps.js"
+
+	);
 	// Files only needed for a web worker
 	importScripts(
 		"FauxConsole.js",
@@ -19,9 +18,6 @@ if(typeof window == 'undefined') {
 		"external/deflate.js",
 		"external/base64.js"
 	);
-	 
-   //importScripts("TrapezeWorker.js");
-	
 }
 goog.provide("trapeze.TrapezeWorker");
 goog.require("trapeze.StreamBuffer");
