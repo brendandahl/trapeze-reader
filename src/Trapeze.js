@@ -1,6 +1,7 @@
+goog.provide("trapeze.Trapeze");
 goog.require("trapeze.AsyncFileReader");
-goog.require("trapeze.fauxworker.MainThread");
-goog.require("trapeze.TrapezeWorker");
+goog.require("trapeze.FauxWorker");
+
 function Trapeze(file, settings) {
 	var defaults = {
 		enableWebWorkers: true
@@ -45,7 +46,7 @@ Trapeze.prototype = {
 		if(this.settings.enableWebWorkers)
 			this.worker = new Worker("TrapezeWorker.js");
 		else
-			this.worker = trapeze.fauxworker.MainThread;
+			this.worker = new trapeze.FauxWorker();
 		var that = this;
 		this.worker.onmessage = function(event) {
 			var method = event.data[0];

@@ -8,6 +8,7 @@ goog.addDependency('../../../../src/Commander.js', ['trapeze.Commander'], ['trap
 goog.addDependency('../../../../src/Exceptions.js', ['trapeze.Exceptions'], []);
 goog.addDependency('../../../../src/Faux2dContext.js', ['trapeze.Faux2dContext'], []);
 goog.addDependency('../../../../src/FauxConsole.js', ['trapeze.FauxConsole'], []);
+goog.addDependency('../../../../src/FauxWorker.js', ['trapeze.FauxWorker'], ['trapeze.TrapezeWorker']);
 goog.addDependency('../../../../src/GeneralPath.js', ['trapeze.GeneralPath'], ['trapeze.AffineTransform']);
 goog.addDependency('../../../../src/PDFImage.js', ['trapeze.PDFImage'], ['trapeze.StreamBuffer', 'trapeze.colorspace.Color', 'trapeze.colorspace.IndexedColor', 'trapeze.colorspace.PDFColorSpace']);
 goog.addDependency('../../../../src/PDFObject.js', ['trapeze.PDFObject'], []);
@@ -21,7 +22,8 @@ goog.addDependency('../../../../src/PDFXrefStreamParser.js', ['trapeze.PDFXrefSt
 goog.addDependency('../../../../src/ParserState.js', ['trapeze.ParserState'], []);
 goog.addDependency('../../../../src/Rectangle2D.js', ['trapeze.Rectangle2D'], []);
 goog.addDependency('../../../../src/StreamBuffer.js', ['trapeze.StreamBuffer'], []);
-goog.addDependency('../../../../src/TrapezeWorker.js', ['trapeze.TrapezeWorker'], ['trapeze.Faux2dContext', 'trapeze.PDFParser', 'trapeze.PDFStreamEngine', 'trapeze.StreamBuffer', 'trapeze.fauxworker.MainThread']);
+goog.addDependency('../../../../src/Trapeze.js', ['trapeze.Trapeze'], ['trapeze.AsyncFileReader', 'trapeze.FauxWorker']);
+goog.addDependency('../../../../src/TrapezeWorker.js', ['trapeze.TrapezeWorker'], ['trapeze.Faux2dContext', 'trapeze.PDFParser', 'trapeze.PDFStreamEngine', 'trapeze.StreamBuffer']);
 goog.addDependency('../../../../src/colorspace/AlternateColorSpace.js', ['trapeze.colorspace.AlternateColorSpace'], ['trapeze.colorspace.PDFColorSpace']);
 goog.addDependency('../../../../src/colorspace/Color.js', ['trapeze.colorspace.Color'], []);
 goog.addDependency('../../../../src/colorspace/ICC_ColorSpace.js', ['trapeze.colorspace.ICC_ColorSpace'], []);
@@ -41,8 +43,6 @@ goog.addDependency('../../../../src/cos/COSObjectStreamLocation.js', ['trapeze.c
 goog.addDependency('../../../../src/cos/COSStream.js', ['trapeze.cos.COSStream'], ['trapeze.PDFImage', 'trapeze.PDFStreamParser', 'trapeze.cos.COSArray', 'trapeze.cos.COSName', 'trapeze.filter.FilterManager']);
 goog.addDependency('../../../../src/cos/COSStreamArray.js', ['trapeze.cos.COSStreamArray'], ['trapeze.PDFStreamParser']);
 goog.addDependency('../../../../src/cos/COSString.js', ['trapeze.cos.COSString'], []);
-goog.addDependency('../../../../src/fauxworker/MainThread.js', ['trapeze.fauxworker.MainThread'], ['trapeze.fauxworker.WorkerThread']);
-goog.addDependency('../../../../src/fauxworker/WorkerThread.js', ['trapeze.fauxworker.WorkerThread'], ['trapeze.fauxworker.MainThread']);
 goog.addDependency('../../../../src/filter/ASCII85Filter.js', ['trapeze.filter.ASCII85Filter'], ['trapeze.BaseParser', 'trapeze.StreamBuffer']);
 goog.addDependency('../../../../src/filter/FilterManager.js', ['trapeze.filter.FilterManager'], ['trapeze.filter.ASCII85Filter', 'trapeze.filter.FlateFilter', 'trapeze.filter.LzwFilter', 'trapeze.filter.NoFilter']);
 goog.addDependency('../../../../src/filter/FlateFilter.js', ['trapeze.filter.FlateFilter'], ['trapeze.filter.Predictor']);
