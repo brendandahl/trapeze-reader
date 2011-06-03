@@ -1,7 +1,7 @@
 goog.provide("trapeze.Commander");
-goog.require("trapeze.colorspace.PDFColorSpace");
+goog.require("trapeze.colorspace.ColorSpaceManager");
 goog.require("trapeze.colorspace.PatternSpace");
-goog.require("trapeze.font.PDFFont");
+goog.require("trapeze.font.FontManager");
 goog.require("trapeze.pdmodel.PDResources");
 goog.require("trapeze.Rectangle2D");
 goog.require("trapeze.AffineTransform");
@@ -231,7 +231,7 @@ trapeze.Commander.prototype = {
 			if(fontObj != null) {
 				var fontName = fontObj.getDictionaryObject('BaseFont');
 				//this.text.font = fontName.name;
-				this.text.font = trapeze.font.PDFFont.getFont(fontObj, this.resources);
+				this.text.font = trapeze.font.FontManager.getFont(fontObj, this.resources);
 			} else {
 			debugger;
 				
@@ -393,7 +393,7 @@ trapeze.Commander.prototype = {
 	setNonStrokingColorSpace: function(args) {
 		//debugger;
 		console.warn('not finished with "cs"');
-		this.fillCS = trapeze.colorspace.PDFColorSpace.getColorSpace(args[0], this.resources);
+		this.fillCS = trapeze.colorspace.ColorSpaceManager.getColorSpace(args[0], this.resources);
 	},
 	/**
 	 * 'scn' Set non stroking color

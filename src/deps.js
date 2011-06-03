@@ -4,13 +4,13 @@ goog.addDependency('../../../../src/AffineTransform.js', ['trapeze.AffineTransfo
 goog.addDependency('../../../../src/AsyncFileReader.js', ['trapeze.AsyncFileReader'], []);
 goog.addDependency('../../../../src/BaseParser.js', ['trapeze.BaseParser'], ['trapeze.cos.COSArray', 'trapeze.cos.COSBoolean', 'trapeze.cos.COSDictionary', 'trapeze.cos.COSName', 'trapeze.cos.COSNull', 'trapeze.cos.COSNumber', 'trapeze.cos.COSObject', 'trapeze.cos.COSObjectKey', 'trapeze.cos.COSStream', 'trapeze.cos.COSString']);
 goog.addDependency('../../../../src/BinReader.js', ['trapeze.BinReader'], []);
-goog.addDependency('../../../../src/Commander.js', ['trapeze.Commander'], ['trapeze.AffineTransform', 'trapeze.Rectangle2D', 'trapeze.colorspace.PDFColorSpace', 'trapeze.colorspace.PatternSpace', 'trapeze.cos.COSDictionary', 'trapeze.cos.COSNumber', 'trapeze.cos.COSString', 'trapeze.font.PDFFont', 'trapeze.pdmodel.PDResources']);
+goog.addDependency('../../../../src/Commander.js', ['trapeze.Commander'], ['trapeze.AffineTransform', 'trapeze.Rectangle2D', 'trapeze.colorspace.ColorSpaceManager', 'trapeze.colorspace.PatternSpace', 'trapeze.cos.COSDictionary', 'trapeze.cos.COSNumber', 'trapeze.cos.COSString', 'trapeze.font.FontManager', 'trapeze.pdmodel.PDResources']);
 goog.addDependency('../../../../src/Exceptions.js', ['trapeze.Exceptions'], []);
 goog.addDependency('../../../../src/Faux2dContext.js', ['trapeze.Faux2dContext'], []);
 goog.addDependency('../../../../src/FauxConsole.js', ['trapeze.FauxConsole'], []);
 goog.addDependency('../../../../src/FauxWorker.js', ['trapeze.FauxWorker'], ['trapeze.TrapezeWorker']);
 goog.addDependency('../../../../src/GeneralPath.js', ['trapeze.GeneralPath'], ['trapeze.AffineTransform']);
-goog.addDependency('../../../../src/PDFImage.js', ['trapeze.PDFImage'], ['trapeze.StreamBuffer', 'trapeze.colorspace.Color', 'trapeze.colorspace.IndexedColor', 'trapeze.colorspace.PDFColorSpace']);
+goog.addDependency('../../../../src/PDFImage.js', ['trapeze.PDFImage'], ['trapeze.StreamBuffer', 'trapeze.colorspace.Color', 'trapeze.colorspace.ColorSpaceManager', 'trapeze.colorspace.IndexedColor']);
 goog.addDependency('../../../../src/PDFObject.js', ['trapeze.PDFObject'], []);
 goog.addDependency('../../../../src/PDFObjectStreamParser.js', ['trapeze.PDFObjectStreamParser'], ['trapeze.BaseParser', 'trapeze.StreamBuffer', 'trapeze.cos.COSObject', 'trapeze.cos.COSObjectKey']);
 goog.addDependency('../../../../src/PDFOperator.js', ['trapeze.PDFOperator'], []);
@@ -26,9 +26,10 @@ goog.addDependency('../../../../src/Trapeze.js', ['trapeze.Trapeze'], ['trapeze.
 goog.addDependency('../../../../src/TrapezeWorker.js', ['trapeze.TrapezeWorker'], ['trapeze.Faux2dContext', 'trapeze.PDFParser', 'trapeze.PDFStreamEngine', 'trapeze.StreamBuffer']);
 goog.addDependency('../../../../src/colorspace/AlternateColorSpace.js', ['trapeze.colorspace.AlternateColorSpace'], ['trapeze.colorspace.PDFColorSpace']);
 goog.addDependency('../../../../src/colorspace/Color.js', ['trapeze.colorspace.Color'], []);
+goog.addDependency('../../../../src/colorspace/ColorSpaceManager.js', ['trapeze.colorspace.ColorSpaceManager'], ['trapeze.StreamBuffer', 'trapeze.colorspace.AlternateColorSpace', 'trapeze.colorspace.ICC_ColorSpace', 'trapeze.colorspace.IndexedColor', 'trapeze.colorspace.PatternSpace', 'trapeze.cos.COSName', 'trapeze.pdffunction.PDFFunction']);
 goog.addDependency('../../../../src/colorspace/ICC_ColorSpace.js', ['trapeze.colorspace.ICC_ColorSpace'], []);
 goog.addDependency('../../../../src/colorspace/IndexedColor.js', ['trapeze.colorspace.IndexedColor'], ['trapeze.StreamBuffer', 'trapeze.colorspace.PDFColorSpace', 'trapeze.cos.COSStream', 'trapeze.cos.COSString']);
-goog.addDependency('../../../../src/colorspace/PDFColorSpace.js', ['trapeze.colorspace.PDFColorSpace'], ['trapeze.StreamBuffer', 'trapeze.colorspace.AlternateColorSpace', 'trapeze.colorspace.ICC_ColorSpace', 'trapeze.colorspace.IndexedColor', 'trapeze.colorspace.PatternSpace', 'trapeze.cos.COSName', 'trapeze.pdffunction.PDFFunction']);
+goog.addDependency('../../../../src/colorspace/PDFColorSpace.js', ['trapeze.colorspace.PDFColorSpace'], []);
 goog.addDependency('../../../../src/colorspace/PatternSpace.js', ['trapeze.colorspace.PatternSpace'], ['trapeze.colorspace.PDFColorSpace']);
 goog.addDependency('../../../../src/cos/COSArray.js', ['trapeze.cos.COSArray'], ['trapeze.cos.COSObject']);
 goog.addDependency('../../../../src/cos/COSBoolean.js', ['trapeze.cos.COSBoolean'], []);
@@ -58,6 +59,7 @@ goog.addDependency('../../../../src/font/CMap.js', ['trapeze.font.CMap'], ['trap
 goog.addDependency('../../../../src/font/CMapFormat0.js', ['trapeze.font.CMapFormat0'], []);
 goog.addDependency('../../../../src/font/CMapFormat4.js', ['trapeze.font.CMapFormat4'], []);
 goog.addDependency('../../../../src/font/CmapTable.js', ['trapeze.font.CmapTable'], ['trapeze.font.CMap']);
+goog.addDependency('../../../../src/font/FontManager.js', ['trapeze.font.FontManager'], ['trapeze.font.BuiltInFont', 'trapeze.font.CIDFontType2', 'trapeze.font.OutlineFont', 'trapeze.font.PDFFontDescriptor', 'trapeze.font.PDFFontEncoding', 'trapeze.font.TTFFont', 'trapeze.font.Type0Font', 'trapeze.font.Type1CFont', 'trapeze.font.Type1Font', 'trapeze.font.Type3Font']);
 goog.addDependency('../../../../src/font/FontSupport.js', ['trapeze.font.FontSupport'], []);
 goog.addDependency('../../../../src/font/Glyf.js', ['trapeze.font.Glyf'], ['trapeze.font.GlyfCompound', 'trapeze.font.GlyfSimple']);
 goog.addDependency('../../../../src/font/GlyfCompound.js', ['trapeze.font.GlyfCompound'], []);
@@ -70,7 +72,7 @@ goog.addDependency('../../../../src/font/LocaTable.js', ['trapeze.font.LocaTable
 goog.addDependency('../../../../src/font/MaxpTable.js', ['trapeze.font.MaxpTable'], []);
 goog.addDependency('../../../../src/font/OutlineFont.js', ['trapeze.font.OutlineFont'], ['trapeze.font.PDFFont', 'trapeze.font.PDFGlyph']);
 goog.addDependency('../../../../src/font/PDFCMap.js', ['trapeze.font.PDFCMap'], ['trapeze.cos.COSName', 'trapeze.cos.COSStream']);
-goog.addDependency('../../../../src/font/PDFFont.js', ['trapeze.font.PDFFont'], ['trapeze.font.BuiltInFont', 'trapeze.font.CIDFontType2', 'trapeze.font.OutlineFont', 'trapeze.font.PDFFontDescriptor', 'trapeze.font.PDFFontEncoding', 'trapeze.font.TTFFont', 'trapeze.font.Type0Font', 'trapeze.font.Type1CFont', 'trapeze.font.Type1Font', 'trapeze.font.Type3Font']);
+goog.addDependency('../../../../src/font/PDFFont.js', ['trapeze.font.PDFFont'], []);
 goog.addDependency('../../../../src/font/PDFFontDescriptor.js', ['trapeze.font.PDFFontDescriptor'], ['trapeze.Rectangle2D', 'trapeze.cos.COSDictionary', 'trapeze.cos.COSName', 'trapeze.cos.COSNumber']);
 goog.addDependency('../../../../src/font/PDFFontEncoding.js', ['trapeze.font.PDFFontEncoding'], ['trapeze.cos.COSDictionary', 'trapeze.cos.COSName', 'trapeze.cos.COSNumber', 'trapeze.font.FontSupport', 'trapeze.font.PDFCMap']);
 goog.addDependency('../../../../src/font/PDFGlyph.js', ['trapeze.font.PDFGlyph'], ['trapeze.cos.COSStream']);
@@ -79,7 +81,7 @@ goog.addDependency('../../../../src/font/PsParser.js', ['trapeze.font.PSParser']
 goog.addDependency('../../../../src/font/TTFFont.js', ['trapeze.font.TTFFont'], ['trapeze.AffineTransform', 'trapeze.GeneralPath', 'trapeze.font.AdobeGlyphList', 'trapeze.font.GlyfCompound', 'trapeze.font.GlyfSimple', 'trapeze.font.OutlineFont', 'trapeze.font.TrueTypeFont']);
 goog.addDependency('../../../../src/font/TrueTypeFont.js', ['trapeze.font.TrueTypeFont'], ['trapeze.StreamBuffer', 'trapeze.font.TrueTypeTable']);
 goog.addDependency('../../../../src/font/TrueTypeTable.js', ['trapeze.font.TrueTypeTable'], ['trapeze.font.CmapTable', 'trapeze.font.GlyfTable', 'trapeze.font.HeadTable', 'trapeze.font.HheaTable', 'trapeze.font.HmtxTable', 'trapeze.font.LocaTable', 'trapeze.font.MaxpTable', 'trapeze.font.PostTable']);
-goog.addDependency('../../../../src/font/Type0Font.js', ['trapeze.font.Type0Font'], ['trapeze.font.PDFFont']);
+goog.addDependency('../../../../src/font/Type0Font.js', ['trapeze.font.Type0Font'], []);
 goog.addDependency('../../../../src/font/Type1CFont.js', ['trapeze.font.Type1CFont'], ['trapeze.AffineTransform', 'trapeze.GeneralPath', 'trapeze.StreamBuffer', 'trapeze.font.FontSupport', 'trapeze.font.OutlineFont']);
 goog.addDependency('../../../../src/font/Type1Font.js', ['trapeze.font.Type1Font'], ['trapeze.AffineTransform', 'trapeze.GeneralPath', 'trapeze.StreamBuffer', 'trapeze.font.FontSupport', 'trapeze.font.OutlineFont', 'trapeze.font.PSParser']);
 goog.addDependency('../../../../src/font/Type3Font.js', ['trapeze.font.Type3Font'], ['trapeze.AffineTransform', 'trapeze.GeneralPath', 'trapeze.PDFParser', 'trapeze.Rectangle2D', 'trapeze.cos.COSDictionary', 'trapeze.font.PDFFont', 'trapeze.font.PDFGlyph']);

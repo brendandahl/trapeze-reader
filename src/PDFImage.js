@@ -1,5 +1,5 @@
 goog.provide("trapeze.PDFImage");
-goog.require("trapeze.colorspace.PDFColorSpace");
+goog.require("trapeze.colorspace.ColorSpaceManager");
 goog.require("trapeze.colorspace.IndexedColor");
 goog.require("trapeze.colorspace.Color");
 goog.require("trapeze.StreamBuffer");
@@ -117,7 +117,6 @@ trapeze.PDFImage.prototype.getImageString = function() {
 	//return strEncoded;
 }
 trapeze.PDFImage.create = function(obj, resources, context) {
-	debugger;
 	var image = new trapeze.PDFImage();
 	var dictionary = obj.dictionary;
 	 // get the width (required)
@@ -171,7 +170,7 @@ trapeze.PDFImage.create = function(obj, resources, context) {
 		if (csObj == null) {
 			throw new ParseException("No ColorSpace for image: " + obj);
 		}
-		var cs = trapeze.colorspace.PDFColorSpace.getColorSpace(csObj, resources);
+		var cs = trapeze.colorspace.ColorSpaceManager.getColorSpace(csObj, resources);
 		image.colorSpace = cs;
 	//}	
 	
