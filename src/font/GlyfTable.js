@@ -36,4 +36,4 @@ trapeze.font.GlyfTable = function(ttf) {
             return o;
         }
 	};
-}
+};

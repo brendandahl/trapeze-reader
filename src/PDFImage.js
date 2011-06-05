@@ -8,7 +8,7 @@ trapeze.PDFImage = function() {
 	this.height;
 	this.bpc;
 	this.colorSpace;
-}
+};
 trapeze.PDFImage.prototype.getImageString = function() {
 	// creates a base64 encoded string containing BMP data
 	// takes an imagedata object as argument
@@ -115,7 +115,7 @@ trapeze.PDFImage.prototype.getImageString = function() {
 	var strEncoded =  encodeData(aHeader.concat(aInfoHeader)) + encodeData(strPixelData);
 	return "data:" + 'image/bmp' + ";base64," + strEncoded;
 	//return strEncoded;
-}
+};
 trapeze.PDFImage.create = function(obj, resources, context) {
 	var image = new trapeze.PDFImage();
 	var dictionary = obj.dictionary;
@@ -221,4 +221,4 @@ trapeze.PDFImage.create = function(obj, resources, context) {
 	image.imageData = imageData;
 	return image;
 	//context.putImageData(imageData, 0,0);
-}
+};

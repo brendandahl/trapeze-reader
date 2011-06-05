@@ -1,7 +1,7 @@
 goog.provide("trapeze.font.AdobeGlyphList");
 goog.require("trapeze.StreamBuffer");
 trapeze.font.AdobeGlyphList = function() {
-}
+};
 trapeze.font.AdobeGlyphList.glyphToUnicodes = null;
 trapeze.font.AdobeGlyphList.unicodeToGlyph = null;
 /**
@@ -17,7 +17,7 @@ trapeze.font.AdobeGlyphList.getGlyphNameIndex = function(glyphName) {
 	} else {
 		return unicodes[0];
 	}
-}
+};
 /**
  * translate a glyph name into the possible unicode values that it
  * might represent. It is possible to have more than one unicode
@@ -29,7 +29,7 @@ trapeze.font.AdobeGlyphList.getGlyphNameIndex = function(glyphName) {
 trapeze.font.AdobeGlyphList.getUnicodeValues = function(glyphName) {
     trapeze.font.AdobeGlyphList.intialize();
 	return trapeze.font.AdobeGlyphList.glyphToUnicodes[glyphName];
-}
+};
 trapeze.font.AdobeGlyphList.intialize = function() {
 	if(trapeze.font.AdobeGlyphList.glyphToUnicodes != null)
 		return;
@@ -55,4 +55,4 @@ trapeze.font.AdobeGlyphList.intialize = function() {
 			trapeze.font.AdobeGlyphList.glyphToUnicodes[glyphName] = codes;
 		}
 	}
-}
+};

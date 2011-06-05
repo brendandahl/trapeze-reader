@@ -76,7 +76,7 @@ trapeze.font.BuiltInFont = function(baseFont, fontObj, descriptor) {
 	}
 
 	this.parseFont(name);
-}
+};
 goog.inherits(trapeze.font.BuiltInFont, trapeze.font.Type1Font);
 
 trapeze.font.BuiltInFont.fontStreamCache = {};
@@ -144,7 +144,7 @@ trapeze.font.BuiltInFont.prototype.parseFont = function(baseFont) {
 	}
 
 	this.parseFontFromStream(data, length1, length2);
-}
+};
 /*
  * Statics
  */

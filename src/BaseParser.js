@@ -11,7 +11,7 @@ goog.require("trapeze.cos.COSObjectKey");
 goog.require("trapeze.cos.COSStream");
 
 trapeze.BaseParser = function() {
-}
+};
 
 trapeze.BaseParser.prototype.parseCOSStream = function(dictionary) {
 	// Strip off any new line stuff before the string
@@ -184,7 +184,7 @@ trapeze.BaseParser.prototype.parseCOSName = function() {
 	}
 	this.stream.rewindOne();
 	return new trapeze.cos.COSName(sb);
-}
+};
 trapeze.BaseParser.prototype.parseCOSNumber = function() {
 	var c = this.stream.read();
 	var neg = c == '-';
@@ -217,7 +217,7 @@ trapeze.BaseParser.prototype.parseCOSNumber = function() {
 		value = -value;
 	}
 	return new trapeze.cos.COSNumber(value);
-}
+};
 	/**
  * <p>read a String from the stream.  Strings begin with a '('
  * character, which has already been read, and end with a balanced ')'
@@ -290,7 +290,7 @@ trapeze.BaseParser.prototype.parseCOSString = function() {
 		return trapeze.cos.COSString.createFromHexString(sb);
 	else
 		return new trapeze.cos.COSString(sb);
-}
+};
 trapeze.BaseParser.prototype.skipSpaces = function() {
 	if(!this.stream.hasRemaining())
 		return;
@@ -319,7 +319,7 @@ trapeze.BaseParser.prototype.skipSpaces = function() {
 		}
 	}
 	this.stream.rewindOne();
-}
+};
 /**
  * read a floating point number from the stream
  */
@@ -355,7 +355,7 @@ trapeze.BaseParser.prototype.readNum = function() {
 		value = -value;
 	}
 	return value;
-}
+};
 /**
  * Is the argument a white space character according to the PDF spec?.
  * ISO Spec 32000-1:2008 - Table 1
@@ -372,7 +372,7 @@ trapeze.BaseParser.prototype.isWhiteSpace = function(c) {
 		default:
 			return false;
 	}
-}
+};
 
 
 trapeze.BaseParser.prototype.readString = function() {
@@ -385,7 +385,7 @@ trapeze.BaseParser.prototype.readString = function() {
 	if(this.stream.getPosition() < this.stream.getLimit())
 		this.stream.rewindOne();
 	return sb;
-}
+};
 trapeze.BaseParser.prototype.parseDirObject = function() {
 	this.skipSpaces();
 	var c = this.stream.read();
@@ -439,7 +439,7 @@ trapeze.BaseParser.prototype.parseDirObject = function() {
  */
 trapeze.BaseParser.prototype.isRegularCharacter = function(c) {
 	return !(this.isWhiteSpace(c) || this.isDelimiter(c));
-}
+};
 /**
  * Is the argument a delimiter according to the PDF spec?<p>
  *
@@ -463,7 +463,7 @@ trapeze.BaseParser.prototype.isDelimiter = function(c) {
 		default:
 			return false;
 	}
-}
+};
 /**
  * Determine if a character terminates a PDF name.
  *
@@ -475,7 +475,7 @@ trapeze.BaseParser.prototype.isEndOfName = function(ch) {
 		|| ch == '[' || ch =='/' || ch ==']' || ch ==')' || ch =='(' ||
 		ch == -1 //EOF
 	);
-}
+};
 
 /**
  * Is the argument a white space character according to the PDF spec?.
@@ -493,4 +493,4 @@ trapeze.BaseParser.isWhiteSpace = function(c) {
 		default:
 			return false;
 	}
-}
+};

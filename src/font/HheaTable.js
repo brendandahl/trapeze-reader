@@ -25,4 +25,4 @@ trapeze.font.HheaTable = function() {
         this.metricDataFormat = data.getShort();
         this.numOfLongHorMetrics = data.getShort();
 	};
-}
+};

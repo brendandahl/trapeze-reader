@@ -36,7 +36,7 @@ trapeze.font.CIDFontType2 = function(baseFont, fontObj, descriptor) {
 		throw new UnimplementedException("Haven't finished cid to gid map for CID font");
 		this.cidToGidMap = mapObj.getStreamBuffer();
 	}
-}
+};
 extend(trapeze.font.CIDFontType2, trapeze.font.TTFFont);
 
 trapeze.font.CIDFontType2.prototype.parseWidths = function(fontObj) {
@@ -167,11 +167,11 @@ trapeze.font.CIDFontType2.prototype.parseWidths = function(fontObj) {
 			entryIdx++;
 		}
 	}
-}
+};
 /**
  * @return int default width
  * @override
  */
 trapeze.font.CIDFontType2.prototype.getDefaultWidth = function() {
 	return this.defaultWidth;
-}
+};

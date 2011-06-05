@@ -27,7 +27,7 @@ trapeze.font.TTFFont = function(baseFont, fontObj, descriptor) {
 	} else {
 		this.font = null;
 	}
-}
+};
 extend(trapeze.font.TTFFont, trapeze.font.OutlineFont);
 
 /*
@@ -132,7 +132,7 @@ trapeze.font.TTFFont.prototype.getOutlineFromCMaps = function(val, width) {
 	}
 
 	return null;
-}
+};
   /**
  * Render a simple glyf
  */
@@ -172,7 +172,7 @@ trapeze.font.TTFFont.prototype.renderSimpleGlyph = function(g) {
 	}
 
 	return rs.gp;
-}
+};
  /**
      * Render a compound glyf
      */
@@ -195,7 +195,7 @@ trapeze.font.TTFFont.prototype.renderCompoundGlyph = function(glyf, g) {
 	}
 
 	return gp;
-}
+};
 trapeze.font.TTFFont.prototype.addOnCurvePoint = function(rec, rs) {
 	// if the point is on the curve, either move to it,
 	// or draw a line from the previous point
@@ -208,7 +208,7 @@ trapeze.font.TTFFont.prototype.addOnCurvePoint = function(rec, rs) {
 	} else {
 		rs.gp.lineTo(rec.x, rec.y);
 	}
-}
+};
 trapeze.font.TTFFont.prototype.addOffCurvePoint = function(rec, rs) {
 	if (rs.prevOff != null) {
 		var oc = new PointRec((rec.x + rs.prevOff.x) / 2,
@@ -219,7 +219,7 @@ trapeze.font.TTFFont.prototype.addOffCurvePoint = function(rec, rs) {
 		rs.firstOff = rec;
 	}
 	rs.prevOff = rec;
-}
+};
 
 
 function RenderState() {

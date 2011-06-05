@@ -13,7 +13,7 @@ trapeze.pdmodel.PDPageNode = function(pages) {
     this.getCount = function()
     {
         return this.page.getDictionaryObject('Count').value;
-    }
+    };
 	
 	this.getAllKids = function(result) {
 		trapeze.pdmodel.PDPageNode.getAllKidsStatic(result, this.page, true);
@@ -33,7 +33,7 @@ trapeze.pdmodel.PDPageNode = function(pages) {
             parent = new trapeze.pdmodel.PDPageNode( parentDic );
         }
         return parent;
-    }
+    };
 	/**
      * This will get the MediaBox at this page and not look up the hierarchy.
      * This attribute is inheritable, and findMediaBox() should probably used.
@@ -55,7 +55,7 @@ trapeze.pdmodel.PDPageNode = function(pages) {
 			);
         }
         return retval;
-    }
+    };
     /**
      * This will find the resources for this page by looking up the hierarchy until
      * it finds them.
@@ -71,7 +71,7 @@ trapeze.pdmodel.PDPageNode = function(pages) {
             retval = parent.findResources();
         }
         return retval;
-    }
+    };
 		/**
      * This will get the resources at this page and not look up the hierarchy.
      * This attribute is inheritable, and findResources() should probably used.
@@ -88,7 +88,7 @@ trapeze.pdmodel.PDPageNode = function(pages) {
             retval = new trapeze.pdmodel.PDResources( resources );
         }
         return retval;
-    }
+    };
     /**
      * This will find the MediaBox for this page by looking up the hierarchy until
      * it finds them.
@@ -104,9 +104,9 @@ trapeze.pdmodel.PDPageNode = function(pages) {
             retval = this.parent.findMediaBox();
         }
         return retval;
-    }
+    };
 	
-}
+};
 /**
  * This will return all kids of the given page node as trapeze.pdmodel.PDPage.
  *
@@ -143,4 +143,4 @@ trapeze.pdmodel.PDPageNode.getAllKidsStatic = function (result, page, recurse)
 		}
 	}
 	return kids;
-}
+};

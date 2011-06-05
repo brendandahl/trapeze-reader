@@ -2,7 +2,7 @@ goog.provide("trapeze.colorspace.PDFColorSpace");
 
 trapeze.colorspace.PDFColorSpace = function(cs) {
 	this._cs = cs;
-}
+};
 /**
  * For now we'll just return the color in RGB
  * Java PDF does a full implementation of this
@@ -11,14 +11,14 @@ trapeze.colorspace.PDFColorSpace = function(cs) {
 trapeze.colorspace.PDFColorSpace.prototype.getPaint = function(components) {
 	var rgb = this._cs.toRGB(components);
 	return rgb;
-}
+};
 /**
  * Get the number of components expected in the getPaint command
  * @return int
  */
 trapeze.colorspace.PDFColorSpace.prototype.getNumComponents = function() {
 	return this._cs.getNumComponents();
-}
+};
 /**
  * @return string
  */
@@ -27,10 +27,10 @@ trapeze.colorspace.PDFColorSpace.prototype.toString = function() {
 	if(this._cs.toString)
 		name += '{' + this._cs.toString() + '}';
 	return name;
-}
+};
 trapeze.colorspace.PDFColorSpace.prototype.toRGB = function(components) {
 	return this._cs.toRGB(components);
-}
+};
 
 /** the name of the device-dependent gray color space */
 trapeze.colorspace.PDFColorSpace.COLORSPACE_GRAY = 0;
@@ -56,4 +56,4 @@ trapeze.colorspace.PDFColorSpace.CMYKtoRGB = function(c, m, y, k) {
 	g = Math.round( g * 255 );
 	b = Math.round( b * 255 );
 	return [r, g, b];
-}
+};

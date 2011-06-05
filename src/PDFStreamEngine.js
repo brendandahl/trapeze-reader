@@ -40,7 +40,7 @@ trapeze.PDFStreamEngine = function(canvas, initialMatrix) {
 			}
 		}
 		//console.timeEnd('Process Substream');
-    }
+    };
 	/**
      * This is used to handle an operation.
      *
@@ -58,5 +58,5 @@ trapeze.PDFStreamEngine = function(canvas, initialMatrix) {
 		} else {
 			console.warn("UNIMPLEMENTED OP '" + operation + "'");
 		}
-    }
-}
+    };
+};

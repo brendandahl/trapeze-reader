@@ -9,7 +9,7 @@ trapeze.font.PDFFont = function(baseFont, descriptor) {
 	this.subType;
 	this.encoding;
 	this.glyphCache = {};
-}
+};
 /**
  * Get the glyphs associated with a given String in this font
  *
@@ -30,7 +30,7 @@ trapeze.font.PDFFont.prototype.getGlyphs = function(text) {
 		}
 		return outList;
 	}
-}
+};
 /**
  * Get a glyph for a given character code.  The glyph is returned
  * from the cache if available, or added to the cache if not
@@ -46,4 +46,4 @@ trapeze.font.PDFFont.prototype.getCachedGlyph = function(src, name) {
 	var glyph = this.getGlyph(src, name);
 	this.glyphCache[src] = glyph;
 	return glyph;
-}
+};

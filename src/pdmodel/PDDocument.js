@@ -33,5 +33,5 @@ trapeze.pdmodel.PDDocument = function(cosDocument) {
 		}
 		var documentInformation = new trapeze.pdmodel.PDDocumentInformation( infoDic );
 		return documentInformation;
-	}
-}
+	};
+};

@@ -33,4 +33,4 @@ trapeze.AsyncFileReader.prototype.start = function() {
 		req.overrideMimeType('text/plain; charset=x-user-defined');
 		req.send(null);
 	}
-}
+};

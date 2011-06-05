@@ -18,7 +18,7 @@ trapeze.Rectangle2D = function(x, y, w, h) {
 	this.y = y;
 	this.width = w;
 	this.height = h;
-}
+};
 trapeze.Rectangle2D.prototype = {
 	getX: function() {
 		return this.x;

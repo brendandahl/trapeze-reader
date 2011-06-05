@@ -90,4 +90,4 @@ trapeze.filter.ASCII85Filter = function() {
 		while(this.decode5(baos)) {};
 		return String.fromCharCode.apply(this, baos.output);
 	};
-}
+};

@@ -48,7 +48,7 @@ trapeze.font.FontSupport.findName = function(name, table) {
 		}
 	}
 	return -1;
-}
+};
     /**
      * get the name of a glyph from its encoding value (NOT the character
      * value), using the standard encoding.
@@ -63,7 +63,7 @@ trapeze.font.FontSupport.getName = function(i) {
 		}
 	}
 	return ".notdef";
-} 
+};
     /**
      * names for glyphs in the standard Adobe order.  This is the ordering
      * of the glyphs in a font, not the mapping of character number to

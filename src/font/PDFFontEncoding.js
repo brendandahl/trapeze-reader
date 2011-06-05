@@ -50,7 +50,7 @@ trapeze.font.PDFFontEncoding = function(fontType, encoding) {
                 throw new IllegalArgumentException("Uknown encoding type: " + type);
             } */
         } 
-}
+};
 trapeze.font.PDFFontEncoding.prototype.parseEncoding = function(encoding) {
 		this.differences = {}; // char to string map
 
@@ -79,7 +79,7 @@ trapeze.font.PDFFontEncoding.prototype.parseEncoding = function(encoding) {
                 }
             }
         }
-}
+};
 trapeze.font.PDFFontEncoding.prototype.getBaseEncoding = function(encodingName) {
         if (encodingName == "MacRomanEncoding") {
             return trapeze.font.FontSupport.macRomanEncoding;
@@ -90,7 +90,7 @@ trapeze.font.PDFFontEncoding.prototype.getBaseEncoding = function(encodingName) 
         } else {
             throw "Unknown encoding: " + encodingName;
         }
-}
+};
 trapeze.font.PDFFontEncoding.prototype.getGlyphs = function(font, text) {
 	var outList = [];
 
@@ -112,7 +112,7 @@ trapeze.font.PDFFontEncoding.prototype.getGlyphs = function(font, text) {
 	}
 
 	return outList;
-}
+};
 trapeze.font.PDFFontEncoding.prototype.getGlyphFromEncoding = function(font, src) {
 	var charName;
 
@@ -126,6 +126,6 @@ trapeze.font.PDFFontEncoding.prototype.getGlyphFromEncoding = function(font, src
 	}
 
 	return font.getCachedGlyph(src, charName);
-}
+};
 trapeze.font.PDFFontEncoding.TYPE_ENCODING = 0;
 trapeze.font.PDFFontEncoding.TYPE_CMAP = 1;

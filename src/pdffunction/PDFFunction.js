@@ -1,7 +1,7 @@
 goog.provide("trapeze.pdffunction.PDFFunction");
 goog.require("trapeze.pdffunction.FunctionType0");
 trapeze.pdffunction.PDFFunction = function() {
-}
+};
 trapeze.pdffunction.PDFFunction.TYPE_0 = 0;
 trapeze.pdffunction.PDFFunction.TYPE_2 = 2;
 trapeze.pdffunction.PDFFunction.TYPE_3 = 3;
@@ -86,7 +86,7 @@ trapeze.pdffunction.PDFFunction.getFunction = function(obj) {
 	pdfFunction.parse (obj);
 
 	return pdfFunction;
-}
+};
 /**
  * Get the number of inputs, <i>m</i>, required by this function
  *
@@ -94,7 +94,7 @@ trapeze.pdffunction.PDFFunction.getFunction = function(obj) {
  */
 trapeze.pdffunction.PDFFunction.prototype.getNumInputs = function() {
 	return (this.domain.length / 2);
-}
+};
 /**
  * Get the number of outputs, <i>n</i>, returned by this function
  *
@@ -105,16 +105,16 @@ trapeze.pdffunction.PDFFunction.prototype.getNumOutputs = function() {
 		return 0;
 	}
 	return (this.range.length / 2);
-}
+};
 /**
  *  Set the domain of this function
  */
 trapeze.pdffunction.PDFFunction.prototype.setDomain = function(domain) {
 	this.domain = domain;
-}
+};
 /**
  * Set the range of this function
  */
 trapeze.pdffunction.PDFFunction.prototype.setRange = function(range) {
 	this.range = range;
-}
+};

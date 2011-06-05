@@ -5,7 +5,7 @@ goog.require("trapeze.filter.FlateFilter");
 goog.require("trapeze.filter.ASCII85Filter");
 trapeze.filter.FilterManager = function() {
 	
-}
+};
 trapeze.filter.FilterManager.getFilter = function(name) {
 	if(name == "FlateDecode" || name == "Fl") {
 		return new trapeze.filter.FlateFilter();

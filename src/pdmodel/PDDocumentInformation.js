@@ -5,4 +5,4 @@ trapeze.pdmodel.PDDocumentInformation = function(dic) {
 	this.getTitle = function() {
 		return this.info.getItem('Title');
 	};
-}
+};

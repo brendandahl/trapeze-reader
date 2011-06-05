@@ -56,4 +56,4 @@ trapeze.font.BaseFontMap = {
 		"file": "d050000l.pfb",
 		"length": 45955
 	}
-}
+};

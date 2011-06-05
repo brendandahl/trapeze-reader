@@ -31,4 +31,4 @@ trapeze.font.Glyf.getGlyf = function(data) {
 	g.setData(data);
 
 	return g;
-}
+};

@@ -35,7 +35,7 @@ trapeze.font.HmtxTable = function(ttf) {
             for(var j = i; j < numGlyphs; j++)
 				this.leftSideBearings[i] = 0;
         }
-	}
+	};
 	/** get the advance of a given glyph */
     this.getAdvance = function(glyphID) {
         if (glyphID < this.advanceWidths.length) {
@@ -43,5 +43,5 @@ trapeze.font.HmtxTable = function(ttf) {
         } else {
             return this.advanceWidths[this.advanceWidths.length - 1];
         }
-    }
-}
+    };
+};

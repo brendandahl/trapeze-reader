@@ -8,7 +8,7 @@ trapeze.PDFXrefStreamParser = function(stream, doc) {
 	this.stream = stream;
 	this.pdfSource = new trapeze.StreamBuffer(stream.decode());
 	this.document = doc;
-}
+};
 /**
  * Parses through the unfiltered stream and populates the xrefTable HashMap.
  * @throws IOException If there is an error while parsing the stream.
@@ -106,4 +106,4 @@ trapeze.PDFXrefStreamParser.prototype = {
 			}
 		}
 	}
-}
+};

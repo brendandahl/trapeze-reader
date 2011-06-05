@@ -23,5 +23,5 @@ trapeze.font.LocaTable = function(ttf) {
      */
 	this.getSize = function(glyphID) {
         return this.offsets[glyphID + 1] - this.offsets[glyphID];
-    }
-}
+    };
+};

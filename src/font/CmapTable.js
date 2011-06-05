@@ -41,5 +41,5 @@ trapeze.font.CmapTable = function() {
      */
    this.getCMap = function(platformID, platformSpecificID) {
         return this.subTables["" + platformID + platformSpecificID];
-    }
-}
+    };
+};

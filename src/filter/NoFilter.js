@@ -3,4 +3,4 @@ trapeze.filter.NoFilter = function() {
 	this.decode = function(text) {
 		return text;
 	};
-}
+};

@@ -26,7 +26,7 @@ goog.require("trapeze.Faux2dContext");
 
 trapeze.TrapezeWorker = function(callback) {
 	this.callback = callback;
-}
+};
 trapeze.TrapezeWorker.prototype.postMessage = function(data) {
 	this.callback(data);
 };
@@ -65,7 +65,7 @@ trapeze.TrapezeWorker.prototype.onmessage = function(event) {
 			this.drawPage(event.data['pageIndex'] + 1);
 		}
 	}
-},
+};
 trapeze.TrapezeWorker.prototype.init = function(width, height) {
 	this.preferredWidth = width;
 	this.preferredHeight = height;
@@ -81,7 +81,7 @@ trapeze.TrapezeWorker.prototype.init = function(width, height) {
 		]);
 	}
 	this.postMessage(['initPager'], []);
-},
+};
 trapeze.TrapezeWorker.prototype.drawPage = function(i) {
 	var page = this.pages[i];
 	if(page.drawn)
@@ -104,7 +104,7 @@ trapeze.TrapezeWorker.prototype.drawPage = function(i) {
 	page.drawToCanvas();
 
 	ctx.post();
-},
+};
 trapeze.TrapezeWorker.prototype.getCanvas = function(i) {
 	// Faux canvas
 	var that = this;
@@ -119,7 +119,7 @@ trapeze.TrapezeWorker.prototype.getCanvas = function(i) {
 			return ctx;
 		}
 	};
-}
+};
 if(typeof window == 'undefined') { // In a web worker we have to kick start things
 	var that = this;
 	var worker = new trapeze.TrapezeWorker(function(data) {

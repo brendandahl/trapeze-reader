@@ -10,7 +10,7 @@ trapeze.PDFObjectStreamParser = function(stream, doc) {
 	this.document = doc;
 	this.streamObjects = [];
 	this.objectNumbers = [];
-}
+};
 extend(trapeze.PDFObjectStreamParser, trapeze.BaseParser);
 
 	/**
@@ -38,4 +38,4 @@ trapeze.PDFObjectStreamParser.prototype.parse = function() {
 		this.streamObjects.push( object );
 		objectCounter++;
 	}
-}
+};

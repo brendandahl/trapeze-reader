@@ -8,7 +8,7 @@ goog.require("trapeze.font.HeadTable");
 goog.require("trapeze.font.GlyfTable");
 goog.require("trapeze.font.CmapTable");
 trapeze.font.TrueTypeTable = function() {
-}
+};
 /**
  * Get a new instance of a table with provided data
  *
@@ -60,4 +60,4 @@ trapeze.font.TrueTypeTable.createTable = function(ttf, tagString, data) {
 	}
 
 	return outTable;
-}
+};

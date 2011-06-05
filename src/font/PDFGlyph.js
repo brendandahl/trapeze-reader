@@ -5,7 +5,7 @@ trapeze.font.PDFGlyph = function(src, name, shape, advance) {
 	this.advance = advance;
 	this.src = src;
 	this.name = name;
-}
+};
 trapeze.font.PDFGlyph.prototype.render = function(graphics, engine) {
 	// first do the affine transformation
 	if(this.shape instanceof trapeze.cos.COSStream) { // Type3Font stream of pdf commands
@@ -20,7 +20,7 @@ trapeze.font.PDFGlyph.prototype.render = function(graphics, engine) {
 		}
 	}
 	return this.advance;
-}
+};
 trapeze.font.PDFGlyph.prototype.getChar = function() {
 	return this.src;
-}
+};

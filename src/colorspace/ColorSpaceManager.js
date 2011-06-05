@@ -76,7 +76,7 @@ trapeze.colorspace.ColorSpaceManager.getColorSpaceByName = function(name) {
             throw new IllegalArgumentException("Unknown Color Space name: " +
                 name);
 	}
-}
+};
 trapeze.colorspace.ColorSpaceManager.staticColorSpacesInitialized = false;
 trapeze.colorspace.ColorSpaceManager.getColorSpace = function(csobj, resources) {
 	var name;
@@ -151,4 +151,4 @@ trapeze.colorspace.ColorSpaceManager.getColorSpace = function(csobj, resources) 
 
 	return value;
 	throw new UnimplementedException("Only support names color spaces");
-}
+};

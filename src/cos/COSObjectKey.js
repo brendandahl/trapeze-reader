@@ -8,7 +8,7 @@ trapeze.cos.COSObjectKey = function(num, gen) {
 		this.generation = parseInt(gen);
 	else
 		this.generation = gen;
-}
+};
 trapeze.cos.COSObjectKey.prototype = {
 	getKey: function() {
 		return this.number + "-" + this.generation;
@@ -16,4 +16,4 @@ trapeze.cos.COSObjectKey.prototype = {
 	toString: function() {
 		return "COSObjectKey: " + this.getKey();
 	}
-}
+};

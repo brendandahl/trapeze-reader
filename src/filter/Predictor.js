@@ -12,7 +12,7 @@ trapeze.filter.Predictor = function() {
 
 	/** the number of columns per row */
 	this._columns = 1;
-}
+};
 /**
  * Get the algorithm in use
  *
@@ -20,49 +20,49 @@ trapeze.filter.Predictor = function() {
  */
 trapeze.filter.Predictor.prototype.getAlgorithm = function() {
 	return this._algorithm;
-}
+};
 
 /**
  * Get the number of colors per sample
  */
 trapeze.filter.Predictor.prototype.getColors = function() {
 	return this._colors;
-}
+};
 
 /**
  * Set the number of colors per sample
  */
 trapeze.filter.Predictor.prototype.setColors = function(colors) {
 	this._colors = colors;
-}
+};
 
 /**
  * Get the number of bits per color component
  */
 trapeze.filter.Predictor.prototype.getBitsPerComponent = function() {
 	return this._bpc;
-}
+};
 
 /**
  * Set the number of bits per color component
  */
 trapeze.filter.Predictor.prototype.setBitsPerComponent = function(bpc) {
 	this._bpc = bpc;
-}
+};
 
 /**
  * Get the number of columns
  */
 trapeze.filter.Predictor.prototype.getColumns = function() {
 	return this._columns;
-}
+};
 
 /**
  * Set the number of columns
  */
 trapeze.filter.Predictor.prototype.setColumns = function(columns) {
 	this._columns = columns;
-}
+};
 
 trapeze.filter.Predictor.getPredictor = function(params) {
  // get the algorithm (required)

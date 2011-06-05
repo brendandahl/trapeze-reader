@@ -4,7 +4,7 @@ trapeze.PDFObject = function(type, object) {
 		throw new Exception("Undefined type");
 	this.type = type;
 	this.object = object;
-}
+};
 trapeze.PDFObject.prototype = {
 	getBooleanValue: function() {
 		if(this.type == 0) {
@@ -29,7 +29,7 @@ trapeze.PDFObject.prototype = {
 		if(this.object != null)
 			return "\t".repeat(depth) + "PDFObject(" + trapeze.PDFObject.TYPE_MAP[this.type] + "):";
 	}
-}
+};
 /** an indirect reference*/
 trapeze.PDFObject.INDIRECT = 0;      // PDFXref
 /** a Boolean */

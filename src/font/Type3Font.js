@@ -72,7 +72,7 @@ trapeze.font.Type3Font = function(baseFont, fontObj, resources, descriptor) {
 	// get first and last chars
 	this.firstChar = fontObj.getDictionaryObject("FirstChar").value;
 	this.lastChar = fontObj.getDictionaryObject("LastChar").value;
-}
+};
 extend(trapeze.font.Type3Font, trapeze.font.PDFFont);
 
 trapeze.font.Type3Font.prototype.getGlyph = function(src, name) {

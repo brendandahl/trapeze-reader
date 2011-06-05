@@ -9,7 +9,7 @@ trapeze.PDFParser = function(stream) {
 	this.stream = stream;
 	this.document = new trapeze.cos.COSDocument();
 	this.document.parser = this;
-}
+};
 extend(trapeze.PDFParser, trapeze.BaseParser);
 
 trapeze.PDFParser.prototype.parse = function() {
@@ -129,7 +129,7 @@ trapeze.PDFParser.prototype.parseXrefStream = function() {
 		docTrailer.addAll( parsedTrailer );
 	}
 	return parsedTrailer;
-}
+};
 /**
  * This will parse the xref table from the stream and add it to the state
  * The XrefTable contents are ignored.

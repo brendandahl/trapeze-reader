@@ -1,7 +1,7 @@
 goog.provide("trapeze.font.PostTable");
 trapeze.font.PostTable = function() {
 	this._nameMap;
-}
+};
 trapeze.font.PostTable.prototype.setData = function(data) {
 	// TODO
 	this.format = data.getInt();
@@ -38,49 +38,49 @@ trapeze.font.PostTable.prototype.setData = function(data) {
 	
 	// fill in the data in the map
 	this._nameMap.setData(data);
-}
+};
 /**
  * Map a character name to a glyphNameIndex
  */
 trapeze.font.PostTable.prototype.getGlyphNameIndex = function(name) {
 	return this._nameMap.getCharIndex(name);
-}
+};
 
 
 
 /** An empty post map */
 function PostMap() {
-}
+};
 /** map a name to a character index */
 PostMap.prototype.getCharIndex = function(charName) {
 	return 0;
-}
+};
 	
 /** name a character index to a name */
 PostMap.prototype.getCharName = function(charIndex) {
 	return null;
-}
+};
 
 /** get the length of the data in this map */
 PostMap.prototype.getLength = function() {
 	return 0;
-}
+};
 
 /** get the data in this map as a ByteBuffer */
 PostMap.prototype.getData = function() {
 	return ByteBuffer.allocate(0);
-}
+};
 
 /** set the data in this map from a ByteBuffer */
 PostMap.prototype.setData = function(data) {
 	// do nothing
 	return;
-}
+};
 
  /** A Format 0 post map */
 function PostMapFormat0() {
 	PostMapFormat0.baseConstructor.call(this);
-}
+};
 extend(PostMapFormat0, PostMap);
 /** the glyph names in standard Macintosh ordering */
 PostMapFormat0.stdNames = [
@@ -129,28 +129,28 @@ PostMapFormat0.prototype.getCharIndex = function(charName) {
 	}
 	
 	return 0;
-}
+};
 	
 /** name a character index to a name */
 PostMapFormat0.prototype.getCharName = function(charIndex) {
 	return PostMapFormat0.stdNames[charIndex];
-}
+};
 
 /** get the length of the data in this map */
 PostMapFormat0.prototype.getLength = function() {
 	return 0;
-}
+};
 
 /** get the data in this map as a ByteBuffer */
 PostMapFormat0.prototype.getData = function() {
 	return ByteBuffer.allocate(0);
-}
+};
 
 /** set the data in this map from a ByteBuffer */
 PostMapFormat0.prototype.setData = function(data) {
 	// do nothing
 	return;
-}
+};
 
 
 
@@ -161,7 +161,7 @@ function PostMapFormat2() {
 	this.glyphNameIndex;
 	/** the glyph names */
 	this.glyphNames;
-}
+};
 extend(PostMapFormat2, PostMapFormat0);
 	
 /** Map a character name to an index */
@@ -194,7 +194,7 @@ PostMapFormat2.prototype.getCharIndex = function(charName) {
 	
 	// not found
 	return 0;
-}
+};
 
 /** Map an index to a character name */
 PostMapFormat2.prototype.getCharName = function(charIndex) {
@@ -203,7 +203,7 @@ PostMapFormat2.prototype.getCharName = function(charIndex) {
 	}
 	
 	return PostMapFormat2.superClass.getCharName(charIndex);
-}
+};
 
 /** get the length of this class's data */
 PostMapFormat2.prototype.getLength = function() {
@@ -218,7 +218,7 @@ PostMapFormat2.prototype.getLength = function() {
 	}
 	
 	return size;
-}
+};
 
 /** set the contents of this map from a ByteBuffer */
 PostMapFormat2.prototype.setData = function(data) {
@@ -257,4 +257,4 @@ PostMapFormat2.prototype.setData = function(data) {
 				
 		this.glyphNames[i] = glyphName;
 	}
-}
+};

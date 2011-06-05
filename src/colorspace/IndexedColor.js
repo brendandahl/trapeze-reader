@@ -59,14 +59,14 @@ trapeze.colorspace.IndexedColor = function(base, count, stream) {
 		this.finalcolors[finalloc++] = this.table[i][1];//.getGreen();
 		this.finalcolors[finalloc++] = this.table[i][2];//.getBlue();
 	}
-}
+};
 extend(trapeze.colorspace.IndexedColor, trapeze.colorspace.PDFColorSpace);
 /**
  * get the number of components of this colorspace (1)
  */
 trapeze.colorspace.IndexedColor.prototype.getNumComponents = function() {
 	return 1;
-}
+};
 /**
  * get the color represented by the index.
  * @param components an array of exactly one integer number whose
@@ -76,10 +76,10 @@ trapeze.colorspace.IndexedColor.prototype.getPaint = function(components) {
 	if(!this.table[components[0]])
 		throw new ParseException("Unknown indexed color for index " + components[0]);
 	return this.table[components[0]];
-}
+};
 trapeze.colorspace.IndexedColor.prototype.toRGB = function(components) {
 	return this.getPaint(components);
-}
+};
 trapeze.colorspace.IndexedColor.prototype.toString = function() {
 	return 'IndexedColor';
-}
+};

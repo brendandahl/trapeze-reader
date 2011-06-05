@@ -37,7 +37,7 @@ trapeze.font.PSParser = function(data, start) {
 		}
 		//	    System.out.println("Read: "+s);
 		return s;
-	}
+	};
 
 	/**
 	 * read a set of numbers from the input.  This method doesn't
@@ -62,21 +62,21 @@ trapeze.font.PSParser = function(data, start) {
 			}
 		}
 		return ary;
-	}
+	};
 
 	/**
 	 * get the current location within the input stream
 	 */
 	this.getLoc = function() {
 		return this.loc;
-	}
+	};
 
 	/**
 	 * set the current location within the input stream
 	 */
 	this.setLoc = function(loc) {
 		this.loc = loc;
-	}
+	};
 
 	/**
 	 * treat the next n bytes of the input stream as encoded
@@ -92,7 +92,7 @@ trapeze.font.PSParser = function(data, start) {
 		var result = trapeze.font.Type1Font.decrypt(this.data, this.loc, this.loc + n, key, skip);
 		this.loc += n;
 		return result;
-	}
+	};
 	/**
      * return true if the character is neither a whitespace or a delimiter.
      *
@@ -101,7 +101,7 @@ trapeze.font.PSParser = function(data, start) {
      */
     this.isRegularCharacter = function(c) {
         return !(this.isWhiteSpace(c) || this.isDelimiter(c));
-    }
+    };
 	/**
      * Is the argument a delimiter according to the PDF spec?<p>
      *
@@ -126,7 +126,7 @@ trapeze.font.PSParser = function(data, start) {
             default:
                 return false;
         }
-    }
+    };
 	/**
      * Is the argument a white space character according to the PDF spec?.
      * ISO Spec 32000-1:2008 - Table 1
@@ -144,5 +144,5 @@ trapeze.font.PSParser = function(data, start) {
             default:
                 return false;
         }
-    }
-}
+    };
+};

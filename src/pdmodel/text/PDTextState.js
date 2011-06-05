@@ -13,4 +13,4 @@ trapeze.pdmodel.text.PDTextState = function()
     var knockout = true;
 
    
-}
+};

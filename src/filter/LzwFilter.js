@@ -98,4 +98,4 @@ trapeze.filter.LzwFilter = function() {
         }
         return String.fromCharCode.apply(this, baos.output);
 	};
-}
+};

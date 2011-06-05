@@ -3,7 +3,7 @@ goog.require("trapeze.colorspace.PDFColorSpace");
 trapeze.colorspace.PatternSpace = function(base) {
 	trapeze.colorspace.PatternSpace.baseConstructor.call(this, null);
 	this._base = null;
-}
+};
 extend(trapeze.colorspace.PatternSpace, trapeze.colorspace.PDFColorSpace);
 
 /**
@@ -13,7 +13,7 @@ trapeze.colorspace.PatternSpace.prototype.getNumComponents = function() {
 	if(this._base == null)
 		return 0;
 	return this._base.getNumComponents();
-}
+};
 /*PatternSpace.prototype.getPaint = function(components) {
 	throw new IllegalArgumentException("Pattern spaces require a pattern " +
             "name!");
@@ -40,11 +40,11 @@ trapeze.colorspace.PatternSpace.prototype.getPaint = function(patternObj, compon
 	}
 
 	return pattern.getPaint(basePaint);
-}
+};
 trapeze.colorspace.PatternSpace.prototype.toRGB = function(components) {
 	return this.getPaint(components);
-}
+};
 trapeze.colorspace.PatternSpace.prototype.toString = function() {
 	return 'PatternSpace';
-}
+};
 

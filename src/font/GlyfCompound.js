@@ -5,7 +5,7 @@ trapeze.font.GlyfCompound = function() {
     
     /** the instructions for the compound as a whole */
     this._instructions;
-}
+};
 trapeze.font.GlyfCompound.ARG_1_AND_2_ARE_WORDS    = 0x1;
 trapeze.font.GlyfCompound.ARGS_ARE_XY_VALUES       = 0x2;
 trapeze.font.GlyfCompound.ROUND_XY_TO_GRID         = 0x4;
@@ -92,13 +92,13 @@ trapeze.font.GlyfCompound.prototype.setData = function(data) {
  */
 trapeze.font.GlyfCompound.prototype.getNumComponents = function() {
 	return this._components.length;
-}
+};
 /**
  * Get the glyf index for a given glyf
  */
 trapeze.font.GlyfCompound.prototype.getGlyphIndex = function(index) {
 	return this._components[index].glyphIndex;
-}
+};
 /**
  * Get the base affine transform.  This is based on a whacy formula
  * defined in the true type font spec.
@@ -120,6 +120,6 @@ trapeze.font.GlyfCompound.prototype.getTransform = function(index) {
 	var f = n * gc.f;
 	
 	return [gc.a, gc.b, gc.c, gc.d, e, f]; 
-}
+};
 function GlyfComponent() {
-}
+};

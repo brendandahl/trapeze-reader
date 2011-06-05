@@ -94,5 +94,5 @@ trapeze.font.FontManager.getFont = function(obj, resources) {
 	obj['cachedFont'] = font;
 
 	return font;
-}
+};
 

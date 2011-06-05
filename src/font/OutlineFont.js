@@ -33,7 +33,7 @@ trapeze.font.OutlineFont = function(baseFont, fontObj, descriptor) {
 			this.widths[i] = widthArrayObj.get(i).value / 1000; //this.getDefaultWidth();
 		}
 	}
-}
+};
 goog.inherits(trapeze.font.OutlineFont, trapeze.font.PDFFont);
 /*
  * Methods
@@ -54,7 +54,7 @@ trapeze.font.OutlineFont.prototype.getGlyph = function(src, name) {
 	// calculate the advance
 	var advance = {'x': width, 'y': 0};
 	return new trapeze.font.PDFGlyph(src, name, outline, advance);
-}
+};
 trapeze.font.OutlineFont.prototype.getWidth = function(code, name) {
 	var charCode = code.charCodeAt(0) & 0xFF;
 	var idx = charCode - this.firstChar;

@@ -16,7 +16,7 @@ trapeze.FauxWorker = function() {
 	this.worker = new trapeze.TrapezeWorker(function(data) {
 		that.onmessage({'data': data});
 	});
-}
+};
 
 /**
  * This posts a message to the TrapezeWorker.
@@ -24,5 +24,5 @@ trapeze.FauxWorker = function() {
  */
 trapeze.FauxWorker.prototype.postMessage = function(data) {
 	this.worker.onmessage({'data': data});
-}
+};
 

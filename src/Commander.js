@@ -27,7 +27,7 @@ trapeze.Commander = function(graphics, resources, initialMatrix, streamEngine) {
 	this.initialMatrix = initialMatrix;
 	this.streamEngine = streamEngine;
 	this.clip = 0;
-}
+};
 trapeze.Commander.prototype = {
 	/**
 	 * 'q' Save graphics state
@@ -672,7 +672,7 @@ trapeze.Commander.prototype = {
 		if((style & Shape.CLIP) != 0)
 			this.graphics.clip();
 	}
-}
+};
 
 function TextState(commander) {
 	this.commander = commander
@@ -767,9 +767,9 @@ function TextState(commander) {
         }
 		this.graphics.beginPath();
 	};
-}
+};
 function Shape() {
-}
+};
 /** stroke the outline of the path with the stroke paint */
 Shape.STROKE = 1;
 /** fill the path with the fill paint */

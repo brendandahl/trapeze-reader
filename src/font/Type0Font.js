@@ -10,5 +10,5 @@ trapeze.font.Type0Font = function(baseFont, fontObj, descriptor) {
 	for(var i = 0; i < size; i++) {
 		this.fonts[i] = trapeze.font.FontManager.getFont(descendantFonts.getObject(i), null);
 	}
-}
+};
 extend(trapeze.font.Type0Font, trapeze.font.PDFFont);

@@ -82,4 +82,4 @@ trapeze.PDFOperatorMap = function() {
 		'\'': 'moveAndShow'
 		//'\"':'SetMoveAndShow'
 	};
-}
+};

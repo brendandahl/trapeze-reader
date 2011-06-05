@@ -19,4 +19,4 @@ trapeze.font.HeadTable = function() {
         this.indexToLocFormat = data.getShort();
         this.glyphDataFormat = data.getShort();
 	};
-}
+};

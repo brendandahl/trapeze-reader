@@ -15,7 +15,7 @@ trapeze.colorspace.AlternateColorSpace = function(alternate, pdfFunction) {
 			return [0,0,0];
 		}
 	}
-}
+};
 extend(trapeze.colorspace.AlternateColorSpace, trapeze.colorspace.PDFColorSpace);
 
 /**
@@ -28,7 +28,7 @@ trapeze.colorspace.AlternateColorSpace.prototype.getNumComponents = function() {
 	} else {
 		return this.alternate.getNumComponents();
 	}
-}
+};
 trapeze.colorspace.AlternateColorSpace.prototype.toString = function() {
 	return 'AlternateColorSpace';
-}
+};

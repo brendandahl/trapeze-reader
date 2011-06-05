@@ -12,7 +12,7 @@ trapeze.cos.COSDocument = function() {
 	this._objectPool = {};
 	this._xrefTable = {};
 	this._trailer = null;
-}
+};
 trapeze.cos.COSDocument.prototype = {
 	/**
 	 * Gets an object from the pool. If the object hasn't been loaded
@@ -94,4 +94,4 @@ trapeze.cos.COSDocument.prototype = {
 			retval += this._objectPool[property].toString() + "\n";
 		return retval;
 	}
-}
+};

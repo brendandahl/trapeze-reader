@@ -21,7 +21,7 @@ trapeze.pdmodel.PDDocumentCatalog = function(doc, rootDictionary) {
     this.getPages = function()
     {
         return new trapeze.pdmodel.PDPageNode( this.root.getDictionaryObject( 'Pages') );
-    }
+    };
 	
 	/**
      * The PDF document contains a hierarchical structure of PDPageNode and PDPages, which
@@ -37,6 +37,6 @@ trapeze.pdmodel.PDDocumentCatalog = function(doc, rootDictionary) {
         
 		rootNode.getAllKids(retval);
         return retval;
-    }
+    };
 
-}
+};

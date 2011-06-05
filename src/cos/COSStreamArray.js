@@ -15,4 +15,4 @@ trapeze.cos.COSStreamArray = function(base) {
         parser.parse();
         return parser.getTokens();
 	};
-}
+};

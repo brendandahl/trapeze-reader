@@ -3,7 +3,7 @@ goog.require("trapeze.filter.Predictor");
 goog.require("trapeze.StreamBuffer");
 trapeze.filter.PNGPredictor = function() {
 	trapeze.filter.PNGPredictor.baseConstructor.call(this);
-}
+};
 extend(trapeze.filter.PNGPredictor, trapeze.filter.Predictor);
 /**
  * Undo data based on the png algorithm
@@ -71,7 +71,7 @@ trapeze.filter.PNGPredictor.prototype.unpredict = function(imageData) {
 	
 	return String.fromCharCode.apply(this, outBuf);
 	
-}
+};
 
 /**
  * Return the value of the Sub algorithm on the line (compare bytes to
@@ -87,7 +87,7 @@ trapeze.filter.PNGPredictor.prototype.doSubLine = function(curLine) {
 			curLine[i] += curLine[prevIdx];
 		}
 	}
-}
+};
 
 /**
  * Return the value of the up algorithm on the line (compare bytes to
@@ -102,7 +102,7 @@ trapeze.filter.PNGPredictor.prototype.doUpLine = function(curLine, prevLine) {
 	for (var i = 0; i < curLine.length; i++) {
 		curLine[i] += prevLine[i];
 	}
-}
+};
 
 /**
  * Return the value of the average algorithm on the line (compare
@@ -131,7 +131,7 @@ trapeze.filter.PNGPredictor.prototype.doAverageLine = function(curLine, prevLine
 		// add the average
 		curLine[i] += Math.floor((raw + prior) / 2); // cast to (byte)
 	}      
-}
+};
 
  /**
  * Return the value of the average algorithm on the line (compare
@@ -165,7 +165,7 @@ trapeze.filter.PNGPredictor.prototype.doPaethLine = function(curLine, prevLine) 
 		// add the average
 		curLine[i] += this.paeth(left, up, upLeft); // cast to (byte)
 	}      
-}
+};
 
 /**
  * The paeth algorithm
@@ -183,4 +183,4 @@ trapeze.filter.PNGPredictor.prototype.paeth = function(left, up, upLeft) {
 	} else {
 		return upLeft;
 	}
-}
+};

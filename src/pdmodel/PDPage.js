@@ -31,14 +31,14 @@ trapeze.pdmodel.PDPage = function(pageDic) {
 			);
         }
         return retval;
-    }
+    };
 	this.getRotation = function() {
 		var rotation = 0;
 		var rotate = this.page.getDictionaryObject('Rotate');
 		if(rotate != null)
 			rotation = rotate.value;
 		return rotation;
-	}
+	};
     /**
      * This will find the MediaBox for this page by looking up the hierarchy until
      * it finds them.
@@ -54,7 +54,7 @@ trapeze.pdmodel.PDPage = function(pageDic) {
             retval = parent.findMediaBox();
         }
         return retval;
-    }
+    };
 	
 	/**
      * This is the parent page node.  The parent is a required element of the
@@ -71,7 +71,7 @@ trapeze.pdmodel.PDPage = function(pageDic) {
             parent = new trapeze.pdmodel.PDPageNode( parentDic );
         }
         return parent;
-    }
+    };
 	
 	/**
      * This will get the resources at this page and not look up the hierarchy.
@@ -89,7 +89,7 @@ trapeze.pdmodel.PDPage = function(pageDic) {
             retval = new trapeze.pdmodel.PDResources( resources );
         }
         return retval;
-    }
+    };
     /**
      * This will find the resources for this page by looking up the hierarchy until
      * it finds them.
@@ -105,7 +105,7 @@ trapeze.pdmodel.PDPage = function(pageDic) {
             retval = parent.findResources();
         }
         return retval;
-    }
+    };
 	/**
      * This will get the contents of the PDF Page, in the case that the contents
      * of the page is an array then then the entire array of streams will be
@@ -118,7 +118,7 @@ trapeze.pdmodel.PDPage = function(pageDic) {
     this.getContents = function()
     {
         return trapeze.pdmodel.PDStream.createFromCOS( this.page.getDictionaryObject( 'Contents' ) );
-    }
+    };
 	
 	this.drawToCanvas = function()
 	{
@@ -129,7 +129,7 @@ trapeze.pdmodel.PDPage = function(pageDic) {
         var scaling = resolution / 72; //DEFAULT_USER_SPACE_UNIT_DPI;
         var widthPx = Math.round(widthPt * scaling);
         var heightPx = Math.round(heightPt * scaling);
-	}
+	};
 	
 	    /**
      * Get the initial transform to map from a specified clip rectangle in
@@ -184,7 +184,7 @@ trapeze.pdmodel.PDPage = function(pageDic) {
 		at = at.translate(-clip.getMinX(), -clip.getMinY());
 
         return at;
-    }
+    };
 	/**
      * Get the width and height of this image in the correct aspect ratio.
      * The image returned will have at least one of the width and
@@ -228,5 +228,5 @@ trapeze.pdmodel.PDPage = function(pageDic) {
 
 
         return {'width' : width, 'height': height};
-    }
-}
+    };
+};

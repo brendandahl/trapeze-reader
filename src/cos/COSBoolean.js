@@ -1,7 +1,7 @@
 goog.provide("trapeze.cos.COSBoolean");
 trapeze.cos.COSBoolean = function(value) {
 	this.value = value;
-}
+};
 
 trapeze.cos.COSBoolean.prototype.toString = function() {
 	return "COSBoolean: " + this.value;

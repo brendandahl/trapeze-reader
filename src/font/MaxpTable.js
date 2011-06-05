@@ -17,4 +17,4 @@ trapeze.font.MaxpTable = function() {
         this.maxComponentElements = data.getShort();
         this.maxComponentDepth = data.getShort();
 	}
-}
+};

@@ -9,7 +9,7 @@ trapeze.Faux2dContext = function(listener, index) {
 	this.listener = listener;
 	this.index = index;
 	this.actions = [];
-}
+};
 trapeze.Faux2dContext.prototype = {
 	callFunction: function(method, args) {
 		// convert args to real array

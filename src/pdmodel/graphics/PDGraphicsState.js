@@ -34,14 +34,14 @@ trapeze.pdmodel.graphics.PDGraphicsState = function() {
     private GeneralPath currentClippingPath; */
 	this.clone = function() {
 		return jQuery.extend(true, {}, this);
-	}
+	};
 	this.setCurrentTransformationMatrix = function(matrix) {
 		currentTransformationMatrix = matrix;
 	};
 	this.getCurrentTransformationMatrix = function(matrix) {
 		return currentTransformationMatrix;
-	}
+	};
 	this.getTextState = function() {
 		return this.textState;
-	}
-}
+	};
+};

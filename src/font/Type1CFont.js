@@ -46,7 +46,7 @@ trapeze.font.Type1CFont = function(baseFont, fontObj, descriptor) {
     this.nglyphs = 1;
 
 	this.parse();
-}
+};
 extend(trapeze.font.Type1CFont, trapeze.font.OutlineFont);
 trapeze.font.Type1CFont.CMD = 0;
 trapeze.font.Type1CFont.NUM = 1;

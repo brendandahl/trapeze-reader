@@ -7,13 +7,13 @@ goog.require("trapeze.cos.COSStream");
  *
  */
 trapeze.font.PDFCMap = function() {
-}
+};
 trapeze.font.PDFCMap.prototype.map = function(src) {
 	return src;
-}
+};
 trapeze.font.PDFCMap.prototype.getFontID = function(src) {
 	return 0;
-}
+};
 trapeze.font.PDFCMap.getCMap = function(map) {
 	if (map instanceof trapeze.cos.COSName) {
 		return new trapeze.font.PDFCMap();
@@ -22,4 +22,4 @@ trapeze.font.PDFCMap.getCMap = function(map) {
 	} else {
 		throw new IOException("CMap type not Name or Stream!");
 	}
-}
+};

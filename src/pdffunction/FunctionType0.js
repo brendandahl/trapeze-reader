@@ -3,7 +3,7 @@ goog.require("trapeze.pdffunction.PDFFunction");
 goog.require("trapeze.StreamBuffer");
 trapeze.pdffunction.FunctionType0 = function() {
 	trapeze.pdffunction.FunctionType0.baseConstructor.call(this, trapeze.pdffunction.PDFFunction.TYPE0);
-}
+};
 extend(trapeze.pdffunction.FunctionType0, trapeze.pdffunction.PDFFunction);
 trapeze.pdffunction.FunctionType0.prototype.parse = function(obj) {
 	// read the size array (required)
@@ -56,10 +56,10 @@ trapeze.pdffunction.FunctionType0.prototype.parse = function(obj) {
 	
 	// finally, read the samples
 	this.setSamples(this.readSamples(new trapeze.StreamBuffer(obj.decode())));
-}
+};
 trapeze.pdffunction.FunctionType0.prototype.setSize = function(size) {
 	this.size = size;
-}
+};
 /**
  * Get the size of a given input dimension
  *
@@ -68,31 +68,31 @@ trapeze.pdffunction.FunctionType0.prototype.setSize = function(size) {
  */
 trapeze.pdffunction.FunctionType0.prototype.getSize = function(dimension) {
 	return this.size[dimension];
-}
+};
 /** 
  * Get the number of bits per sample
  */
 trapeze.pdffunction.FunctionType0.prototype.getBitsPerSample = function() {
 	return this.bitsPerSample;
-}
+};
 trapeze.pdffunction.FunctionType0.prototype.setBitsPerSample = function(bits) {
 	this.bitsPerSample = bits;
-}
+};
 trapeze.pdffunction.FunctionType0.prototype.setOrder = function(order) {
 	this.order = order;
-}
+};
 trapeze.pdffunction.FunctionType0.prototype.setEncode = function(encode) {
 	this.encode = encode;
-}
+};
 trapeze.pdffunction.FunctionType0.prototype.setDecode = function(decode) {
 	this.decode = decode;
-}
+};
 /**
  * Set the table of samples
  */
 trapeze.pdffunction.FunctionType0.prototype.setSamples = function(samples) {
 	this.samples = samples;
-}
+};
  /**
  * Read the samples from the input stream.  Each sample is made up
  * of <i>n</i> components, each of which has length <i>bitsPerSample</i>
@@ -155,4 +155,4 @@ trapeze.pdffunction.FunctionType0.prototype.readSamples = function(buf) {
 	}
 	
 	return samples;
-}
+};

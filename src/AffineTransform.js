@@ -14,7 +14,7 @@ trapeze.AffineTransform = function(m00, m10, m01, m11, m02, m12) {
 	this.m11 = m11; // Scale Y = 		m11
 	this.m02 = m02; // Translation X = 	m02
 	this.m12 = m12; // Translation Y = 	m12
-}
+};
 trapeze.AffineTransform.prototype = {
 	/**
      * This will take the current AffineTransform and multipy it with a AffineTransform that is passed in.
@@ -97,7 +97,7 @@ trapeze.AffineTransform.prototype = {
 		return {x: pt.x * this.m00 + pt.y * this.m01 + this.m02,
 				y: pt.x * this.m10 + pt.y * this.m11 + this.m12};
 	}
-}
+};
 trapeze.AffineTransform.getScaleInstance = function(x, y) {
 	var affineTransform = new trapeze.AffineTransform();
 	affineTransform.m00 = x;

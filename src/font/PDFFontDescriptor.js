@@ -55,7 +55,7 @@ trapeze.font.PDFFontDescriptor = function(obj) {
 		else
 			return test;
 	}
-}
+};
 trapeze.font.PDFFontDescriptor.PLAIN = 0;
 trapeze.font.PDFFontDescriptor.BOLD = 1;
 trapeze.font.PDFFontDescriptor.ITALIC = 2;

@@ -7,7 +7,7 @@ goog.require("trapeze.cos.COSArray");
 trapeze.cos.COSStream = function(dictionary, file) {
 	this.dictionary = dictionary;
 	this.file = file;
-}
+};
 trapeze.cos.COSStream.prototype = {
 	decode: function() {
 		var value = this.dictionary.getItem("Filter");
@@ -71,4 +71,4 @@ trapeze.cos.COSStream.prototype = {
 		}
 		return this.cache;
 	}
-}
+};

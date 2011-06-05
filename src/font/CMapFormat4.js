@@ -25,7 +25,7 @@ trapeze.font.CMapFormat4 = function(languange) {
 			return this._keys.length;
 		}
 	};
-}
+};
 /**
  * Add a segment with an idDelta
  */
@@ -115,7 +115,7 @@ trapeze.font.CMapFormat4.prototype.setData = function(length, data) {
 			this.addSegmentWithMap(startCodes[i], endCodes[i], map);
 		}
 	}       
-}
+};
 trapeze.font.CMapFormat4.prototype.map = function(src) {
 	// TODO make sure src is always INTGER, coudl be char that we need to convert
 	if(typeof src == "string")
@@ -149,7 +149,7 @@ trapeze.font.CMapFormat4.prototype.map = function(src) {
 	
 	// shouldn't get here!
 	return 0
-}
+};
 
 function Segment(startCode, endCode, hasMap) {
 	/** the end code (highest code in this segment) */
@@ -160,11 +160,11 @@ function Segment(startCode, endCode, hasMap) {
 	
 	/** whether it is a map or a delta */
 	this.hasMap = hasMap;
-}
+};
 /** Equals based on compareTo (only compares endCode) */
 Segment.prototype.equals = function(o) {
 	return (this.compareTo(o) == 0);
-}
+};
 
 /** Segments sort by increasing endCode */
 Segment.prototype.compareTo = function(o) {
@@ -186,4 +186,4 @@ Segment.prototype.compareTo = function(o) {
 	} else {
 		return 0;
 	}
-}
+};

@@ -6,7 +6,7 @@ trapeze.pdmodel.PDStream = function(stream) {
 	this.getStream = function() {
 		return this.stream;
 	};
-}
+};
 /**
  * Create a pd stream from either a regular COSStream on a COSArray of cos streams.
  * @param base Either a COSStream or COSArray.
@@ -25,4 +25,4 @@ trapeze.pdmodel.PDStream.createFromCOS = function(base) {
 		}
 	}
 	return retval;
-}
+};

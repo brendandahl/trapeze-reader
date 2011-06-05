@@ -2,13 +2,13 @@ goog.provide("trapeze.cos.COSString");
 
 trapeze.cos.COSString = function COSString(value) {
 	this.value = value;
-}
+};
 trapeze.cos.COSString.prototype = {
 	toString: function(depth) {
 		depth = depth || 0;
 		return "\t".repeat(depth) + "COSString: " + this.value;
 	}
-}
+};
 /**
  * This will create a COS string from a string of hex characters.
  *
@@ -40,4 +40,4 @@ trapeze.cos.COSString.createFromHexString = function(hex) {
 	// TODO remove this after we make sure the above is correct
 	cosString.cameFromHEX = true;
 	return cosString;
-}
+};

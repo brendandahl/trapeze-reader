@@ -16,7 +16,7 @@ function Trapeze(file, settings) {
 	$('#progress').show();
 	var asyncFileReader = new trapeze.AsyncFileReader(file, this, this.loaded, this.progress);
 	asyncFileReader.start();
-}
+};
 Trapeze.prototype = {
 	init: function() { 
 		this.drawnPages = {};

@@ -37,4 +37,4 @@ trapeze.font.CMap.createMap = function(format, language) {
 			break; */
 	}
 	return outMap;
-}
+};

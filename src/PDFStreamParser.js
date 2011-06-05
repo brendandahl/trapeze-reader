@@ -14,7 +14,7 @@ trapeze.PDFStreamParser = function(stream) {
 	//console.log("stream");
 	//console.log(streamText);
 	this.streamObjects = [];
-}
+};
 extend(trapeze.PDFStreamParser, trapeze.BaseParser);
 
 /**
@@ -30,7 +30,7 @@ trapeze.PDFStreamParser.prototype.parse = function() {
 		this.streamObjects.push( token );
 		//logger().fine( "parsed=" + token );
 	}
-}
+};
 trapeze.PDFStreamParser.prototype.getTokens = function() {
 	return this.streamObjects;
 };
@@ -209,7 +209,7 @@ trapeze.PDFStreamParser.prototype.parseNextToken = function() {
 	}
 
 	return retval;
-}
+};
 trapeze.PDFStreamParser.prototype.parseInlineImage = function() {
 	// build dictionary until ID, then read image until EI
 	var hm = {};
@@ -287,7 +287,7 @@ trapeze.PDFStreamParser.prototype.parseInlineImage = function() {
 	loc += 1;
 	this.stream.setPosition(loc);
 	return obj;
-}
+};
 /**
  * This will read an operator from the stream.
  *
@@ -314,4 +314,4 @@ trapeze.PDFStreamParser.prototype.readOperator = function() {
 		c = this.stream.peek();
 	}
 	return buffer;
-}
+};

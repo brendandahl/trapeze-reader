@@ -33,7 +33,7 @@ trapeze.font.Type1Font = function(baseFont, fontObj, descriptor) {
 
 		this.parseFontFromStream(font, start, len);
 	}
-}
+};
 goog.inherits(trapeze.font.Type1Font, trapeze.font.OutlineFont);
 
 
@@ -133,7 +133,7 @@ trapeze.font.Type1Font.prototype.readEncoding = function(d) {
 	}
 	return res;
 	*/
-}
+};
 /**
  * read a named array out of the font definition.
  * <p>
@@ -190,7 +190,7 @@ trapeze.font.Type1Font.prototype.readArray = function(d, key, end) {
 		}
 	}
 	return out;
-}
+};
 /**
  * get the index into the byte array of a slashed name, like "/name".
  * @param d the search array
@@ -215,7 +215,7 @@ trapeze.font.Type1Font.prototype.findSlashName = function(d, name) {
 		}
 	}
 	return -1;
-}
+};
 /**
  * get the character definitions of the font.
  * @param d the font data
@@ -249,7 +249,7 @@ trapeze.font.Type1Font.prototype.readChars = function(d) {
 		}
 	}
 	return hm;
-}
+};
 /** 
  * Get the width of a given character
  *
@@ -284,7 +284,7 @@ trapeze.font.Type1Font.prototype.getWidth = function(code, name) {
 
 	// return the width that has been specified
 	return trapeze.font.Type1Font.superClass_.getWidth.call(this, code, name);
-}
+};
 /**
  * Get a glyph outline by name
  *
@@ -336,7 +336,7 @@ trapeze.font.Type1Font.prototype.getOutlineByName = function(name, width) {
  */
 trapeze.font.Type1Font.prototype.getOutlineByCode = function(src, width) {
 	return this.getOutlineByName(this.chr2name[toSignedByte(src)], width);
-}
+};
  /**
  * Decrypt a glyph stored in byte form
  */
@@ -359,7 +359,7 @@ trapeze.font.Type1Font.prototype.pop = function() {
 		val = this.stack[--this.sloc];
 	}
 	return val;
-}
+};
 /**
  * build an accented character out of two pre-defined glyphs.
  * @param x the x offset of the accent
@@ -386,7 +386,7 @@ trapeze.font.Type1Font.prototype.buildAccentChar = function(x, y, a, b, gp) {
 
 	gp.append(pathB, false);
 	gp.append(pathA, false); */
-}
+};
 /**
  * parse glyph data into a GeneralPath, and return the advance width.
  * The working point is passed in as a parameter in order to allow
@@ -617,7 +617,7 @@ trapeze.font.Type1Font.prototype.parse = function(cs, gp, pt, wid) {
 			}
 		}
 	}
-}
+};
 /**
  * decrypt an array using the Adobe Type 1 Font decryption algorithm.
  * @param d the input array of bytes
@@ -654,4 +654,4 @@ trapeze.font.Type1Font.decrypt = function(d, start, end, key, skip) {
 		}
 	}
 	return o;
-}
+};

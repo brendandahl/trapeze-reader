@@ -2,7 +2,7 @@ goog.provide("trapeze.cos.COSArray");
 goog.require("trapeze.cos.COSObject");
 trapeze.cos.COSArray = function() {
 	this._objects = [];
-}
+};
 trapeze.cos.COSArray.prototype = {
 	add: function(object) {
 		this._objects.push(object);
@@ -55,4 +55,4 @@ trapeze.cos.COSArray.prototype = {
 		
 		return retVal + "\t".repeat(depth) + "]";
 	}
-}
+};

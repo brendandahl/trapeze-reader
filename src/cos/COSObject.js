@@ -8,7 +8,7 @@ trapeze.cos.COSObject = function(object, key, document) {
 	this._object = object;
 	this._key = key;
 	this._document = document;
-}
+};
 trapeze.cos.COSObject.prototype = {
 	/**
 	 * Set the interal object
@@ -43,4 +43,4 @@ trapeze.cos.COSObject.prototype = {
 		else
 			return "\t".repeat(depth) + "COSObject: null";
 	}
-}
+};

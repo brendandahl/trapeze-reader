@@ -49,7 +49,7 @@ trapeze.font.TrueTypeFont = function(type) {
 			return table;
 		}
 	};
-}
+};
 trapeze.font.TrueTypeFont.parseFont = function(stream) {
 	var buffer = new trapeze.StreamBuffer(stream, true);
 	
@@ -64,4 +64,4 @@ trapeze.font.TrueTypeFont.parseFont = function(stream) {
 	font.parseDirectories (buffer, numTables);
 
 	return font;
-}
+};

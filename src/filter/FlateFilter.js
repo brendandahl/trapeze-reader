@@ -26,4 +26,4 @@ trapeze.filter.FlateFilter = function() {
         }
 		return outBytes;
 	};
-}
+};

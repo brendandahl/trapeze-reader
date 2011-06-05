@@ -6,7 +6,7 @@ trapeze.cos.COSDictionary = function(items) {
 		this._items = items;
 	else
 		this._items = {};
-}
+};
 trapeze.cos.COSDictionary.prototype = {
 	setItem: function(key, value) {
 		this._items[key.name] = value;
@@ -108,4 +108,4 @@ trapeze.cos.COSDictionary.prototype = {
 			retval += "\t".repeat(depth) + "'" + property + "' => " +this._items[property].toString(depth + 1).replace(/^\s+/,"") + "\n";
 		return retval;
 	}
-}
+};
