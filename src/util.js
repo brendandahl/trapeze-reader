@@ -1,3 +1,4 @@
+goog.provide("trapeze.util");
 // TODO move these to a object where they belong
 function extend(subClass, baseClass) {
    function inheritance() {}

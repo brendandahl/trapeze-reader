@@ -1,24 +1,25 @@
 if(typeof window == 'undefined') {
 
 	// We are in a web worker, we need to import everything
-	
-	importScripts(
-		"../lib/closure-library/closure/goog/bootstrap/webworkers.js",
-		"../lib/closure-library/closure/goog/base.js",
-		"deps.js"
-
-	);
+	if(typeof COMPILED == 'undefined') {
+		importScripts(
+			"../external/closure-library/closure/goog/bootstrap/webworkers.js",
+			"../external/closure-library/closure/goog/base.js",
+			"deps.js",
+			"FauxConsole.js",
+			"Image.js",
+			"util.js"
+		);
+	}
 	// Files only needed for a web worker
 	importScripts(
-		"FauxConsole.js",
-		"util.js",
-		"Image.js",
-		"external/jquerywebworker.js",
-		"external/deflate.js",
-		"external/base64.js"
+		"../external/jquerywebworker.js",
+		"../external/deflate.js",
+		"../external/base64.js"
 	);
 }
 goog.provide("trapeze.TrapezeWorker");
+goog.require("trapeze.util");
 goog.require("trapeze.StreamBuffer");
 goog.require("trapeze.PDFStreamEngine");
 goog.require("trapeze.PDFParser");

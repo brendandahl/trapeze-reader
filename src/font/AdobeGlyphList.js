@@ -35,7 +35,7 @@ trapeze.font.AdobeGlyphList.intialize = function() {
 		return;
 	trapeze.font.AdobeGlyphList.glyphToUnicodes = {};
 	trapeze.font.AdobeGlyphList.unicodeToGlyph = {};
-	var reader = trapeze.StreamBuffer.createFromUrl('font/res/glyphlist.txt');
+	var reader = trapeze.StreamBuffer.createFromUrl('../external/fonts/glyphlist.txt');
 	while(reader.hasRemaining()) {
 		var unicodes = [];
 		var line = reader.readLine();

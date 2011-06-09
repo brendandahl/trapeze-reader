@@ -1,125 +1,178 @@
 <?xml version="1.0"?>
 <project name="Trapeze" basedir=".">
-  
-  <taskdef name="jscomp" classname="com.google.javascript.jscomp.ant.CompileTask" classpath="build/compiler.jar"/>
+	<loadfile failonerror="no" srcFile="VERSION" property="release.version">
+		<filterchain><striplinebreaks/></filterchain>
+	</loadfile>
+	<property name="build.dir" value="build/" />
+	<property name="closure-jar" value="tools/compiler.jar" />
+	<property name="release.filename" value="trapeze-${release.version}" />
+	<property name="release.dir" value="build/release/${release.filename}/" />
+	<property name="release.src.dir" value="${release.dir}src/" />
 
-  <target name="compile">
-    
-    <jscomp compilationLevel="simple" warning="verbose" debug="false" output="output/file.js" languageIn="ECMASCRIPT5">
-
-      <!--<externs dir="${basedir}/src">
-        <file name="extern.js"/>
-      </externs>-->
-
-      <sources dir="${basedir}/src">
+	<filelist dir="${basedir}/src" id="srcFiles">
+		<file name="../external/closure-library/closure/goog/base.js"/>
 		<file name="util.js"/>
 		<file name="Exceptions.js"/>
-		<file name="GeneralPath.js"/>
-		<file name="external/deflate.js"/>
 		<file name="AsyncFileReader.js"/>
-		<file name="Rectangle2D.js"/>
 		<file name="Faux2dContext.js"/>
-		<file name="cos/COSDocument.js"/>
-		<file name="cos/COSArray.js"/>
-		<file name="cos/COSDictionary.js"/>
-		<file name="cos/COSStream.js"/>
-		<file name="cos/COSString.js"/>
-		<file name="cos/COSName.js"/>
-		<file name="cos/COSObject.js"/>
-		<file name="cos/COSObjectKey.js"/>
-		<file name="cos/COSNumber.js"/>
-		<file name="cos/COSNull.js"/>
-
-		<file name="cos/COSBoolean.js"/>
-		<file name="cos/COSStreamArray.js"/>
-		<file name="cos/COSObjectReference.js"/>
-		<file name="cos/COSObjectStreamLocation.js"/>
-		<file name="PDFObject.js"/>
-		<file name="pdmodel/PDDocument.js"/>
-		<file name="pdmodel/PDDocumentCatalog.js"/>
-		<file name="pdmodel/PDPageNode.js"/>
-		<file name="pdmodel/PDPage.js"/>
-		<file name="pdmodel/PDStream.js"/>
-		<file name="pdmodel/PDDocumentInformation.js"/>
-		<file name="pdmodel/PDResources.js"/>
-		<file name="filter/FilterManager.js"/>
-		<file name="filter/FlateFilter.js"/>
-		<file name="filter/LzwFilter.js"/>
-		<file name="filter/ASCII85Filter.js"/>
-		<file name="filter/NoFilter.js"/>
-
-		<file name="filter/Predictor.js"/>
-		<file name="filter/PNGPredictor.js"/>
-		<file name="BaseParser.js"/>
-		<file name="PDFParser.js"/>
-		<file name="PDFStreamEngine.js"/>
-		<file name="PDFXrefStreamParser.js"/>
-		<file name="PDFObjectStreamParser.js"/>
-		<file name="PDFOperatorMap.js"/>
-		<file name="PDFOperator.js"/>
-		<file name="PDFStreamParser.js"/>
-		<file name="PDFImage.js"/>
-		<file name="AffineTransform.js"/>
-		<file name="pdmodel/graphics/PDGraphicsState.js"/>
-		<file name="pdmodel/text/PDTextState.js"/>
-		<file name="colorspace/PatternSpace.js"/>
-		<file name="colorspace/PDFColorSpace.js"/>
-		<file name="colorspace/AlternateColorSpace.js"/>
-
-		<file name="colorspace/IndexedColor.js"/>
-		<file name="colorspace/ICC_ColorSpace.js"/>
-		<file name="font/PDFFontEncoding.js"/>
-		<file name="font/PDFFont.js"/>
-		<file name="font/OutlineFont.js"/>
-		<file name="font/TTFFont.js"/>
-		<file name="font/TrueTypeFont.js"/>
-		<file name="font/PDFFontDescriptor.js"/>
-		<file name="font/FontSupport.js"/>
-		<file name="font/TrueTypeTable.js"/>
-		<file name="font/CmapTable.js"/>
-		<file name="font/HeadTable.js"/>
-		<file name="font/MaxpTable.js"/>
-		<file name="font/LocaTable.js"/>
-		<file name="font/GlyfTable.js"/>
-		<file name="font/HheaTable.js"/>
-		<file name="font/HmtxTable.js"/>
-
-		<file name="font/PostTable.js"/>
-		<file name="font/Glyf.js"/>
-		<file name="font/GlyfSimple.js"/>
-		<file name="font/CMap.js"/>
-		<file name="font/CMapFormat0.js"/>
-		<file name="font/CMapFormat4.js"/>
-		<file name="font/PDFGlyph.js"/>
-		<file name="font/GlyfCompound.js"/>
-		<file name="font/PSParser.js"/>
-		<file name="font/CIDFontType2.js"/>
-		<file name="font/Type0Font.js"/>
-		<file name="font/Type1Font.js"/>
-		<file name="font/Type1CFont.js"/>
-		<file name="font/Type3Font.js"/>
-		<file name="font/BuiltInFont.js"/>
-		<file name="font/BaseFontMap.js"/>
-		<file name="font/AdobeGlyphList.js"/>
-
-		<file name="font/PDFCMap.js"/>
-		<file name="function/PDFFunction.js"/>
-		<file name="function/FunctionType0.js"/>
-		<file name="external/base64.js"/>
-		<file name="StreamBuffer.js"/>
-		<file name="Commander.js"/>
 		<file name="FauxConsole.js"/>
 		<file name="Image.js"/>
-		<file name="external/jquerywebworker.js"/>
+		<file name="cos/COSObject.js"/>
+		<file name="cos/COSArray.js"/>
+		<file name="cos/COSBoolean.js"/>
+		<file name="cos/COSDictionary.js"/>
+		<file name="cos/COSName.js"/>
+		<file name="cos/COSNull.js"/>
+		<file name="cos/COSNumber.js"/>
+		<file name="cos/COSObjectKey.js"/>
+		<file name="StreamBuffer.js"/>
+		<file name="colorspace/Color.js"/>
+		<file name="colorspace/PDFColorSpace.js"/>
+		<file name="colorspace/AlternateColorSpace.js"/>
+		<file name="colorspace/ICC_ColorSpace.js"/>
+		<file name="cos/COSStream.js"/>
+		<file name="cos/COSString.js"/>
+		<file name="colorspace/IndexedColor.js"/>
+		<file name="colorspace/PatternSpace.js"/>
+		<file name="pdffunction/PDFFunction.js"/>
+		<file name="pdffunction/FunctionType0.js"/>
+		<file name="colorspace/ColorSpaceManager.js"/>
+		<file name="PDFImage.js"/>
+		<file name="BaseParser.js"/>
+		<file name="PDFOperator.js"/>
+		<file name="PDFStreamParser.js"/>
+		<file name="filter/ASCII85Filter.js"/>
+		<file name="filter/Predictor.js"/>
+		<file name="filter/PNGPredictor.js"/>
+		<file name="filter/FlateFilter.js"/>
+		<file name="filter/LzwFilter.js"/>
+		<file name="filter/NoFilter.js"/>
+		<file name="filter/FilterManager.js"/>
+		<file name="cos/COSObjectStreamLocation.js"/>
+		<file name="PDFXrefStreamParser.js"/>
+		<file name="PDFObjectStreamParser.js"/>
+		<file name="cos/COSDocument.js"/>
+		<file name="Rectangle2D.js"/>
+		<file name="AffineTransform.js"/>
+		<file name="pdmodel/PDPageNode.js"/>
+		<file name="pdmodel/PDResources.js"/>
+		<file name="cos/COSStreamArray.js"/>
+		<file name="pdmodel/PDStream.js"/>
+		<file name="pdmodel/PDPage.js"/>
+		<file name="pdmodel/PDDocumentCatalog.js"/>
+		<file name="pdmodel/PDDocumentInformation.js"/>
+		<file name="pdmodel/PDDocument.js"/>
+		<file name="PDFParser.js"/>
+		<file name="font/BaseFontMap.js"/>
+		<file name="font/PDFFontDescriptor.js"/>
+		<file name="GeneralPath.js"/>
+		<file name="font/FontSupport.js"/>
+		<file name="font/PDFFont.js"/>
+		<file name="font/PDFGlyph.js"/>
+		<file name="font/OutlineFont.js"/>
+		<file name="font/Type1Font.js"/>
+		<file name="font/PsParser.js"/>
+		<file name="font/BuiltInFont.js"/>
+		<file name="font/AdobeGlyphList.js"/>
+		<file name="font/GlyfCompound.js"/>
+		<file name="font/GlyfSimple.js"/>
+		<file name="font/CMapFormat0.js"/>
+		<file name="font/CMapFormat4.js"/>
+		<file name="font/CMap.js"/>
+		<file name="font/CmapTable.js"/>
+		<file name="font/Glyf.js"/>
+		<file name="font/GlyfTable.js"/>
+		<file name="font/HeadTable.js"/>
+		<file name="font/HheaTable.js"/>
+		<file name="font/HmtxTable.js"/>
+		<file name="font/LocaTable.js"/>
+		<file name="font/MaxpTable.js"/>
+		<file name="font/PostTable.js"/>
+		<file name="font/TrueTypeTable.js"/>
+		<file name="font/TrueTypeFont.js"/>
+		<file name="font/TTFFont.js"/>
+		<file name="font/CIDFontType2.js"/>
+		<file name="font/PDFCMap.js"/>
+		<file name="font/PDFFontEncoding.js"/>
+		<file name="font/Type0Font.js"/>
+		<file name="font/Type1CFont.js"/>
+		<file name="font/Type3Font.js"/>
+		<file name="font/FontManager.js"/>
+		<file name="Commander.js"/>
+		<file name="PDFOperatorMap.js"/>
+		<file name="PDFStreamEngine.js"/>
+		<file name="TrapezeWorker.js"/>
 		<file name="FauxWorker.js"/>
 		<file name="Trapeze.js"/>
-		<file name="TrapezeWorker.js"/>
+	</filelist>
 
-      </sources>
+	<target name="clean">
+		<delete dir="${release.dir}"/>
+	</target>
 
-      <!--<sources dir="${basedir}/other">
-        <file name="simple3.js"/>
-      </sources>-->
-    </jscomp>
-  </target>
+	<target name="copy">
+		<mkdir dir="${release.dir}"/>
+		<mkdir dir="${release.dir}/trapeze"/>
+
+		<copy overwrite="true" todir="${release.dir}/external/" >
+			<fileset dir="external/">
+				<exclude name="**/closure-library/**"/>
+			</fileset>
+		</copy>
+		<!-- Only copy over two sample pdf's -->
+		<copy overwrite="true" todir="${release.dir}/demos/" >
+			<fileset dir="demos/">
+				<exclude name="**/samples/**"/>
+			</fileset>
+		</copy>
+		<copy overwrite="true" todir="${release.dir}/demos/samples" >
+			<fileset dir="demos/samples">
+				<include name="**/pac.pdf"/>
+				<include name="**/hello.pdf"/>
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="concatenate">
+		<!-- TODO I could really just use one file and not have the worker -->
+		<concat destfile="${release.dir}src/Trapeze.combined.js" fixlastline="yes">
+			<filelist refid="srcFiles"/>
+		</concat>
+		<concat destfile="${release.dir}src/TrapezeWorker.combined.js" fixlastline="yes">
+			<filelist refid="srcFiles"/>
+		</concat>
+		<replace file="${release.dir}src/Trapeze.combined.js" token="var COMPILED = false;" value="var COMPILED = true;"/>
+		<replace file="${release.dir}src/TrapezeWorker.combined.js" token="var COMPILED = false;" value="var COMPILED = true;"/>
+	</target>
+
+	<target name="minify" depends="concatenate">
+		<apply executable="java">
+			<fileset dir="${release.dir}/src/" includes="*.js" />
+			<arg line="-jar" />
+			<arg path="${closure-jar}" />
+			<arg value="--warning_level" />
+			<arg value="QUIET" />
+			<arg value="--compilation_level" />
+			<arg value="WHITESPACE_ONLY" />
+			<arg value="--language_in" />
+			<arg value="ECMASCRIPT5" />
+			<arg value="--js_output_file" />
+			<targetfile />
+			<arg value="--js" />
+			<mapper type="glob" from="*.js" to="${release.dir}src/*.min.js" />
+		</apply>
+		<move file="${release.dir}/src/Trapeze.combined.min.js" tofile="${release.dir}/src/Trapeze.js"/>
+		<move file="${release.dir}/src/TrapezeWorker.combined.min.js" tofile="${release.dir}/src/TrapezeWorker.js"/>
+		<delete file="${release.dir}/src/Trapeze.combined.js"/>
+		<delete file="${release.dir}/src/TrapezeWorker.combined.js"/>
+	</target>
+
+	<target name="release" depends="clean,copy,minify">
+		
+	</target>
+	
+	<target name="release-nominify" depends="clean,copy,concatenate">
+		<move file="${release.dir}/src/Trapeze.combined.min.js" tofile="${release.dir}/src/Trapeze.js"/>
+		<move file="${release.dir}/src/TrapezeWorker.combined.min.js" tofile="${release.dir}/src/TrapezeWorker.js"/>
+	</target>
 </project>

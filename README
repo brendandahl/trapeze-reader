@@ -1,0 +1,38 @@
+
+                          Trapeze Reader
+
+  What is it?
+  -----------
+  
+  Trapeze is an open source PDF viewer.  It's designed to work
+  in modern browswers that suppor JavaScript and HTML5.
+  
+  The Latest Version
+  ------------------
+
+  Details of the latest version can be found on the Google
+  Project page http://code.google.com/p/trapeze-reader/
+
+  Documentation
+  -------------
+  
+  TODO Who needs more than a README? I kid, still working on it.
+
+  Installation
+  ------------
+
+  TODO
+
+  Licensing
+  ---------
+
+  Please see the file called LICENSE.
+  
+  Directory Structure
+  -------------------
+  
+  build/ -- where all the building and releases go
+  demos/ -- demos using Trapeze, also good for testing
+  external/ -- third party scripts and resources needed by Trapeze
+  src/ -- source code for Trapeze
+  tools/ -- scripts and other files used for building Trapeze

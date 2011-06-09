@@ -44,7 +44,7 @@ Trapeze.prototype = {
 		$('#progress').hide();
 		$('.zoom').removeClass('disabled');
 		if(this.settings.enableWebWorkers)
-			this.worker = new Worker("TrapezeWorker.js");
+			this.worker = new Worker("../src/TrapezeWorker.js");
 		else
 			this.worker = new trapeze.FauxWorker();
 		var that = this;

@@ -147,6 +147,9 @@ a>img {
 	margin: 0;
 	padding: 0;
 }
+#testPdfs li {
+	padding: 1px;
+}
 #testPdfs .support {
 	width: 10px;
 }

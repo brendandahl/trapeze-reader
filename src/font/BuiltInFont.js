@@ -86,7 +86,7 @@ trapeze.font.BuiltInFont.fontStreamCache = {};
 trapeze.font.BuiltInFont.prototype.getFontStream = function(file) {
 	if(trapeze.font.BuiltInFont.fontStreamCache[file] != null)
 		return trapeze.font.BuiltInFont.fontStreamCache[file].subStream(0);
-	var stream = trapeze.StreamBuffer.createFromUrl('font/res/' + file);
+	var stream = trapeze.StreamBuffer.createFromUrl('../external/fonts/' + file);
 	trapeze.font.BuiltInFont.fontStreamCache[file] = stream;
 	return stream;
 };

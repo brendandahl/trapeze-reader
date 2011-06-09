@@ -54,7 +54,7 @@
 		array(
 			'status' => 'full',
 			'filename' => 'hello.pdf',
-			'name' => 'hello'
+			'name' => 'Hello World'
 		),
 		array(
 			'status' => 'full',
@@ -89,7 +89,7 @@
 		array(
 			'status' => 'full',
 			'filename' => 'pac.pdf',
-			'name' => 'pac'
+			'name' => 'Pac Man'
 		),
 		array(
 			'status' => 'high',
@@ -178,6 +178,32 @@
 			'name' => 'Ticket 2'
 		)
 	);
+
+	// Also add any missing ones in the sample folder
+	$handle = opendir('samples');
+	if($handle === false)
+		throw new Exception("Could not open the input directory '$dir'");
+	$files = array();
+	while(false !== ($filename = readdir($handle)))
+	{
+		if($filename != "." && $filename != ".." && is_file('samples/'.$filename))
+		{
+			$found = false;
+			foreach($pdfs as $pdf)
+			{
+				if($pdf['filename'] == $filename)
+				{
+					$found = true;
+					break;
+				}
+			}
+			if(!$found)
+			{
+				$pdfs[] = array('status' => null, 'filename' => $filename, 'name' => 'Unknown - '.$filename);
+			}
+		}
+	}
+
 	usort($pdfs, function($a, $b) {
 		$a1 = strtolower($a['name']);
 		$b1 = strtolower($b['name']);
@@ -187,9 +213,11 @@
 <strong>Test PDFs</strong>
 <ul>
 	<?php foreach($pdfs as $pdf): ?>
-		<li>
-			<span class="status <?=$pdf['status']?>">&nbsp;&nbsp;&nbsp;&nbsp;</span>
-			<a title="<?=isset($pdf['notes']) ? $pdf['notes'] : null?>" href="?file=<?=$pdf['filename']?>"><?=$pdf['name']?></a>
-		</li>
+		<?php if(file_exists('samples/'.$pdf['filename'])): ?>
+			<li>
+				<span class="status <?=$pdf['status']?>">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+				<a title="<?=isset($pdf['notes']) ? $pdf['notes'] : null?>" href="?file=<?=$pdf['filename']?>"><?=$pdf['name']?></a>
+			</li>
+		<?php endif; ?>
 	<?php endforeach; ?>
 </ul>
