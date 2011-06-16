@@ -12,7 +12,7 @@ function Trapeze(file, settings) {
 	this.init();
 	this.standardZooms = [10, 25, 50, 75, 100, 125, 150, 200, 400, 800, 1600];
 	this.width = window.innerWidth - 40;
-	this.height = window.innerHeight - 40;
+	this.height = window.innerHeight - 75;
 	$('#progress').show();
 	var asyncFileReader = new trapeze.AsyncFileReader(file, this, this.loaded, this.progress);
 	asyncFileReader.start();

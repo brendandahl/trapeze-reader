@@ -112,7 +112,7 @@
 
 	<target name="copy">
 		<mkdir dir="${release.dir}"/>
-		<mkdir dir="${release.dir}/trapeze"/>
+		<mkdir dir="${release.dir}/src"/>
 
 		<copy overwrite="true" todir="${release.dir}/external/" >
 			<fileset dir="external/">
@@ -167,11 +167,20 @@
 		<delete file="${release.dir}/src/TrapezeWorker.combined.js"/>
 	</target>
 
-	<target name="release" depends="clean,copy,minify">
+	<target name="replace-version">
+		<replaceregexp match="@VERSION" replace="${release.version}" flags="g" byline="true">
+			<fileset dir="${release.dir}/src/" includes="*.js"/>
+			<fileset dir="${release.dir}/demos/" includes="*.js"/>
+			<fileset dir="${release.dir}/demos/" includes="*.html"/>
+		</replaceregexp>
+		<echo message="Replaced all @VERSION to ${release.version}." />
+	</target>
+
+	<target name="release" depends="clean,copy,minify,replace-version">
 		
 	</target>
 	
-	<target name="release-nominify" depends="clean,copy,concatenate">
+	<target name="release-nominify" depends="clean,copy,concatenate,replace-version">
 		<move file="${release.dir}/src/Trapeze.combined.min.js" tofile="${release.dir}/src/Trapeze.js"/>
 		<move file="${release.dir}/src/TrapezeWorker.combined.min.js" tofile="${release.dir}/src/TrapezeWorker.js"/>
 	</target>
