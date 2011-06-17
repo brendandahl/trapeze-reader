@@ -203,12 +203,14 @@
 			}
 		}
 	}
-
-	usort($pdfs, function($a, $b) {
+	error_reporting(E_ALL);
+	function sortName($a, $b)
+	{
 		$a1 = strtolower($a['name']);
 		$b1 = strtolower($b['name']);
 		return strcmp($a1, $b1);
-	});
+	}
+	usort($pdfs, "sortName");
 ?>
 <strong>Test PDFs</strong>
 <ul>
