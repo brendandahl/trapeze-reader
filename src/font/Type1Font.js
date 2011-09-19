@@ -258,7 +258,7 @@ trapeze.font.Type1Font.prototype.readChars = function(d) {
  */
 trapeze.font.Type1Font.prototype.getWidth = function(code, name) {
 	// we don't have first and last chars, so therefore no width array
-	if (this.firstChar == -1 || this.lastChar == -1) {
+debugger;	if (this.firstChar == -1 || this.lastChar == -1) {
 		var key = this.chr2name[toSignedByte(code)];
 
 		// use a name if one is provided
