@@ -1,0 +1,231 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Trapeze - An Open Source Javascript/HTML5 PDF Reader</title>
+	<link type="text/css" rel="stylesheet" href="css/style.css"></link>
+
+    <script type="text/javascript" src="../external/closure-library/closure/goog/base.js"></script>
+    <script type="text/javascript" src="../src/deps.js"></script>
+    <script type="text/javascript" src="../external/jquery-1.4.1.min.js"></script>
+    <script type="text/javascript" src="../external/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../external/lzw.js"></script>
+    <script type="text/javascript" src="../external/json2.js"></script>
+    <script type="text/javascript" src="../external/deflate.js"></script>
+    <script type="text/javascript" src="../external/base64.js"></script>
+    <script type="text/javascript" src="../src/util.js"></script>
+    <script type="text/javascript" src="../src/Trapeze.js"></script>
+   
+	<script type="text/javascript">
+		// Make fake console
+		if(typeof console == 'undefined') {
+			console = {};
+			console.log = console.error = console.info = console.debug = console.warn = console.trace = console.dir = console.dirxml = console.group = console.groupEnd = console.time = console.timeEnd = console.assert = console.profile = function() {};
+		}
+		/*
+		 * This handles some of the basic interface stuff.  Eventually I'd like
+		 * to move all the interface stuff out of Trapeze.js and then use an event
+		 * driven system.
+		 */
+		TrapezeInterface = {
+			init: function() {
+				var that = this;
+				TrapezeSettings.loadSettings();
+				if(TrapezeSettings.getSetting('testPdfList'))
+					$('#testPdfs').load("testPdfList.php");
+				function getUrlVars() {
+					var map = {};
+					var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+						map[key] = value;
+					});
+					return map;
+				}
+				var file = getUrlVars()['file'];
+				if(file) {
+					$('#dropBox').hide();
+					$('#pdfs').val(file);
+					var filename;
+					if(file == 'proxy.php')
+						filename = file;
+					else
+						filename = 'samples/' + file;
+					Trapeze.main = new Trapeze(filename, {
+						enableWebWorkers: TrapezeSettings.getSetting('enableWebWorkers')
+					});
+				}
+				/*
+				 * Drap and Drop file functions
+				 */
+				function drop(e) {
+					e.stopPropagation();
+					e.preventDefault();
+					var dt = e.dataTransfer;
+					var files = dt.files;
+					that.openFile(files[0]);
+				}
+				function dragEnter(e) {
+					$('#dropBox').addClass('over');
+					e.stopPropagation();
+					e.preventDefault();
+				}
+				function dragExit(e) {
+					$('#dropBox').removeClass('over');
+					e.stopPropagation();
+					e.preventDefault();
+				}
+				function dragOver(e) {
+					e.stopPropagation();
+					e.preventDefault();
+				}
+				var dropBox = $('#dropBox').get(0);
+				dropBox.addEventListener('dragenter', dragEnter, false);
+				dropBox.addEventListener('dragexit', dragExit, false);
+				dropBox.addEventListener("dragover", dragOver, false);
+				dropBox.addEventListener('drop', drop, false);
+			},
+			openFile: function(file) {
+				$('#openFile').hide();
+				$('#openFileLink').removeClass('open');
+				Trapeze.main = new Trapeze(file);
+				$('#dropBox').hide();
+			}
+		};
+		/**
+		 * Simple way to save settings in a cookie
+		 */
+		TrapezeSettings = {
+			_settings: {
+				'testPdfList': {
+					'type': 'Boolean',
+					'default': true
+				},
+				'enableWebWorkers': {
+					'type': 'Boolean',
+					'default': true
+				}
+			},
+			save: function() {
+				$('#settings').hide();
+				var settings = {};
+				for(var key in this._settings) {
+					settings[key] = $('#' + key).attr('checked');
+				}
+				$.cookie('settings',  JSON.stringify(settings));
+				window.location.reload(true);
+			},
+			getSetting: function(key) {
+				if($.cookie('settings') == null)
+					return this._settings[key]['default'];
+				var settings = JSON.parse($.cookie('settings'));
+				return settings[key];
+			},
+			loadSettings: function() {
+				for(var key in this._settings) {
+					$('#' + key).attr('checked', this.getSetting(key));
+				}
+			},
+			cancel: function() {
+				$('#settings').hide();
+				$('#openSettings').toggleClass('open');
+			}
+		}
+		$(function() {
+			TrapezeInterface.init();
+		})
+	</script>
+  </head>
+  <body>
+	<div id="progress">
+		<div id="progressBar"></div>
+		<div id="progressPercent">Waiting for File...</div>
+	</div>
+	<div id="topNav">
+		<div style="padding: 5px;">
+			<div>
+			<strong>Trapeze</strong><sup>Alpha</sup> - An Open Source Javascript/HTML5 PDF Reader
+			</div>
+			<div style="float:left;">
+				<ul>
+					<li>
+						<a href="#" id="openFileLink" onclick="$('#openFile').toggle(); $(this).toggleClass('open'); return false;" class="drop"><img src="images/document-open.png"/></a>
+						<div id="openFile" class="popBox" style="display: none; position: absolute; top: 19px; left: 0px; z-index: 100;">
+							<strong>Open File</strong><br/>
+							<input id="localFile" onchange="TrapezeInterface.openFile(this.files[0]);" accept="application/pdf" type="file" name="upload"/>
+							<div style="text-align: right">
+								<a href="#" onclick="$('#openFileLink').toggleClass('open'); $('#openFile').hide(); return false;">Cancel</a>
+							</div>
+							<!-- Needs a proxy so we'll disable for now
+							<br/> or <br/>
+							<input type="text" value="Enter a Url" onclick="if(this.value == 'Enter a Url') this.value = '';"/>
+							
+							<div style="text-align: right">
+								<input type="button" value="Open" onclick="go();"/><a href="#" onclick="$('#openFileLink').toggleClass('open'); $('#openFile').hide(); return false;">Cancel</a>
+							</div>-->
+						</div>
+					</li>
+					<li>
+						<a href="#" onclick="Trapeze.main.zoomOut(); return false;" class="zoom disabled" title="Zoom Out"><img src="images/list-remove.png"/></a>
+					</li>
+					<li>
+						<a href="#" onclick="Trapeze.main.zoomIn(); return false;" class="zoom disabled" title="Zoom In"><img src="images/list-add.png"/></a>
+					</li>
+					<li>
+						<span id="zoomPercent" style=""></span>
+					</li>
+				</ul>
+			</div>
+			<div id="pageNav">
+				<div id="previousPageWrapper">
+					&nbsp;
+					<span id="previousPage" style="display: none">
+						<a href="#" onclick="Trapeze.main.previousPage(); return false;">&laquo; Previous</a>
+					</span>
+				</div>
+				<div id="currentPageWrapper">
+					<span id="currentPage" style="width: 40px"></span>/<span id="totalPages"></span>
+				</div>
+				<div id="nextPageWrapper">
+					&nbsp;
+					<span id="nextPage" style="display:none">
+						<a href="#" onclick="Trapeze.main.nextPage(); return false;">Next &raquo;</a>
+					</span>
+				</div>
+			</div>
+			<div style="float: right;">
+				<ul>
+					<li>
+						<a href="#" id="openSettings" onclick="$('#settings').toggle(); $(this).toggleClass('open'); return false;" class="drop" title="Settings"><img src="images/preferences-system.png"/></a>
+						<div id="settings" class="popBox" style="display: none; position: absolute; right: 0; top: 19px; width: 300px;">
+							<strong>Settings</strong><br/>
+							<table>
+								<tr>
+									<td>Test PDF List</td>
+									<td><input type="checkbox" id="testPdfList" class="setting"/></td>
+								</tr>
+								<tr>
+									<td>Use Web Workers</td>
+									<td><input type="checkbox" id="enableWebWorkers" class="setting" checked/></td>
+								</tr>
+							</table>
+							<div style="text-align: right">
+								<input type="button" value="Save" onclick="TrapezeSettings.save();"/><a href="#" onclick="TrapezeSettings.cancel(); return false;">Cancel</a>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div style="clear: both;"></div>
+		</div>
+	</div>
+	<div id="testPdfs"></div>
+	<div id="pages">	
+	</div>
+	<div id="dropBox">
+		Drag and Drop a PDF here<br/>
+		or<br/>
+		<input onchange="TrapezeInterface.openFile(this.files[0]);" type="file" name="upload2"/>
+	</div>
+	<div id="footer">
+		<a href="http://code.google.com/p/trapeze-reader/">Trapeze Project</a> v0.0.2alpha created by <a href="http://blog.xyrka.com">Brendan Dahl</a>
+	</div>
+  </body>
+</html>
