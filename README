@@ -6,12 +6,18 @@
   
   Trapeze is an open source PDF viewer.  It's designed to work
   in modern browswers that suppor JavaScript and HTML5.
-  
+
+  Demo
+  ----
+
+  https://brendandahl.github.io/trapeze-reader/demos/?file=hello.pdf
+
+
   The Latest Version
   ------------------
 
-  Details of the latest version can be found on the Google
-  Project page http://code.google.com/p/trapeze-reader/
+  Details of the latest version can be found on the Github
+  Project page https://github.com/brendandahl/trapeze-reader
 
   Documentation
   -------------
